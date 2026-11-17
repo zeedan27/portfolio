@@ -1,6 +1,6 @@
 # Task Plan — Zesrab Tanjeel Khan Portfolio (`S.C.O.P.E.` × `taste-skill` v2.5.1)
 
-## Active Phase: Phase 5 Complete — Verified & Ready for Cloudflare Pages Deploy
+## Active Phase: Phase 5 Complete — Live on Cloudflare Pages (`zeedan27-portfolio.pages.dev`)
 
 ### Phase 0–3: Foundation & Baseline (Committed at `4dcf22e`)
 - [x] `git init`, `.gitignore`, `.env.example`, `package.json`, `public/_headers`, `public/{front.jpg,back.jpg,cv.html,Zesrab-Tanjeel-Khan_CV.pdf}`
@@ -14,4 +14,4 @@
 - [x] Refactor copy (`src/data/portfolioData.js`), 8-screen `100svh`/`200svh` layout (`index.html`, `src/styles/page.css`), single-canvas `<canvas class="layer">` Spotlight Reveal (`heroSpotlight.js`), two-pane Case-Study Bookshelf (`caseStudyBookshelf.js`), and UI fragment / `diagram.js` sections (`sections.js`)
 - [x] Pass `npm test` (`6/6`), `npm run build`, `copy-lint.mjs` (`0 FAIL, 0 WARN`), `assets/layout/check.mjs` (`0 findings` across `1440×900`, `1024×768`, `820×1180`, `768×1024`, `390×844`), `gate.mjs` (**`GATE: PASS`**), `perf.mjs` (`0 FAIL`, CLS `0.000`, `0` broken requests), and `consistency.mjs --quick` (`0 FAIL`)
 - [x] Inspect desktop (`1440×900`) & mobile (`390×844`) section tiles visually, remove scratch folders, update `progress.md`, and commit cleanly
-- [ ] Push repository and connect Cloudflare Pages project (user deploy step)
+- [x] Push repository (`https://github.com/zeedan27/portfolio`) and deploy Cloudflare Pages project (`https://zeedan27-portfolio.pages.dev`) with GitHub auto-deploy on `main`

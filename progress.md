@@ -34,3 +34,7 @@
     - `gate.mjs`: **`GATE: PASS`** (`0` open FAIL, `0` waivers).
     - `perf.mjs`: `0 FAIL` at `1440px` and `390px` (`layout shift: 0.000`, `broken requests: 0`, `images without width+height: 0`, `below-fold images not lazy: 0`, `WebGL peak live: 1`, `page height: 8 screens`).
     - `consistency.mjs --quick`: `0 FAIL` (`first screen at 1280, 1152, 1024, 896, 768: 0 FAIL, 0 WARN`, `320×640: 0 FAIL`).
+- **2026-11-18 (GitHub Push & Cloudflare Pages Production Deploy):**
+  - Created public GitHub repository `https://github.com/zeedan27/portfolio` and pushed branch `main` (`73a0b2a`).
+  - Connected GitHub repository `zeedan27/portfolio` to Cloudflare Pages project `zeedan27-portfolio` (`npm run build` -> `dist/`, `production_branch: main`, auto-deploys enabled).
+  - Verified live production site at `https://zeedan27-portfolio.pages.dev/` (`HTTP 200`, `ff17f5ec-d5ed-479a-b073-005b701dd85c`, `latest_stage.status: success`).
