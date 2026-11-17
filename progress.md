@@ -36,5 +36,5 @@
     - `consistency.mjs --quick`: `0 FAIL` (`first screen at 1280, 1152, 1024, 896, 768: 0 FAIL, 0 WARN`, `320×640: 0 FAIL`).
 - **2026-11-18 (GitHub Push & Cloudflare Pages Production Deploy):**
   - Created public GitHub repository `https://github.com/zeedan27/portfolio` and pushed branch `main` (`73a0b2a`).
-  - Connected GitHub repository `zeedan27/portfolio` to Cloudflare Pages project `zeedan27-portfolio` (`npm run build` -> `dist/`, `production_branch: main`, auto-deploys enabled).
-  - Verified live production site at `https://zeedan27-portfolio.pages.dev/` (`HTTP 200`, `ff17f5ec-d5ed-479a-b073-005b701dd85c`, `latest_stage.status: success`).
+  - Connected GitHub repository `zeedan27/portfolio` to Cloudflare Pages project `zesrab` (`npm run build` -> `dist/`, `production_branch: main`, auto-deploys enabled; removed initial `zeedan27-portfolio` project).
+  - Verified live production site at `https://zesrab.pages.dev/` (`HTTP 200` across `/`, `/front.jpg`, `/back.jpg`, `/Zesrab-Tanjeel-Khan_CV.pdf`; deployment `ee6946c1-9d43-4fab-add6-8b882086993e`, `latest_stage.status: success`).
