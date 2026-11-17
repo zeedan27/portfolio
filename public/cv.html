@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zesrab Tanjeel Khan — CV</title>
+  <meta name="description" content="ATS-optimized resume of Zesrab Tanjeel Khan, Computer Science student at United International University." />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #0d0f14;
+      --surface: #13161e;
+      --card:    #1a1e2b;
+      --border:  #252a3a;
+      --accent:  #6c8cff;
+      --accent2: #a78bfa;
+      --accent3: #34d399;
+      --text:    #e8ecf5;
+      --muted:   #8892aa;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .page-shell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px 80px;
+    }
+
+    .download-bar {
+      width: 100%;
+      max-width: 860px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .2s ease;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(108,140,255,.35);
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(108,140,255,.5); }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    .ats-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      background: rgba(52,211,153,.1);
+      color: var(--accent3);
+      border: 1px solid rgba(52,211,153,.25);
+      margin-bottom: 18px;
+    }
+
+    .resume {
+      width: 100%;
+      max-width: 860px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0,0,0,.5);
+      animation: slideUp .5s ease both;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0);    }
+    }
+
+    /* HEADER */
+    .resume-header {
+      background: linear-gradient(135deg, #1b2040 0%, #0d1229 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 44px 52px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .resume-header::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 260px; height: 260px;
+      background: radial-gradient(circle, rgba(108,140,255,.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .header-name {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(90deg, #fff 0%, var(--accent) 60%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 6px;
+    }
+
+    .header-role {
+      font-size: 1rem;
+      color: var(--accent);
+      font-weight: 500;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .contact-item:hover { color: var(--accent); }
+
+    /* BODY LAYOUT */
+    .resume-body {
+      display: grid;
+      grid-template-columns: 1fr 260px;
+    }
+
+    .main-col {
+      padding: 40px 44px 44px;
+      border-right: 1px solid var(--border);
+    }
+
+    .side-col {
+      padding: 40px 28px 44px;
+      background: var(--card);
+    }
+
+    /* SECTION */
+    .section { margin-bottom: 36px; }
+    .section:last-child { margin-bottom: 0; }
+
+    .section-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title::before {
+      content: '';
+      display: inline-block;
+      width: 4px; height: 14px;
+      background: linear-gradient(to bottom, var(--accent), var(--accent2));
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .summary-text {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    /* SKILLS */
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skill-tag {
+      padding: 5px 13px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      border: 1px solid;
+      transition: transform .15s, box-shadow .15s;
+      cursor: default;
+    }
+    .skill-tag:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.25); }
+    .skill-tag.lang  { border-color: rgba(108,140,255,.4); color: #a0b3ff; background: rgba(108,140,255,.08); }
+    .skill-tag.web   { border-color: rgba(52,211,153,.35); color: #6ee7c7; background: rgba(52,211,153,.08); }
+    .skill-tag.tools { border-color: rgba(167,139,250,.35); color: #c4b5fd; background: rgba(167,139,250,.08); }
+    .skill-tag.other { border-color: rgba(251,191,36,.3);  color: #fde68a; background: rgba(251,191,36,.07); }
+
+    /* EXPERIENCE */
+    .entry { margin-bottom: 26px; }
+    .entry:last-child { margin-bottom: 0; }
+
+    .entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 3px;
+    }
+
+    .entry-title { font-size: 15px; font-weight: 600; color: var(--text); }
+    .entry-org   { font-size: 13px; color: var(--accent); font-weight: 500; margin-bottom: 2px; }
+    .entry-date  { font-size: 11.5px; color: var(--muted); white-space: nowrap; padding-top: 2px; }
+    .entry-location { font-size: 11.5px; color: var(--muted); margin-bottom: 9px; }
+
+    .entry ul { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+    .entry ul li {
+      font-size: 13.5px;
+      color: var(--muted);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.65;
+    }
+    .entry ul li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 10px;
+      top: 3px;
+    }
+
+    /* PROJECTS */
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+      transition: border-color .2s, transform .2s;
+    }
+    .project-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+    .project-card:last-child { margin-bottom: 0; }
+
+    .project-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 7px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .project-badge {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      background: rgba(52,211,153,.12);
+      color: var(--accent3);
+      border: 1px solid rgba(52,211,153,.25);
+      font-weight: 600;
+    }
+
+    .project-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+    .tech-label   { color: #a0b3ff; font-weight: 600; }
+    .tech-list    { color: #6ee7c7; }
+
+    /* SIDEBAR */
+    .sidebar-section { margin-bottom: 28px; }
+    .sidebar-section:last-child { margin-bottom: 0; }
+
+    .sidebar-title {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 2.2px;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 12px;
+      padding-bottom: 7px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .sidebar-list li {
+      font-size: 12.5px;
+      color: var(--muted);
+      padding-left: 14px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .sidebar-list li::before { content: '•'; position: absolute; left: 0; color: var(--accent2); }
+
+    .edu-entry { margin-bottom: 18px; }
+    .edu-entry:last-child { margin-bottom: 0; }
+    .edu-school { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+    .edu-degree { font-size: 12px; color: var(--accent); margin-bottom: 2px; }
+    .edu-meta   { font-size: 11.5px; color: var(--muted); }
+    .cgpa       { margin-top: 5px; color: var(--accent3); font-weight: 700; font-size: 12px; }
+
+    /* PRINT */
+    @media print {
+      body { background: #fff; color: #111; }
+      .download-bar, .ats-badge { display: none !important; }
+      .resume { border: none; border-radius: 0; box-shadow: none; max-width: 100%; }
+      .resume-header { background: #1a2040 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .side-col { background: #f5f6fb !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .skill-tag, .project-card { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .entry ul li, .summary-text, .project-desc, .sidebar-list li { color: #374151 !important; }
+      .entry-org { color: #4f46e5 !important; }
+      .section-title { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      .resume-body { grid-template-columns: 1fr; }
+      .main-col { border-right: none; border-bottom: 1px solid var(--border); }
+      .resume-header { padding: 28px 22px; }
+      .main-col, .side-col { padding: 26px 22px; }
+      .header-name { font-size: 1.7rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-shell">
+
+  <!-- Download buttons -->
+  <div class="download-bar">
+    <button class="btn btn-ghost" onclick="window.print()" id="btn-print">🖨 Print</button>
+    <button class="btn btn-primary" onclick="window.print()" id="btn-save-pdf">⬇ Save as PDF</button>
+  </div>
+
+  <div class="ats-badge">✓ ATS OPTIMIZED</div>
+
+  <article class="resume">
+
+    <!-- HEADER -->
+    <header class="resume-header">
+      <h1 class="header-name">Zesrab Tanjeel Khan</h1>
+      <p class="header-role">Computer Science &amp; Engineering Student</p>
+      <div class="contact-row">
+        <a href="tel:+8801738262554" class="contact-item" id="contact-phone">
+          📞 +880-1738-262554
+        </a>
+        <a href="mailto:ztkhan000@gmail.com" class="contact-item" id="contact-email">
+          ✉ ztkhan000@gmail.com
+        </a>
+        <a href="https://linkedin.com/in/zesrabkhan" target="_blank" rel="noopener" class="contact-item" id="contact-linkedin">
+          🔗 linkedin.com/in/zesrabkhan
+        </a>
+        <span class="contact-item" id="contact-location">
+          📍 Notun Bazar, Dhaka, Bangladesh
+        </span>
+      </div>
+    </header>
+
+    <!-- BODY -->
+    <div class="resume-body">
+
+      <!-- MAIN -->
+      <main class="main-col">
+
+        <!-- Professional Summary -->
+        <section class="section" id="section-summary">
+          <h2 class="section-title">Professional Summary</h2>
+          <p class="summary-text">
+            Motivated Computer Science &amp; Engineering student at United International University
+            with a strong academic record (CGPA&nbsp;3.95/4.00) and hands-on experience in
+            full-stack development, mobile application engineering, and machine learning.
+            Demonstrated leadership as an Undergraduate Teaching Assistant and active contributor
+            to university clubs. Seeking an internship or entry-level role where I can apply
+            software engineering and problem-solving skills in a collaborative, fast-paced environment.
+          </p>
+        </section>
+
+        <!-- Core Skills -->
+        <section class="section" id="section-skills">
+          <h2 class="section-title">Core Skills</h2>
+          <div class="skills-grid">
+            <span class="skill-tag lang">Java</span>
+            <span class="skill-tag lang">Python</span>
+            <span class="skill-tag lang">C++</span>
+            <span class="skill-tag lang">C</span>
+            <span class="skill-tag web">HTML &amp; CSS</span>
+            <span class="skill-tag web">Mobile App Development</span>
+            <span class="skill-tag other">Object-Oriented Programming</span>
+            <span class="skill-tag other">Data Structures &amp; Algorithms</span>
+            <span class="skill-tag other">Machine Learning</span>
+            <span class="skill-tag tools">Git &amp; GitHub</span>
+            <span class="skill-tag tools">Visual Studio Code</span>
+            <span class="skill-tag tools">Microsoft Office Suite</span>
+            <span class="skill-tag tools">Google Workspace</span>
+          </div>
+        </section>
+
+        <!-- Experience -->
+        <section class="section" id="section-experience">
+          <h2 class="section-title">Experience</h2>
+
+          <div class="entry" id="exp-uta-oop">
+            <div class="entry-header">
+              <div>
+                <div class="entry-title">Undergraduate Teaching Assistant</div>
+                <div class="entry-org">United International University — CSE 1116 (Object-Oriented Programming Lab)</div>
+              </div>
+              <span class="entry-date">Spring 2025</span>
+            </div>
+            <div class="entry-location">📍 Madani Ave, Dhaka 1212</div>
+            <ul>
+              <li>Assisted faculty in delivering Object-Oriented Programming laboratory sessions, supporting 30+ students per session.</li>
+              <li>Guided students through core Java OOP concepts — inheritance, polymorphism, encapsulation, and design patterns — improving assignment quality and lab completion rates.</li>
+              <li>Evaluated lab submissions and delivered structured, constructive feedback to accelerate student learning outcomes.</li>
+            </ul>
+          </div>
+
+          <div class="entry" id="exp-uta-dsa">
+            <div class="entry-header">
+              <div>
+                <div class="entry-title">Undergraduate Teaching Assistant</div>
+                <div class="entry-org">United International University — CSE 2216 (Data Structures &amp; Algorithms I Lab)</div>
+              </div>
+              <span class="entry-date">Spring 2025</span>
+            </div>
+            <div class="entry-location">📍 Madani Ave, Dhaka 1212</div>
+            <ul>
+              <li>Delivered laboratory instruction on foundational data structures — arrays, linked lists, stacks, queues, and binary trees — enabling students to implement efficient algorithmic solutions.</li>
+              <li>Mentored students in algorithm complexity analysis (Big-O notation), strengthening their problem-solving and code-optimization mindset.</li>
+              <li>Collaborated with course instructors to design lab exercises aligned with lecture objectives and assessment rubrics.</li>
+            </ul>
+          </div>
+
+        </section>
+
+        <!-- Projects -->
+        <section class="section" id="section-projects">
+          <h2 class="section-title">Projects</h2>
+
+          <div class="project-card" id="project-daak">
+            <div class="project-name">
+              Daak — Crime Reporting &amp; Emergency Response App
+              <span class="project-badge">Mobile Dev</span>
+            </div>
+            <p class="project-desc">
+              Designed and developed a cross-platform mobile safety application for users in Bangladesh,
+              enabling anonymous crime reporting, real-time distress signal broadcasting, emergency contact
+              management, interactive crime heatmaps, and AI-powered chatbot assistance. Implemented
+              a secure, privacy-first architecture with real-time data synchronization to enhance public
+              safety and emergency response effectiveness.
+              <br /><br />
+              <span class="tech-label">Technologies: </span>
+              <span class="tech-list">Mobile Development · Real-time Data Sync · AI Chatbot Integration · Geolocation &amp; Heatmaps · Anonymous Reporting · UI/UX Design</span>
+            </p>
+          </div>
+
+        </section>
+
+      </main>
+
+      <!-- SIDEBAR -->
+      <aside class="side-col">
+
+        <!-- Education -->
+        <div class="sidebar-section" id="sidebar-education">
+          <h2 class="sidebar-title">Education</h2>
+
+          <div class="edu-entry">
+            <div class="edu-school">United International University</div>
+            <div class="edu-degree">B.Sc. in Computer Science &amp; Engineering</div>
+            <div class="edu-meta">2022 – Present · 10th Trimester</div>
+            <div class="edu-meta">📍 Madani Ave, Dhaka 1212</div>
+            <div class="cgpa">CGPA: 3.95 / 4.00</div>
+          </div>
+
+          <div class="edu-entry">
+            <div class="edu-school">Saint Joseph Higher Secondary School</div>
+            <div class="edu-degree">Higher Secondary Certificate (HSC)</div>
+            <div class="edu-meta">2019 – 2021</div>
+            <div class="edu-meta">📍 97 Asad Ave, Mohammadpur, Dhaka 1207</div>
+          </div>
+        </div>
+
+        <!-- Areas of Interest -->
+        <div class="sidebar-section" id="sidebar-interests">
+          <h2 class="sidebar-title">Areas of Interest</h2>
+          <ul class="sidebar-list">
+            <li>Machine Learning &amp; AI</li>
+            <li>Mobile App Development</li>
+            <li>Full-Stack Web Development</li>
+            <li>Data Structures &amp; Algorithms</li>
+            <li>Public Safety Technology</li>
+          </ul>
+        </div>
+
+        <!-- Extracurricular -->
+        <div class="sidebar-section" id="sidebar-extra">
+          <h2 class="sidebar-title">Extracurricular Activities</h2>
+          <ul class="sidebar-list">
+            <li>General Member — UIU Computer Club</li>
+            <li>General Member — UIU Photography Club</li>
+            <li>General Member — UIU Sports Club</li>
+            <li>General Member — UIU App Forum</li>
+          </ul>
+        </div>
+
+        <!-- Sports & Hobbies -->
+        <div class="sidebar-section" id="sidebar-sports">
+          <h2 class="sidebar-title">Sports &amp; Hobbies</h2>
+          <ul class="sidebar-list">
+            <li>Football</li>
+            <li>Cricket</li>
+            <li>Badminton</li>
+            <li>Table Tennis</li>
+            <li>Volleyball</li>
+            <li>Chess</li>
+          </ul>
+        </div>
+
+        <!-- Languages -->
+        <div class="sidebar-section" id="sidebar-languages">
+          <h2 class="sidebar-title">Languages</h2>
+          <ul class="sidebar-list">
+            <li>Bangla — Native</li>
+            <li>English — Professional Proficiency</li>
+          </ul>
+        </div>
+
+      </aside>
+
+    </div>
+  </article>
+</div>
+
+</body>
+</html>
