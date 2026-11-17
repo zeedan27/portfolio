@@ -1,0 +1,530 @@
+/* Page-specific styles for Zesrab Tanjeel Khan portfolio. */
+
+/* ------------------------------------------------ Ultra-narrow Nav Guard (320px) */
+@media (max-width: 374px) {
+  .nav__bar {
+    gap: 6px;
+  }
+
+  .nav__logo {
+    font-size: 15px;
+    gap: 6px;
+  }
+
+  .nav:not(.is-open) .nav__actions .btn {
+    padding-inline: 8px;
+    font-size: 12px;
+  }
+}
+
+/* ------------------------------------------------ Spotlight Hero */
+.hero--spotlight {
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.hero-spot__canvas {
+  background: #0a0d14 url('/front.jpg') 68% 22% / cover no-repeat;
+}
+
+.hero-spot__layout {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hero--spotlight .hero-copy {
+  max-width: 480px;
+}
+
+.hero--spotlight h1 {
+  font-size: var(--ly-h1);
+  line-height: 1.02;
+  letter-spacing: var(--display-tracking-xl, var(--display-tracking));
+  text-wrap: balance;
+}
+
+.hero--spotlight .t-lead {
+  color: var(--ink);
+  max-width: 42ch;
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-4);
+  width: calc(50% - var(--gutter) / 2);
+  padding: var(--s-4) var(--s-5);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: color-mix(in oklab, var(--bg) 86%, transparent);
+  margin: 0 0 0 auto;
+}
+
+.hero-stats > div {
+  display: grid;
+  gap: var(--s-1);
+}
+
+.hero-stats dt {
+  font-size: var(--t-label);
+  color: var(--muted);
+}
+
+.hero-stats dd {
+  margin: 0;
+  font-size: var(--t-small);
+  font-weight: 500;
+  color: var(--ink);
+}
+
+@media (max-width: 1023px) {
+  .hero--spotlight {
+    --photo: min(30svh, 240px);
+    padding-top: calc(var(--nav) + var(--photo) + var(--s-5));
+  }
+
+  main > section.hero > canvas.layer.hero-spot__canvas {
+    inset: calc(var(--nav) + 2px) 0 auto 0;
+    height: var(--photo);
+    background-position: 56% 18%;
+  }
+
+  .hero-spot__layout {
+    justify-content: flex-end;
+    gap: var(--s-4);
+  }
+
+  .hero--spotlight .hero-copy {
+    max-width: 100%;
+  }
+
+  .hero-stats {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+@media (max-width: 639px) {
+  .hero--spotlight {
+    --photo: 24svh;
+    padding-top: calc(var(--nav) + var(--photo) + var(--s-4));
+  }
+
+  .hero--spotlight .hero-copy > * + * {
+    margin-top: var(--s-3);
+  }
+
+  .hero--spotlight .hero-copy > .btn-row {
+    margin-top: var(--s-4);
+  }
+
+  .hero-stats {
+    gap: var(--s-2);
+    padding: var(--s-3);
+  }
+
+  .hero-stats dd {
+    font-size: 13px;
+  }
+}
+
+/* ------------------------------------------------ About Split + Hub Panel */
+.about-note {
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--line);
+}
+
+.about-panel,
+.workflow-panel {
+  --p-h: 440px;
+  min-height: 440px;
+  border-radius: var(--r-lg);
+  padding: var(--s-5);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--ground-surface);
+  --bg: var(--ground-surface);
+  --surface: var(--ground-surface);
+  --card: var(--ground-bg);
+  --ink: #1e293b;
+  --muted: #25303a;
+  --accent: #0f4c81;
+  color: #1e293b;
+}
+
+.about-panel .dg,
+.workflow-panel .dg {
+  flex: 1 1 auto;
+  min-height: 320px;
+}
+
+@media (max-width: 1023px) {
+  .about-panel,
+  .workflow-panel {
+    --p-h: 320px;
+    min-height: 320px;
+  }
+}
+
+@media (max-width: 639px) {
+  .about-panel,
+  .workflow-panel {
+    --p-h: 220px;
+    min-height: 220px;
+    padding: var(--s-3);
+  }
+
+  .about-panel .dg,
+  .workflow-panel .dg {
+    min-height: 200px;
+  }
+}
+
+/* ------------------------------------------------ Case-Study Bookshelf App Frame */
+.frame.ui.app.cases-app {
+  display: flex;
+  flex-direction: row;
+  margin-top: var(--s-6);
+  padding: 0;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  min-height: 0;
+  align-items: stretch;
+  justify-content: stretch;
+}
+
+.cases-app__shelf {
+  flex: 5 1 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--s-5);
+  border-right: 1px solid var(--line);
+  background: var(--bg);
+  min-width: 0;
+}
+
+.cases-app__spines {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--s-3);
+  flex: 1 1 auto;
+  min-height: 290px;
+}
+
+.book-spine {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: var(--s-4) var(--s-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), background-color var(--dur) var(--ease);
+}
+
+.book-spine:hover {
+  transform: translateY(-4px);
+  border-color: var(--line-strong);
+}
+
+.book-spine[aria-selected="true"] {
+  border-color: var(--accent);
+  background: color-mix(in oklab, var(--accent) 14%, var(--surface));
+  transform: translateY(-6px);
+}
+
+.book-spine__code {
+  font-size: var(--t-label);
+  color: var(--muted);
+}
+
+.book-spine[aria-selected="true"] .book-spine__code {
+  color: var(--accent);
+}
+
+.book-spine__title {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-block: auto;
+}
+
+.book-spine__year {
+  font-size: var(--t-label);
+  color: var(--muted);
+}
+
+.cases-app__hint {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--s-4);
+  font-size: var(--t-label);
+  color: var(--muted);
+}
+
+.cases-app__reader {
+  flex: 7 1 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--s-5);
+  padding: var(--s-6);
+  background: var(--ground-bg);
+  color: #1e293b;
+  min-width: 0;
+  --ink: #1e293b;
+  --muted: #25303a;
+  --line: color-mix(in oklab, #1e293b 16%, transparent);
+  --line-strong: color-mix(in oklab, #1e293b 32%, transparent);
+}
+
+.reader-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: var(--s-4);
+}
+
+.reader-title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.reader-book-name {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.reader-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--s-2);
+}
+
+.reader-tab {
+  min-height: 44px;
+  padding: 0 var(--s-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: #25303a;
+  font-size: var(--t-label);
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.reader-tab[aria-selected="true"] {
+  background: #1e293b;
+  border-color: #1e293b;
+  color: var(--ground-bg);
+}
+
+.reader-body {
+  display: grid;
+  gap: var(--s-3);
+  min-width: 0;
+  overflow-wrap: anywhere;
+  perspective: 1200px;
+}
+
+.reader-body.is-turning {
+  animation: page-turn 220ms var(--ease);
+}
+
+@keyframes page-turn {
+  from { opacity: 0.45; transform: rotateY(-6deg); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reader-body.is-turning { animation: none; }
+}
+
+.reader-sheet__stage {
+  font-size: var(--t-label);
+  color: #0f4c81;
+  font-weight: 600;
+}
+
+.reader-sheet__heading {
+  font-size: var(--t-h3);
+  font-weight: 500;
+  color: #0a0d14;
+}
+
+.reader-sheet__artifact {
+  margin: var(--s-2) 0 0;
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--line);
+  color: #1e293b;
+  font-size: var(--t-small);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.reader-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--line);
+}
+
+.reader-pager {
+  display: flex;
+  gap: var(--s-2);
+}
+
+.reader-pager .btn {
+  min-height: 44px;
+  padding-inline: var(--s-4);
+  border-color: var(--line-strong);
+  color: #1e293b;
+}
+
+@media (max-width: 1023px) {
+  .frame.ui.app.cases-app {
+    flex-direction: column;
+  }
+
+  .cases-app__shelf {
+    flex: none;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .cases-app__reader {
+    flex: none;
+    padding: var(--s-4);
+  }
+
+  .cases-app__spines {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+    gap: var(--s-2);
+  }
+
+  .book-spine {
+    min-height: 44px;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--s-3);
+    padding: 8px 12px;
+  }
+
+  .book-spine__title {
+    writing-mode: horizontal-tb;
+    transform: none;
+    font-size: 16px;
+    margin-block: 0;
+    margin-right: auto;
+  }
+
+  .reader-tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ------------------------------------------------ Projects Panel Height (features-2x2) */
+#projects .panel {
+  --p-h: clamp(210px, 23vh, 280px);
+}
+
+@media (max-width: 1279px) {
+  #projects .card {
+    --c-pad: 20px;
+  }
+
+  #projects .card > .panel {
+    margin-top: var(--s-4);
+    --p-h: 185px;
+  }
+}
+
+@media (max-width: 639px) {
+  #projects .card {
+    --c-pad: 16px;
+  }
+
+  #projects .card__link {
+    margin-top: var(--s-2);
+  }
+
+  #projects .card > .panel {
+    margin-top: var(--s-3);
+    --p-h: 98px;
+  }
+}
+
+/* ------------------------------------------------ Stack Tight Row Pacing */
+#stack .section-head {
+  margin-bottom: var(--s-4);
+}
+
+#stack .rows > li {
+  padding-block: 10px;
+}
+
+@media (max-width: 639px) {
+  #stack .rows > li {
+    padding-block: 8px;
+  }
+}
+
+/* ------------------------------------------------ Workflows Split Rows */
+.workflow-row {
+  cursor: pointer;
+  padding-inline: 0;
+  transition: background-color var(--dur) var(--ease);
+}
+
+.workflow-row[aria-selected="true"] .rows__name {
+  color: var(--accent);
+}
+
+/* ------------------------------------------------ Stack Icons Inline & Footer Links */
+.stack-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin-top: var(--s-2);
+}
+
+.closing__direct {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(185px, max-content));
+  gap: var(--s-3) var(--s-6);
+  margin-top: var(--s-4);
+}
+
+.footer__col-title {
+  margin-bottom: var(--s-2);
+  color: var(--ink);
+}

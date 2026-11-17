@@ -1,29 +1,21 @@
-# Frontend Motion SOP (`heroSpotlight.js` & `caseStudyBookshelf.js`)
+# Frontend Motion SOP (`heroSpotlight.js`, `caseStudyBookshelf.js` & `taste-skill` Motion)
 
-## 1. Spotlight Reveal Hero Physics (`heroSpotlight.js`)
-- **Layer Stacking:**
-  - `.hero-layer-front` renders `/front.jpg` (`z-index: 1`).
-  - `.hero-layer-back` renders `/back.jpg` (`z-index: 2`) clipped by CSS `mask-image` / `-webkit-mask-image`.
-  - Both layers MUST share `background-size: cover` and `background-position: 62% center` (`55% center` on narrow viewports) so subject features align pixel-for-pixel.
-- **Mask Gradient Formula:**
-  ```css
-  radial-gradient(
-    circle var(--spot-radius, 280px) at var(--spot-x, 62%) var(--spot-y, 42%),
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 0.92) 32%,
-    rgba(0, 0, 0, 0.35) 68%,
-    rgba(0, 0, 0, 0) 100%
-  )
-  ```
-- **Interpolation Loop:**
-  - `requestAnimationFrame` lerps `currentX += (targetX - currentX) * 0.11` and `currentY += (targetY - currentY) * 0.11` for smooth flashlight lag.
-  - Before the first pointer/touch event, run a subtle slow figure-8 orbital scan near `(62%, 40%)` so first-time visitors immediately perceive the dual-layer reveal.
-  - Provide a manual `[SCAN: FLASHLIGHT | EXOSUIT | DEFAULT]` toggle button so users on touchscreens or `prefers-reduced-motion` can inspect the full `back.jpg` layer effortlessly.
-- **Mobile Nav Overlay:**
-  - Below `768px`, collapse top-right nav links into `#nav-toggle`.
-  - Opening `#mobile-nav-overlay` locks `document.body.style.overflow = 'hidden'`, traps/moves focus cleanly, and closes on `Escape` or link selection.
+## 1. System Motion Layers (`motion.css` / `motion.js`)
+- **Entrance (`data-enter`):** Single load entrance on `.hero` (`headline-arrives`-style masked rise synced with `.m-enter` head guard). No scroll-reveal fading on sections, cards, or project tiles.
+- **Section Moment (`line-carries-colour`):** Scroll-linked ground wipe revealing `#stack.ground-inverse` cleanly via `assets/moments/line-carries-colour/moment.js`.
+- **UI Loop Governance:** At most one timed UI fragment loop (`data-ui-loop` inside `#projects` card #1 `diff-review` + automatic WCAG `.loop-pause` button). Sibling project cards remain still until pointer hover/focus. `diagrams.js` pulsing graph in `#workflows` provides its own native pause toggle.
 
-## 2. Interactive Case-Study Bookshelf (`caseStudyBookshelf.js`)
-- **Shelf State:** Displays 5 tactile book spines; selecting a spine updates `activeBookId` and resets `activePageIndex` to `0` (Observation).
-- **Page-Turn Transition:** Applies a subtle 3D fold/flip animation (`transform-origin: left center; perspective: 1400px`) between pages `1..4` (`Observation → Research & Gap → The Build → Friction & Fix`).
-- **Keyboard & Reduced-Motion Support:** Supports `ArrowLeft` / `ArrowRight` when focus is inside the reader, and degrades 3D page-turn animations to instant opacity transitions when `prefers-reduced-motion: reduce` is active.
+## 2. Spotlight Reveal Hero (`heroSpotlight.js`)
+- **Layer Stacking inside `100svh` `.hero`:**
+  - `.hero__layer--front` renders `/front.jpg` (studio portrait, natural dark obsidian void on left & bottom-right).
+  - `.hero__layer--back` renders `/back.jpg` (`S-07 Tactical Unit` HUD exosuit) directly aligned (`object-position: 62% 38%` / responsive crop) underneath a smoothed feathered radial `mask-image`.
+- **Smooth Trailing Feathered Flashlight:**
+  - `requestAnimationFrame` lerps `curX += (tgtX - curX) * 0.14` and `curY += (tgtY - curY) * 0.14`.
+  - Soft penumbra stop curve (`100%` solid core to `0%` transparent edge over `270px` desktop / `175px` mobile radius) so the circle never looks hard-edged.
+  - Gentle orbital idle drift before first pointer interaction; pauses immediately on pointer input, click/keyboard mode toggle (`Flashlight` / `Exosuit` / `Baseline`), or `prefers-reduced-motion: reduce`.
+- **Responsive Phone Menu:** Managed via `system.js`'s `.nav__toggle` + `.nav.is-open` full-height overlay (`top: var(--nav)` to `bottom: 0`, Escape key, focus restore) without duplicate event handlers.
+
+## 3. Two-Pane Bookshelf Case-Study Frame (`caseStudyBookshelf.js`)
+- **Two-Pane `.ui.app.fill` Architecture:**
+  - Left pane (`.bookshelf-pane`): 5 interactive standing book spines (`Papyr`, `S.C.O.P.E.`, `SkillVerify`, `Daak`, `ShishuCare`) with active selection highlight, keyboard arrow navigation, and stack subtitle.
+  - Right pane (`.case-reader-pane` styled on `--ground-bg` / `--ground-surface` sky-lit tokens): displays the selected book's 4-stage interactive chapter reader (`01 Observation -> 02 Research & Gap -> 03 The Build -> 04 Friction & Fix`) with previous/next page turn buttons and live code/metric snippet + direct GitHub repository link.

@@ -1,38 +1,31 @@
-import "./styles/main.css";
+import "./styles/page.css";
 import {
-  heroData,
-  navLinks,
   aboutData,
+  archiveRepos,
   caseStudyBooks,
+  contactData,
   projectsData,
-  workflowsData,
   skillsData,
-  contactData
+  workflowsData
 } from "./data/portfolioData.js";
-import { renderHero } from "./components/heroSpotlight.js";
+import { initHeroSpotlight } from "./components/heroSpotlight.js";
 import { renderCaseStudyBookshelf } from "./components/caseStudyBookshelf.js";
 import {
   renderAbout,
+  renderClosing,
   renderProjects,
-  renderWorkflows,
-  renderSkills,
-  renderContact,
-  renderFooter
+  renderStack,
+  renderWorkflows
 } from "./components/sections.js";
 
-function bootstrapPortfolio() {
-  renderHero(document.getElementById("hero"), heroData, navLinks);
-  renderAbout(document.getElementById("about"), aboutData);
-  renderCaseStudyBookshelf(document.getElementById("case-studies"), caseStudyBooks);
-  renderProjects(document.getElementById("projects"), projectsData);
-  renderWorkflows(document.getElementById("workflows"), workflowsData);
-  renderSkills(document.getElementById("skills"), skillsData);
-  renderContact(document.getElementById("contact"), contactData);
-  renderFooter(document.getElementById("site-footer"));
+function bootstrap() {
+  initHeroSpotlight();
+  renderAbout("about-mount", aboutData);
+  renderCaseStudyBookshelf("cases-mount", caseStudyBooks);
+  renderProjects("projects-mount", projectsData);
+  renderWorkflows("workflows-mount", workflowsData);
+  renderStack("stack-mount", skillsData, archiveRepos);
+  renderClosing("contact-mount", contactData);
 }
 
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", bootstrapPortfolio);
-} else {
-  bootstrapPortfolio();
-}
+bootstrap();

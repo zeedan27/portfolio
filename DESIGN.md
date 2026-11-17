@@ -1,37 +1,24 @@
-# DESIGN.md — Single Source of Truth for Visual & Motion Tokens
+# DESIGN.md — Single Source of Truth (`taste-skill` v2.5.1 + S.C.O.P.E.)
 
-## 1. Aesthetic Direction (`design-taste-frontend` / `taste-skill` v2.5.1 + Portrait Tokens)
-- **Site Kind / Page Type:** `software` (AI Systems, Security & Full-Stack Engineering Portfolio).
-- **Theme:** Minimalist neutral-dark engineering system (90–95% neutral obsidian & slate grounds) accented with portrait-matched HUD cyan (`#00e5ff`), amber (`#f59e0b`), and teal (`#14b8a6`).
-- **Dealt Pairing (`onest`):** **`Onest`** (display & long-form prose, weight `500–600`, tight `-0.035em` display tracking) paired with **`JetBrains Mono`** (telemetry indices, nav, stats, code tags, pipeline labels).
-- **Anti-Patterns Avoided:** Zero unprompted purple/violet gradients, zero carousel gimmicks, zero scroll-linked card fades, zero em-dash AI copy tics (`0 FAIL, 0 WARN` under `copy-lint.mjs`).
+## 1. Dealt System & Tokens (`start.mjs deal --trade devtool --seed 2702`)
+- **Site Kind / Page Type:** `software` (`<meta name="site-kind" content="software">`, `<meta name="page-type" content="software">`).
+- **Palette (`blue-black-cornflower`):**
+  - `--p-bg`: `#0a0d14` (obsidian base)
+  - `--p-surface`: `#131824` (elevated slate surface)
+  - `--p-ink`: `#e9edf3` (primary crisp foreground)
+  - `--p-muted`: `#8891a1` (secondary metadata)
+  - `--p-accent` / `--p-action`: `#5ab9fc` (sky cornflower HUD accent; `--p-accent-ink: #0a0d14`)
+  - `--p-inv-bg`: `#e9edf3`, `--p-inv-surface`: `#d7dbe1`, `--p-inv-ink`: `#0a0d14`, `--p-inv-muted`: `#54575f` (light calm break band)
+- **Lit UI Ground (`data-ground="sky"`):** `--ground-bg: #c6d3df`, `--ground-surface: #d6e0e9`, `--ground-ink: #25303a`, `--ground-muted: #4d5964`, `--ground-accent: #3f6a92`. Ensures project card panels and open notebook UI panes read clearly without dark-on-dark-on-dark layering (`cards.md`).
+- **Type (`instrument`):** **`Instrument Sans`** (`400`/`500` display & prose, `--display-weight: 500`, `--display-tracking: -0.028em`, `--display-tracking-xl: -0.036em`, `--display-stretch: 96%`, `--ly-scale: 1.04`) paired with **`DM Mono`** (`400`/`500` telemetry stats, diff lines, terminal logs, spine indices). Sentence case enforced across headings, buttons, and labels (`--t-label: 13px`).
 
-## 2. Color & Alternating Ground Tokens
-| Token | Value | Role |
-|---|---|---|
-| `--g-main` (`--bg-void`) | `#05070b` | Primary canvas & odd sections (`#about`, `#projects`, `#skills`) |
-| `--g-alt` (`--bg-surface`) | `#0a0e16` | Alternating section ground (`#case-studies`, `#workflows`, `#contact`) |
-| `--bg-card` | `#101622` | Project, workflow & book spine cards |
-| `--bg-elevated` | `#161f2e` | Hover & active interactive surfaces |
-| `--border-subtle` | `rgba(255, 255, 255, 0.09)` | Hairline structural borders |
-| `--border-strong` | `rgba(0, 229, 255, 0.42)` | Active card & focus ring border |
-| `--accent-cyan` | `#00e5ff` | Primary technical telemetry, active tabs, visor rim glow |
-| `--accent-teal` | `#14b8a6` | Verified traces & success states |
-| `--accent-amber` | `#f59e0b` | Friction/Fix highlights & warm motion streak accents |
-| `--text-primary` (`--ink`) | `#edf0f7` | High-contrast headings & foreground (`>= 7:1` contrast) |
-| `--text-secondary` | `#9ba6b8` | Readable `16px+` body prose (`>= 4.5:1`) |
-| `--text-muted` | `#748196` | Metadata indices, timestamps & tertiary labels |
+## 2. Dealt Kits, Effects, Backgrounds & Moments
+- **Kit Components Copied Unmodified to `public/assets/`:** `system.css`, `system.js`, `layout/layout.css`, `layout/layout.js`, `ui/cards.css`, `ui/base.css`, `ui/ui.js` (plus `diff-review`, `terminal-run`, `window`, `checklist`), `motion/motion.css`, `motion/motion.js`, `backgrounds/backgrounds.css`, `backgrounds/backgrounds.js`, `diagrams/diagram.css`, `diagrams/diagram.js`, `diagrams/mount.js`, `moments/moments.js`, `moments/lib.js`, `moments/line-carries-colour/`, `icons/icon.css`.
+- **Icons (`icons.mjs scan --colour`):** Real full-colour brand & tool SVGs fetched locally under `public/assets/icons/` (no runtime CDN icon requests, no hand-drawn placeholders).
+- **Card Grounds (`gradient-mesh` / lit `sky` panel mesh):** Used on the `features-2x2` `#projects` card group with subtle seeded variation and one timed interactive UI loop (`data-ui-loop` + pause disc on card #1).
+- **Dealt Section Moment (`line-carries-colour`):** Reveals the `#stack` inverse paper break (`ground-inverse`) cleanly as a hairline accent rule climbs across its inset surface.
 
-## 3. Equal-Edge Grid & Tap-Target Standards
-- **Equal Left & Right Content Edges:** `.hero-topbar`, `.hero-bottom-grid`, `.section-inner`, and `.footer-inner` share the exact same container rule:
-  - `--container-max: 1280px`
-  - `--gut: clamp(20px, 5vw, 80px)`
-  - `max-width: calc(var(--container-max) + 2 * var(--gut)); padding-inline: var(--gut);`
-- **Minimum Interactive Target:** `--btn-h: 44px` (`min-height: 44px`) enforced on `.btn`, `.filter-btn`, `.stage-tab`, `.page-btn`, `.book-spine`, and `.nav-hamburger`.
-- **Spacing Scale:** `4, 8, 12, 16, 24, 32, 48, 64, 96, 128`.
-
-## 4. Motion & Accessibility Budget
-- **Hero Entrance (`data-enter`):** Subtle single load entrance on `.hero-left-col` and `.hero-stats`.
-- **Spotlight Reveal:** `requestAnimationFrame` lerp (`factor = 0.11`), feathered radial mask over `--spot-radius` (`265px` desktop, `175px` mobile), plus `[MODE: FLASHLIGHT]` / `[MODE: FULL EXOSUIT]` / `[MODE: BASELINE]` toggle.
-- **Micro-Interactions:** `2px` card lift on hover, button step-on-hover (`-1px`) & press-on-active (`+1px`), animated link underlines.
-- **Workflow Pulse Loop + Pause:** Inline SVG data-pulse connector in `#workflows` with explicit `[PAUSE PULSE]` toggle (`[loop-pause]` compliance) and automatic pause under `prefers-reduced-motion: reduce`.
+## 3. Structural Rhythm & Layout Rules (`layout-v4.md`)
+- Every `main > section` and `footer.closing` runs `height: calc(var(--h, 1) * 100svh)` at `1440×900` (`--h: 1` for single screens, `.g2` `--h: 2` for `#projects`), with zero inter-section `border-top` rules (ground transitions only).
+- Equal `.wrap` container alignment (`min(100% - 2 * var(--gut), 1280px)`, `--gut: 80px` desktop, `48px` tablet, `24px` phone) shared across fixed `.nav`, `.hero`, every section, and `footer.closing`.
+- All buttons follow `data-buttons="arrow"`, `44px` (`--btn-h`) minimum tap target, max 2 boxes deep on cards (`card > lit panel > UI fragment`).

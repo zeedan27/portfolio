@@ -16,3 +16,21 @@
   - Eliminated all 13 em-dashes across `src/data/portfolioData.js` and `src/components/caseStudyBookshelf.js` (`copy-lint.mjs`: `0 FAIL, 0 WARN`).
   - Applied dealt `Onest + JetBrains Mono` pairing (`index.html` `data-type="software"`), alternating neutral grounds (`--g-main: #05070b` / `--g-alt: #0a0e16`), unified equal-edge container alignment (`--container-max: 1280px`, `--gut: clamp(20px, 5vw, 80px)`), `>= 44px` tap targets (`--btn-h: 44px`), `data-enter` hero entrance, and inline SVG workflow pulse diagrams with `[PAUSE PULSE]` control.
   - Re-verified with `perf.mjs` (`0 FAIL` at `1440px` and `390px`), `npm test` (`6/6`), `npm run build`, and live browser check (identical `x = 72.4px` left edges, `44px+` controls, `Onest` + `JetBrains Mono` loaded, `0` console/network errors).
+- **2026-11-18 (`taste-skill` Full Re-Architecture & Zero-Failure Verification):**
+  - Read all 23 `design-taste-frontend` (`taste-skill` v2.5.1) reference docs and ran all dealers (`blue-black-cornflower` palette `#0a0d14` / `#131824` / `#5ab9fc` + `data-ground="sky"` `#c6d3df` lit UI panels; `instrument` pairing `Instrument Sans` weight `500` + `DM Mono`; `nav-centre`, `footer-columns`, `close-type`, `arrow`, `dots`, `gradient-mesh`, `word-highlight`).
+  - Re-architected page into an exact **8-screen (`100svh` / `200svh`) software cadence**:
+    1. Spotlight Reveal Hero (`<canvas class="layer hero-spot__canvas">` compositing `/front.jpg` & `/back.jpg` with smooth `lerp` feathered radial flashlight + bottom-right 3 telemetry stats + full-screen mobile overlay via `system.js`).
+    2. UIU Academic & Teaching Split (`#about`, `UIU CSE · 3.95 CGPA`, `CSE 2216 DSA Lab` & `CSE 1116 OOP Lab` UTAs beside still `UIU CSE` `diagram.js` hub).
+    3. Interactive Case-Study Bookshelf (`#cases`, `.frame.ui.app.cases-app` two-pane workspace pairing 5 clickable volume spines with 4-stage interactive `01 Observation -> 02 Research & Gap -> 03 The Build -> 04 Friction & Fix` reader).
+    4–5. `features-2x2` Engineering Projects (`#projects`, `gradient-mesh` lit sky panels with customized `diff-review` loop + pause disc, `terminal-run`, `window`, and `checklist` developer artifacts).
+    6. Automated Engineering Workflows (`#workflows`, interactive 4-pipeline tabs driving a live pulsing `diagram.js` flow graph with real fetched tool SVGs via `icons.mjs`).
+    7. Inverse Paper Capability Matrix & Repo Index (`#stack`, `ground-inverse` `#e9edf3` contrast break with `word-highlight` scroll highlight and 17 local full-colour brand marks).
+    8. Closing & Footer (`#contact`, `close--type` full-width `Download CV` action, direct email/ATS CV/GitHub/LinkedIn links, 4-column directory, and trademark attribution).
+  - **Verification Gates Passed:**
+    - `npm test`: `6/6` tests passing.
+    - `npm run build`: clean Vite build (`dist/index.html` `28.82 kB`, CSS `7.83 kB`, JS `42.41 kB`, static `/assets/`, `/share.jpg`, `/favicon.svg`).
+    - `copy-lint.mjs`: `0 FAIL, 0 WARN`.
+    - `assets/layout/check.mjs`: `0 findings` across all 5 viewports (`1440×900`, `1024×768`, `820×1180`, `768×1024`, `390×844`).
+    - `gate.mjs`: **`GATE: PASS`** (`0` open FAIL, `0` waivers).
+    - `perf.mjs`: `0 FAIL` at `1440px` and `390px` (`layout shift: 0.000`, `broken requests: 0`, `images without width+height: 0`, `below-fold images not lazy: 0`, `WebGL peak live: 1`, `page height: 8 screens`).
+    - `consistency.mjs --quick`: `0 FAIL` (`first screen at 1280, 1152, 1024, 896, 768: 0 FAIL, 0 WARN`, `320×640: 0 FAIL`).

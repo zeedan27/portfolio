@@ -1,246 +1,162 @@
 /**
- * Spotlight Reveal Hero Component & Responsive Navigation Overlay.
- * Governs RAF cursor lerp, feathered mask reveal, touch drag, and mobile overlay.
+ * Spotlight Reveal Physics on a single <canvas class="layer"> inside the 100svh hero section.
+ * Composites `/front.jpg` (top studio portrait) with `/back.jpg` (S-07 Tactical Unit HUD)
+ * inside a feathered radial flashlight buffer tracked with smooth exponential interpolation (lerp).
  */
+export function initHeroSpotlight() {
+  const hero = document.querySelector(".hero--spotlight");
+  const canvas = document.getElementById("hero-spotlight-canvas");
+  if (!hero || !canvas) return;
 
-export function escapeHtml(str) {
-  return String(str)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
 
-export function renderHero(container, hero, links) {
-  if (!container) return;
-
-  container.setAttribute("data-scan-mode", "flashlight");
-
-  container.innerHTML = `
-    <div
-      class="hero-layer hero-layer-front"
-      style="background-image: url('${escapeHtml(hero.frontImage)}');"
-      aria-hidden="true"
-    ></div>
-    <div
-      class="hero-layer hero-layer-back"
-      style="background-image: url('${escapeHtml(hero.backImage)}');"
-      aria-hidden="true"
-    ></div>
-    <div class="hero-spotlight-glow" aria-hidden="true"></div>
-    <div class="hero-scrim" aria-hidden="true"></div>
-    <div class="hero-grid-overlay" aria-hidden="true"></div>
-
-    <div class="hero-topbar">
-      <a href="#hero" class="brand-mark" aria-label="Home">
-        <span class="brand-pulse" aria-hidden="true"></span>
-        <span class="brand-text-group">
-          <span class="brand-code">${escapeHtml(hero.logoCode)}</span>
-          <span class="brand-sub">${escapeHtml(hero.logoSub)}</span>
-        </span>
-      </a>
-
-      <nav class="desktop-nav" aria-label="Primary navigation">
-        ${links
-          .map((item) => `<a href="${escapeHtml(item.href)}">${escapeHtml(item.label)}</a>`)
-          .join("")}
-      </nav>
-
-      <button
-        id="nav-toggle"
-        class="nav-hamburger"
-        type="button"
-        aria-label="Open navigation menu"
-        aria-expanded="false"
-        aria-controls="mobile-nav-overlay"
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div>
-
-    <div id="mobile-nav-overlay" class="mobile-nav-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Mobile navigation">
-      <div class="mobile-overlay-header">
-        <div class="brand-mark">
-          <span class="brand-pulse" aria-hidden="true"></span>
-          <span class="brand-text-group">
-            <span class="brand-code">${escapeHtml(hero.logoCode)}</span>
-            <span class="brand-sub">NAVIGATION</span>
-          </span>
-        </div>
-        <button id="nav-close" class="mobile-close-btn" type="button" aria-label="Close navigation menu">✕</button>
-      </div>
-
-      <nav class="mobile-overlay-links" aria-label="Mobile navigation links">
-        ${links
-          .map(
-            (item, idx) =>
-              `<a href="${escapeHtml(item.href)}" class="mobile-nav-link"><span>${escapeHtml(item.label)}</span><span class="idx">0${idx + 1}</span></a>`
-          )
-          .join("")}
-      </nav>
-
-      <div class="mobile-overlay-footer">
-        <span>${escapeHtml(hero.eyebrow)}</span>
-        <span>DHAKA // BD</span>
-      </div>
-    </div>
-
-    <div class="hero-bottom-grid">
-      <div class="hero-left-col" data-enter>
-        <div class="hero-eyebrow">${escapeHtml(hero.eyebrow)}</div>
-        <h1 class="hero-headline">${escapeHtml(hero.headline)}</h1>
-        <p class="hero-description">${escapeHtml(hero.description)}</p>
-        <div class="hero-actions">
-          <a href="${escapeHtml(hero.primaryCta.href)}" class="btn btn-primary">${escapeHtml(hero.primaryCta.label)}</a>
-          <a href="${escapeHtml(hero.secondaryCta.href)}" class="btn btn-secondary" download>${escapeHtml(hero.secondaryCta.label)}</a>
-          <button id="scan-mode-toggle" type="button" class="btn btn-scan-toggle" aria-pressed="false">
-            [MODE: FLASHLIGHT]
-          </button>
-        </div>
-      </div>
-
-      <aside class="hero-stats" data-enter aria-label="Key career highlights">
-        ${hero.stats
-          .map(
-            (stat) => `
-            <div class="hero-stat-item">
-              <div class="hero-stat-value-row">
-                <span class="hero-stat-value">${escapeHtml(stat.value)}</span>
-                <span class="hero-stat-unit">${escapeHtml(stat.unit)}</span>
-              </div>
-              <span class="hero-stat-label">${escapeHtml(stat.label)}</span>
-            </div>`
-          )
-          .join("")}
-      </aside>
-    </div>
-  `;
-
-  initSpotlightPhysics(container);
-  initMobileNavOverlay(container);
-}
-
-function initSpotlightPhysics(heroEl) {
-  const prefersReducedMotion =
+  const prefersReduced =
     typeof window !== "undefined" &&
     window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  let currentX = 62;
-  let currentY = 38;
-  let targetX = 62;
-  let targetY = 38;
-  let hasUserInteracted = false;
-  let idleTick = 0;
+  const frontImg = new Image();
+  const backImg = new Image();
+  frontImg.src = "/front.jpg";
+  backImg.src = "/back.jpg";
 
-  const modes = [
-    { key: "flashlight", label: "[MODE: FLASHLIGHT]" },
-    { key: "exosuit", label: "[MODE: FULL EXOSUIT]" },
-    { key: "front", label: "[MODE: BASELINE]" }
-  ];
-  let modeIdx = prefersReducedMotion ? 1 : 0;
+  const spotCanvas = document.createElement("canvas");
+  const spotCtx = spotCanvas.getContext("2d");
 
-  const toggleBtn = heroEl.querySelector("#scan-mode-toggle");
-  const applyMode = () => {
-    const active = modes[modeIdx];
-    heroEl.setAttribute("data-scan-mode", active.key);
-    if (toggleBtn) {
-      toggleBtn.textContent = active.label;
-      toggleBtn.setAttribute("aria-pressed", String(active.key === "exosuit"));
+  let targetX = 0.62;
+  let targetY = 0.4;
+  let currentX = 0.62;
+  let currentY = 0.4;
+  let hasInteracted = false;
+  let rafId = null;
+
+  function computeCoverRect(imgW, imgH, boxW, boxH, posX = 0.68, posY = 0.22) {
+    if (!imgW || !imgH || !boxW || !boxH) return { sx: 0, sy: 0, sw: 0, sh: 0 };
+    const imgRatio = imgW / imgH;
+    const boxRatio = boxW / boxH;
+    let drawW;
+    let drawH;
+    if (boxRatio > imgRatio) {
+      drawW = boxW;
+      drawH = boxW / imgRatio;
+    } else {
+      drawH = boxH;
+      drawW = boxH * imgRatio;
     }
-  };
-  applyMode();
-
-  if (toggleBtn) {
-    toggleBtn.addEventListener("click", () => {
-      modeIdx = (modeIdx + 1) % modes.length;
-      applyMode();
-    });
+    const dx = (boxW - drawW) * posX;
+    const dy = (boxH - drawH) * posY;
+    return { dx, dy, dw: drawW, dh: drawH };
   }
 
-  const updatePointerTarget = (clientX, clientY) => {
-    const rect = heroEl.getBoundingClientRect();
-    if (!rect.width || !rect.height) return;
-    hasUserInteracted = true;
-    targetX = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
-    targetY = Math.max(0, Math.min(100, ((clientY - rect.top) / rect.height) * 100));
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    const w = Math.max(1, Math.round(rect.width * dpr));
+    const h = Math.max(1, Math.round(rect.height * dpr));
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width = w;
+      canvas.height = h;
+      spotCanvas.width = w;
+      spotCanvas.height = h;
+    }
+    renderFrame();
+  }
+
+  function renderFrame() {
+    const w = canvas.width;
+    const h = canvas.height;
+    if (!w || !h) return;
+
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = "#0a0d14";
+    ctx.fillRect(0, 0, w, h);
+
+    const isMobile = window.innerWidth < 1024;
+    const posX = isMobile ? 0.56 : 0.68;
+    const posY = isMobile ? 0.18 : 0.22;
+
+    if (frontImg.complete && frontImg.naturalWidth > 0) {
+      const fr = computeCoverRect(frontImg.naturalWidth, frontImg.naturalHeight, w, h, posX, posY);
+      ctx.drawImage(frontImg, fr.dx, fr.dy, fr.dw, fr.dh);
+    }
+
+    if (backImg.complete && backImg.naturalWidth > 0 && spotCtx) {
+      const br = computeCoverRect(backImg.naturalWidth, backImg.naturalHeight, w, h, posX, posY);
+      spotCtx.globalCompositeOperation = "source-over";
+      spotCtx.clearRect(0, 0, w, h);
+      spotCtx.drawImage(backImg, br.dx, br.dy, br.dw, br.dh);
+
+      const cx = currentX * w;
+      const cy = currentY * h;
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      const radius = (isMobile ? 165 : 275) * dpr;
+
+      const grad = spotCtx.createRadialGradient(cx, cy, 0, cx, cy, radius);
+      grad.addColorStop(0, "rgba(0,0,0,1)");
+      grad.addColorStop(0.35, "rgba(0,0,0,0.92)");
+      grad.addColorStop(0.7, "rgba(0,0,0,0.34)");
+      grad.addColorStop(1, "rgba(0,0,0,0)");
+
+      spotCtx.globalCompositeOperation = "destination-in";
+      spotCtx.fillStyle = grad;
+      spotCtx.fillRect(0, 0, w, h);
+
+      ctx.drawImage(spotCanvas, 0, 0);
+    }
+  }
+
+  const step = (time) => {
+    if (!hasInteracted && !prefersReduced) {
+      targetX = 0.62 + Math.sin(time * 0.0011) * 0.075;
+      targetY = 0.39 + Math.cos(time * 0.00085) * 0.06;
+    }
+
+    currentX += (targetX - currentX) * 0.14;
+    currentY += (targetY - currentY) * 0.14;
+    renderFrame();
+
+    rafId = window.requestAnimationFrame(step);
   };
 
-  heroEl.addEventListener("pointermove", (e) => {
-    updatePointerTarget(e.clientX, e.clientY);
-  });
+  const updatePointer = (clientX, clientY) => {
+    const rect = canvas.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+    hasInteracted = true;
+    targetX = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+    targetY = Math.max(0, Math.min(1, (clientY - rect.top) / rect.height));
+    if (prefersReduced) {
+      currentX = targetX;
+      currentY = targetY;
+      renderFrame();
+    }
+  };
 
-  heroEl.addEventListener(
+  hero.addEventListener("pointermove", (e) => updatePointer(e.clientX, e.clientY), { passive: true });
+  hero.addEventListener("pointerleave", () => {
+    hasInteracted = false;
+    targetX = 0.62;
+    targetY = 0.4;
+  }, { passive: true });
+  hero.addEventListener(
     "touchmove",
     (e) => {
-      if (e.touches && e.touches[0]) {
-        updatePointerTarget(e.touches[0].clientX, e.touches[0].clientY);
-      }
+      if (e.touches.length) updatePointer(e.touches[0].clientX, e.touches[0].clientY);
     },
     { passive: true }
   );
 
-  if (prefersReducedMotion) {
-    heroEl.style.setProperty("--spot-x", "62%");
-    heroEl.style.setProperty("--spot-y", "38%");
-    return;
+  frontImg.addEventListener("load", resize);
+  backImg.addEventListener("load", renderFrame);
+  window.addEventListener("resize", resize);
+
+  resize();
+  if (!prefersReduced) {
+    rafId = window.requestAnimationFrame(step);
   }
 
-  const animate = () => {
-    if (!hasUserInteracted && heroEl.getAttribute("data-scan-mode") === "flashlight") {
-      idleTick += 0.018;
-      const baseX = window.innerWidth <= 860 ? 50 : 56;
-      const baseY = window.innerWidth <= 860 ? 28 : 38;
-      // Gentle figure-8 orbital scan across visor & exosuit chest
-      targetX = baseX + Math.sin(idleTick) * 6;
-      targetY = baseY + Math.sin(idleTick * 2) * 5;
-    }
-
-    currentX += (targetX - currentX) * 0.11;
-    currentY += (targetY - currentY) * 0.11;
-
-    heroEl.style.setProperty("--spot-x", `${currentX.toFixed(2)}%`);
-    heroEl.style.setProperty("--spot-y", `${currentY.toFixed(2)}%`);
-
-    window.requestAnimationFrame(animate);
+  return () => {
+    if (rafId) window.cancelAnimationFrame(rafId);
+    window.removeEventListener("resize", resize);
   };
-
-  window.requestAnimationFrame(animate);
-}
-
-function initMobileNavOverlay(heroEl) {
-  const openBtn = heroEl.querySelector("#nav-toggle");
-  const closeBtn = heroEl.querySelector("#nav-close");
-  const overlay = heroEl.querySelector("#mobile-nav-overlay");
-  const mobileLinks = heroEl.querySelectorAll(".mobile-nav-link");
-
-  if (!openBtn || !closeBtn || !overlay) return;
-
-  const setMenuState = (open, restoreFocus = true) => {
-    overlay.classList.toggle("is-open", open);
-    overlay.setAttribute("aria-hidden", String(!open));
-    openBtn.setAttribute("aria-expanded", String(open));
-    document.body.style.overflow = open ? "hidden" : "";
-    if (open) {
-      closeBtn.focus();
-    } else if (restoreFocus) {
-      openBtn.focus();
-    }
-  };
-
-  openBtn.addEventListener("click", () => setMenuState(true));
-  closeBtn.addEventListener("click", () => setMenuState(false, true));
-
-  mobileLinks.forEach((link) => {
-    link.addEventListener("click", () => setMenuState(false, false));
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && overlay.classList.contains("is-open")) {
-      setMenuState(false);
-    }
-  });
 }
