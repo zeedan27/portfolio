@@ -154,17 +154,33 @@ export function renderProjects(container, projects) {
 export function renderWorkflows(container, workflows) {
   if (!container) return;
 
+  const prefersReduced =
+    typeof window !== "undefined" &&
+    window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let pulsePaused = Boolean(prefersReduced);
+
   container.innerHTML = `
     <div class="section-inner">
-      <div class="section-header">
-        <span class="section-eyebrow">04 // N8N &amp; AUTONOMOUS PIPELINES</span>
-        <h2 id="workflows-heading" class="section-title">Repeatable automation over ad-hoc manual glue.</h2>
-        <p class="section-lead">
-          Structured workflows connecting webhooks, n8n forms, Telegram bots, GitHub sync triggers, and deterministic multi-agent orchestration gates.
-        </p>
+      <div class="section-header-row">
+        <div class="section-header" style="margin-bottom: 0;">
+          <span class="section-eyebrow">04 // N8N &amp; AUTONOMOUS PIPELINES</span>
+          <h2 id="workflows-heading" class="section-title">Repeatable automation over ad-hoc manual glue.</h2>
+          <p class="section-lead">
+            Structured workflows connecting webhooks, n8n forms, Telegram bots, GitHub sync triggers, and deterministic multi-agent orchestration gates.
+          </p>
+        </div>
+        <button
+          id="workflow-pulse-toggle"
+          type="button"
+          class="btn btn-scan-toggle"
+          aria-pressed="${String(pulsePaused)}"
+        >
+          ${pulsePaused ? "[RESUME PULSE]" : "[PAUSE PULSE]"}
+        </button>
       </div>
 
-      <div class="workflows-grid">
+      <div id="workflows-grid" class="workflows-grid ${pulsePaused ? "is-paused" : ""}">
         ${workflows
           .map(
             (wf) => `
@@ -175,16 +191,25 @@ export function renderWorkflows(container, workflows) {
             </div>
             <h3 class="workflow-title">${escapeHtml(wf.title)}</h3>
             <p class="workflow-summary">${escapeHtml(wf.summary)}</p>
-            <div class="pipeline-track" aria-label="Workflow execution graph">
-              <span class="pipeline-node is-trigger">${escapeHtml(wf.trigger)}</span>
-              ${wf.nodes
-                .map(
-                  (node) =>
-                    `<span class="pipeline-arrow" aria-hidden="true">→</span><span class="pipeline-node">${escapeHtml(node)}</span>`
-                )
-                .join("")}
-              <span class="pipeline-arrow" aria-hidden="true">→</span>
-              <span class="pipeline-node is-output">${escapeHtml(wf.output)}</span>
+            <div class="pipeline-diagram">
+              <svg class="pipeline-pulse-svg" viewBox="0 0 360 16" fill="none" aria-hidden="true">
+                <line x1="8" y1="8" x2="352" y2="8" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" />
+                <line class="pipeline-pulse-line" x1="8" y1="8" x2="352" y2="8" stroke="#00e5ff" stroke-width="2" stroke-linecap="round" stroke-dasharray="38 306" />
+                <circle cx="8" cy="8" r="3.5" fill="#f59e0b" />
+                <circle cx="180" cy="8" r="3" fill="#00e5ff" />
+                <circle cx="352" cy="8" r="3.5" fill="#14b8a6" />
+              </svg>
+              <div class="pipeline-track" aria-label="Workflow execution graph">
+                <span class="pipeline-node is-trigger">${escapeHtml(wf.trigger)}</span>
+                ${wf.nodes
+                  .map(
+                    (node) =>
+                      `<span class="pipeline-arrow" aria-hidden="true">→</span><span class="pipeline-node">${escapeHtml(node)}</span>`
+                  )
+                  .join("")}
+                <span class="pipeline-arrow" aria-hidden="true">→</span>
+                <span class="pipeline-node is-output">${escapeHtml(wf.output)}</span>
+              </div>
             </div>
           </article>`
           )
@@ -192,6 +217,17 @@ export function renderWorkflows(container, workflows) {
       </div>
     </div>
   `;
+
+  const pulseBtn = container.querySelector("#workflow-pulse-toggle");
+  const grid = container.querySelector("#workflows-grid");
+  if (pulseBtn && grid) {
+    pulseBtn.addEventListener("click", () => {
+      pulsePaused = !pulsePaused;
+      grid.classList.toggle("is-paused", pulsePaused);
+      pulseBtn.setAttribute("aria-pressed", String(pulsePaused));
+      pulseBtn.textContent = pulsePaused ? "[RESUME PULSE]" : "[PAUSE PULSE]";
+    });
+  }
 }
 
 export function renderSkills(container, skillCategories) {

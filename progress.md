@@ -11,3 +11,8 @@
 - **Verification Evidence:**
   - `npm test`: `6/6` tests passing (`node --test tests/*.test.mjs`).
   - `npm run build`: `vite build` succeeded cleanly (`dist/index.html`, `dist/assets/*.css`, `dist/assets/*.js`, `dist/front.jpg`, `dist/back.jpg`, `dist/Zesrab-Tanjeel-Khan_CV.pdf`, `dist/cv.html`, `dist/_headers`).
+- **2026-11-18 (`design-taste-frontend` / `taste-skill` v2.5.1 Upgrade):**
+  - Vetted and installed `Leonxlnx/taste-skill` (`f6b76575f949707b4e3c37cd86cb44b0b98643e8`) globally to `~/.gemini/config/skills/design-taste-frontend`, `~/.claude/skills/design-taste-frontend`, and `~/.agents/skills/design-taste-frontend`; logged ADR-005 in `architecture/decisions.md` and ignored `.taste-skill/` & `shots/` in `.gitignore`.
+  - Eliminated all 13 em-dashes across `src/data/portfolioData.js` and `src/components/caseStudyBookshelf.js` (`copy-lint.mjs`: `0 FAIL, 0 WARN`).
+  - Applied dealt `Onest + JetBrains Mono` pairing (`index.html` `data-type="software"`), alternating neutral grounds (`--g-main: #05070b` / `--g-alt: #0a0e16`), unified equal-edge container alignment (`--container-max: 1280px`, `--gut: clamp(20px, 5vw, 80px)`), `>= 44px` tap targets (`--btn-h: 44px`), `data-enter` hero entrance, and inline SVG workflow pulse diagrams with `[PAUSE PULSE]` control.
+  - Re-verified with `perf.mjs` (`0 FAIL` at `1440px` and `390px`), `npm test` (`6/6`), `npm run build`, and live browser check (identical `x = 72.4px` left edges, `44px+` controls, `Onest` + `JetBrains Mono` loaded, `0` console/network errors).

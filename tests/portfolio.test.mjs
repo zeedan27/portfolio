@@ -114,12 +114,27 @@ test("Projects, Workflows, Skills, About, and Contact contain valid real data wi
   assert.ok(!serialized.includes("lorem ipsum"), "Portfolio data must never contain placeholder copy");
 });
 
-test("HTML & CSS implement spotlight mask, mobile nav overlay, and image preload", () => {
+test("HTML & CSS implement spotlight mask, mobile nav overlay, image preload, and taste-skill tokens", () => {
   const html = fs.readFileSync(path.join(rootDir, "index.html"), "utf8");
   const css = fs.readFileSync(path.join(rootDir, "src/styles/main.css"), "utf8");
+  const tasteSkillPath = path.join(
+    process.env.USERPROFILE || process.env.HOME || "",
+    ".gemini",
+    "config",
+    "skills",
+    "design-taste-frontend",
+    "SKILL.md"
+  );
 
+  assert.ok(fs.existsSync(tasteSkillPath), "design-taste-frontend SKILL.md should be installed globally");
   assert.ok(html.includes('href="/front.jpg"'), "index.html should preload /front.jpg");
   assert.ok(html.includes('href="/back.jpg"'), "index.html should preload /back.jpg");
+  assert.ok(html.includes('data-type="software"'), "index.html should declare taste-skill data-type=software");
+  assert.ok(html.includes("Onest"), "index.html should load Onest pairing font");
   assert.ok(css.includes("mask-image: radial-gradient"), "CSS must define radial spotlight mask");
   assert.ok(css.includes(".mobile-nav-overlay.is-open"), "CSS must define mobile full-screen overlay state");
+  assert.ok(css.includes("--btn-h: 44px"), "CSS must enforce 44px minimum tap-target height");
+  assert.ok(css.includes("--gut:"), "CSS must define unified equal-edge gutter token");
+  assert.ok(css.includes("[data-enter]"), "CSS must implement hero entrance reveal");
+  assert.ok(css.includes(".pipeline-pulse-line"), "CSS must include workflow SVG pulse animation");
 });

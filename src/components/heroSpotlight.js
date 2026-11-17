@@ -89,7 +89,7 @@ export function renderHero(container, hero, links) {
     </div>
 
     <div class="hero-bottom-grid">
-      <div class="hero-left-col">
+      <div class="hero-left-col" data-enter>
         <div class="hero-eyebrow">${escapeHtml(hero.eyebrow)}</div>
         <h1 class="hero-headline">${escapeHtml(hero.headline)}</h1>
         <p class="hero-description">${escapeHtml(hero.description)}</p>
@@ -102,7 +102,7 @@ export function renderHero(container, hero, links) {
         </div>
       </div>
 
-      <aside class="hero-stats" aria-label="Key career highlights">
+      <aside class="hero-stats" data-enter aria-label="Key career highlights">
         ${hero.stats
           .map(
             (stat) => `

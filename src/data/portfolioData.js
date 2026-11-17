@@ -52,7 +52,7 @@ export const aboutData = {
   eyebrow: "01 // ENGINEER PROFILE",
   heading: "Built on fundamentals, tested under real constraints.",
   summary:
-    "I am Zesrab Tanjeel Khan (Zeedan), a Computer Science & Engineering undergraduate at United International University (10th Trimester, CGPA 3.95/4.00). Beyond maintaining top academic standing, I serve as an Undergraduate Teaching Assistant for core Data Structures & Algorithms and Object-Oriented Programming labs—helping 30+ students per session reason about memory, complexity, and architecture. My engineering focus sits at the intersection of deterministic AI workflows, LLM security, and full-stack software.",
+    "I am Zesrab Tanjeel Khan (Zeedan), a Computer Science & Engineering undergraduate at United International University (10th Trimester, CGPA 3.95/4.00). Beyond maintaining top academic standing, I serve as an Undergraduate Teaching Assistant for core Data Structures & Algorithms and Object-Oriented Programming labs, helping 30+ students per session reason about memory, complexity, and architecture. My engineering focus sits at the intersection of deterministic AI workflows, LLM security, and full-stack software.",
   exploringNote:
     "Currently exploring: research papers in indirect LLM prompt injection, adversarial evaluation, and multimodal document intelligence.",
   education: {
@@ -65,7 +65,7 @@ export const aboutData = {
   experience: [
     {
       role: "Undergraduate Teaching Assistant",
-      course: "CSE 2216 — Data Structures & Algorithms I Lab",
+      course: "CSE 2216: Data Structures & Algorithms I Lab",
       institution: "United International University",
       period: "Spring 2025",
       highlights: [
@@ -76,7 +76,7 @@ export const aboutData = {
     },
     {
       role: "Undergraduate Teaching Assistant",
-      course: "CSE 1116 — Object-Oriented Programming Lab",
+      course: "CSE 1116: Object-Oriented Programming Lab",
       institution: "United International University",
       period: "Spring 2025",
       highlights: [
@@ -92,7 +92,7 @@ export const caseStudyBooks = [
     id: "papyr",
     code: "CASE-01 // MULTIMODAL AI",
     spineTitle: "PAPYR",
-    title: "Papyr — Universal Paper-to-Manim Scrollytelling Engine",
+    title: "Papyr: Universal Paper-to-Manim Scrollytelling Engine",
     subtitle: "Breaking single-repository lock-in for scientific PDF visualization",
     accentColor: "cyan",
     techStack: ["Next.js", "FastAPI", "PyMuPDF", "Gemini Multimodal", "ManimCE", "Edge-TTS"],
@@ -132,7 +132,7 @@ export const caseStudyBooks = [
     id: "scope-baton",
     code: "CASE-02 // AGENT PROTOCOLS",
     spineTitle: "S.C.O.P.E.",
-    title: "S.C.O.P.E. & Baton-Pass — Deterministic Agent Engineering",
+    title: "S.C.O.P.E. & Baton-Pass: Deterministic Agent Engineering",
     subtitle: "Replacing fragile single-prompt coding loops with gated schemas and parallel lanes",
     accentColor: "amber",
     techStack: ["Markdown SOPs", "JavaScript", "Protocol Engineering", "Multi-Agent Registry"],
@@ -156,7 +156,7 @@ export const caseStudyBooks = [
         step: "03",
         tag: "THE BUILD",
         title: "Two modular skills: S.C.O.P.E. (5-phase gate) + Baton-Pass (CHATS.md lanes).",
-        body: "I authored scope-skill (Specification → Connections → Organization → Polish → Execution) featuring a 12-layer T0/T1/T2 stack matrix and hard Gate 1/Gate 2 checks, alongside baton-pass-skill—a zero-dependency coordinator assigning numbered chat IDs (C01, C02), strict Owns(paths) lanes, and a cross-chat request queue (R1, R2).",
+        body: "I authored scope-skill (Specification → Connections → Organization → Polish → Execution) featuring a 12-layer T0/T1/T2 stack matrix and hard Gate 1/Gate 2 checks, alongside baton-pass-skill, a zero-dependency coordinator assigning numbered chat IDs (C01, C02), strict Owns(paths) lanes, and a cross-chat request queue (R1, R2).",
         evidence: "Published open-source at github.com/zeedan27/scope-skill & baton-pass-skill."
       },
       frictionFix: {
@@ -172,7 +172,7 @@ export const caseStudyBooks = [
     id: "skillverify",
     code: "CASE-03 // FULL-STACK PLATFORM",
     spineTitle: "SKILLVERIFY",
-    title: "SkillVerify — Gated Assessment, Grooming & Verified Portfolios",
+    title: "SkillVerify: Gated Assessment, Grooming & Verified Portfolios",
     subtitle: "Closing the skill-verification gap with state machines & integrity telemetry",
     accentColor: "teal",
     techStack: ["TypeScript", "React", "NestJS", "PostgreSQL", "State Machines"],
@@ -189,7 +189,7 @@ export const caseStudyBooks = [
         step: "02",
         tag: "RESEARCH & GAP",
         title: "Assessment tools disconnected learning from verified hiring signals.",
-        body: "Existing platforms treated skill quizzes, upskilling courses, and CV portfolios as three separate tools—and unmonitored browser assessments were trivial to bypass using tab switching, window blurring, or copy-pasting.",
+        body: "Existing platforms treated skill quizzes, upskilling courses, and CV portfolios as three separate tools, and unmonitored browser assessments were trivial to bypass using tab switching, window blurring, or copy-pasting.",
         evidence: "Needed shared TypeScript contracts across applicant quizzes, grooming loops, and employer alerts."
       },
       build: {
@@ -212,7 +212,7 @@ export const caseStudyBooks = [
     id: "daak",
     code: "CASE-04 // PUBLIC SAFETY TECH",
     spineTitle: "DAAK",
-    title: "Daak — Anonymous Crime Reporting & Police SOS Dispatch",
+    title: "Daak: Anonymous Crime Reporting & Police SOS Dispatch",
     subtitle: "Real-time distress telemetry, crime heatmaps, and role-gated Firestore rules",
     accentColor: "cyan",
     techStack: ["Next.js", "TypeScript", "Firebase", "Firestore Rules", "Geolocation"],
@@ -252,7 +252,7 @@ export const caseStudyBooks = [
     id: "shishucare",
     code: "CASE-05 // HEALTH AI & ML",
     spineTitle: "SHISHUCARE",
-    title: "ShishuCare / NurtureAI — Rural Maternal & Child Health AI",
+    title: "ShishuCare / NurtureAI: Rural Maternal & Child Health AI",
     subtitle: "Deterministic WHO IMCI triage + PyTorch DeepInfant & NutriMind microservices",
     accentColor: "amber",
     techStack: ["Python", "FastAPI", "PyTorch", "scikit-learn", "React Native", "Node.js"],
@@ -293,7 +293,7 @@ export const caseStudyBooks = [
 export const projectsData = [
   {
     id: "proj-papyr",
-    name: "Papyr — Visual Paper Scrollytelling",
+    name: "Papyr: Visual Paper Scrollytelling",
     category: "AI & Security",
     status: "ACTIVE BUILD",
     language: "Python / Next.js",
@@ -398,7 +398,7 @@ export const projectsData = [
   },
   {
     id: "proj-daak",
-    name: "Daak — Crime & SOS Network",
+    name: "Daak: Crime & SOS Network",
     category: "Full-Stack & Mobile",
     status: "FULL-STACK",
     language: "TypeScript / Dart",

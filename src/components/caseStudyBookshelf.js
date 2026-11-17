@@ -31,7 +31,7 @@ export function renderCaseStudyBookshelf(container, books) {
         <span class="section-eyebrow">02 // INTERACTIVE CASE-STUDY BOOKSHELF</span>
         <h2 id="cases-heading" class="section-title">How I diagnose gaps, build systems, and fix what breaks.</h2>
         <p class="section-lead">
-          Select any engineering manual from the shelf and turn through the four stages of real-world problem solving—from initial observation and research to production friction and resolution.
+          Select any engineering manual from the shelf and turn through the four stages of real-world problem solving, from initial observation and research to production friction and resolution.
         </p>
       </div>
 

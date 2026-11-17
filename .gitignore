@@ -13,6 +13,8 @@ dist/
 .tmp/
 .firecrawl/
 .worktrees/
+.taste-skill/
+shots/
 
 # OS / Editor
 .DS_Store

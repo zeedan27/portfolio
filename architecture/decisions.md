@@ -19,3 +19,8 @@
 - **Context:** Unauthenticated browser requests to `api.github.com` are strictly rate-limited (`60 requests/hour/IP`) and would fail for recruiters browsing behind shared corporate NATs.
 - **Decision:** Store verified repository metadata in `src/data/portfolioData.js` (refreshable locally via `tools/` when desired) rather than hitting the GitHub REST API on every page load.
 - **Consequences:** Zero runtime API failures, 0ms data hydration, and zero risk of leaking a `GITHUB_TOKEN` client-side.
+
+## ADR-005: `design-taste-frontend` (`taste-skill` v2.5.1) Integration
+- **Context:** Per S.C.O.P.E. `skills-and-safety.md`, `design-taste-frontend` provides anti-slop art direction, copy linting (`copy-lint.mjs`), browser layout/perf verification (`perf.mjs`), equal-edge alignment, and interactive quality checks.
+- **Decision:** Vetted and installed `https://github.com/Leonxlnx/taste-skill` at commit `f6b76575f949707b4e3c37cd86cb44b0b98643e8` (MIT License) globally as `design-taste-frontend`; merged its dealt `software` pairing (`Onest + JetBrains Mono`) and neutral ground alternation (`--g-main` / `--g-alt`) with the portrait-matched cyan/amber accents in `DESIGN.md`.
+- **Consequences:** Enforces `0 FAIL, 0 WARN` copy discipline, unified left/right container edges across all sections, `>= 44px` interactive tap targets, and browser-checked FCP/LCP/CLS budgets.
