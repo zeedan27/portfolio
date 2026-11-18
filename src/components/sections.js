@@ -53,19 +53,19 @@ function buildTerminalFragment() {
     <div class="ui ui-panel ui-term" data-ui="terminal-run">
       <div class="ui-term__head">
         <span class="ui-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-        <span class="ui-term__title">zeedan27/prompt-eval</span>
+        <span class="ui-term__title">zeedan27/perf-nlp</span>
         <span class="ui-meta">zsh</span>
         <span class="ui-spacer"></span>
         <span class="ui-chip ui-chip--plain ui-term__branch">main</span>
       </div>
       <div class="ui-term__screen" data-term-screen>
         <div class="ui-term__track" data-term-track>
-          <div class="ui-term__ln ui-term__cmd"><span class="ui-term__cwd">~/eval</span><span class="ui-term__sig">$</span><span class="ui-term__typed" data-term-cmd>pytest probes/ --model llama3</span></div>
-          <div class="ui-term__ln ui-term__meter" data-term-out data-term-meter><span class="ui-term__bar" style="--p:1"><i></i></span><span class="ui-term__count" data-term-count>4 of 4 suites</span></div>
-          <div class="ui-term__ln ui-term__log" data-term-out data-term-step><svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg><span class="ui-term__path">indirect_rag_leak.py</span><span class="ui-term__n">24 cases</span><span class="ui-term__t">640ms</span></div>
-          <div class="ui-term__ln ui-term__log" data-term-out data-term-step><svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg><span class="ui-term__path">tool_call_hijack.py</span><span class="ui-term__n">18 cases</span><span class="ui-term__t">510ms</span></div>
-          <div class="ui-term__ln ui-term__log" data-term-out data-term-step><svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg><span class="ui-term__path">system_prompt_exfil.py</span><span class="ui-term__n">32 cases</span><span class="ui-term__t">890ms</span></div>
-          <div class="ui-term__ln ui-term__done" data-term-out data-term-done><span class="ui-term__ok"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 8.3 2.4 2.4 4.6-5"/></svg></span><b>Done</b><span class="ui-term__dim">98.6% defended</span></div>
+          <div class="ui-term__ln ui-term__cmd"><span class="ui-term__cwd">~/perf</span><span class="ui-term__sig">$</span><span class="ui-term__typed" data-term-cmd>python perf_cascade.py --audit sst2 snli hatexplain</span></div>
+          <div class="ui-term__ln ui-term__meter" data-term-out data-term-meter><span class="ui-term__bar" style="--p:1"><i></i></span><span class="ui-term__count" data-term-count>3 of 3 benchmarks</span></div>
+          <div class="ui-term__ln ui-term__log" data-term-out data-term-step><svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg><span class="ui-term__path">sst2_cascade.py</span><span class="ui-term__n">sentiment</span><span class="ui-term__t">ensemble</span></div>
+          <div class="ui-term__ln ui-term__log" data-term-out data-term-step><svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg><span class="ui-term__path">snli_ensemble.py</span><span class="ui-term__n">entailment</span><span class="ui-term__t">re-label</span></div>
+          <div class="ui-term__ln ui-term__log" data-term-out data-term-step><svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg><span class="ui-term__path">hatexplain_audit.py</span><span class="ui-term__n">rationales</span><span class="ui-term__t">refined</span></div>
+          <div class="ui-term__ln ui-term__done" data-term-out data-term-done><span class="ui-term__ok"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 8.3 2.4 2.4 4.6-5"/></svg></span><b>Done</b><span class="ui-term__dim">3 datasets refined</span></div>
         </div>
       </div>
     </div>
@@ -74,25 +74,25 @@ function buildTerminalFragment() {
 
 function buildWindowFragment() {
   return `
-    <div class="ui ui-panel ui-win ui-win--compact" data-ui="window" data-open="Queued" data-work="Running" data-done="Scored">
+    <div class="ui ui-panel ui-win ui-win--compact" data-ui="window" data-open="Active" data-work="Checking" data-done="Verified">
       <div class="ui-win__bar">
         <span class="ui-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-        <span class="ui-win__crumb">SkillVerify <i>/</i> <b>Sandboxes</b></span>
+        <span class="ui-win__crumb">SkillVerify <i>/</i> <b>Assessments</b></span>
         <span class="ui-spacer"></span>
         <span class="ui-win__search" aria-hidden="true"><span class="ui-win__ph">Filter</span><span class="ui-kbd">/</span></span>
       </div>
       <div class="ui-win__body">
         <nav class="ui-win__side" aria-hidden="true">
-          <span class="ui-win__nav is-on">Queued<em>2</em></span>
-          <span class="ui-win__nav">Scored<em>14</em></span>
-          <span class="ui-win__nav">Alerts<em>0</em></span>
+          <span class="ui-win__nav is-on">Quizzes<em>2</em></span>
+          <span class="ui-win__nav">Verified<em>14</em></span>
+          <span class="ui-win__nav">Flags<em>0</em></span>
         </nav>
         <div class="ui-win__main">
           <ul class="ui-win__rows">
-            <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="1">S1</span><span class="ui-win__who">sandbox-04</span><span class="ui-win__sub">LRU cache + lock</span><span class="ui-win__st" data-st>Queued</span></li>
-            <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="3">S2</span><span class="ui-win__who">sandbox-05</span><span class="ui-win__sub">Rate limiter guard</span><span class="ui-win__st" data-st>Queued</span></li>
-            <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="4">S3</span><span class="ui-win__who">sandbox-06</span><span class="ui-win__sub">Graph Dijkstra</span><span class="ui-win__st is-done" data-st>Scored</span></li>
-            <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="2">S4</span><span class="ui-win__who">sandbox-07</span><span class="ui-win__sub">Deadlock retry</span><span class="ui-win__st is-done" data-st>Scored</span></li>
+            <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="1">A4</span><span class="ui-win__who">applicant-04</span><span class="ui-win__sub">Dynamic quiz + anti-cheat</span><span class="ui-win__st" data-st>Active</span></li>
+            <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="3">A5</span><span class="ui-win__who">applicant-05</span><span class="ui-win__sub">Learning module sync</span><span class="ui-win__st" data-st>Active</span></li>
+            <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="4">A6</span><span class="ui-win__who">applicant-06</span><span class="ui-win__sub">Verified CV generated</span><span class="ui-win__st is-done" data-st>Verified</span></li>
+            <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="2">E2</span><span class="ui-win__who">employer-02</span><span class="ui-win__sub">Role-based review</span><span class="ui-win__st is-done" data-st>Verified</span></li>
           </ul>
         </div>
       </div>
@@ -104,17 +104,17 @@ function buildChecklistFragment() {
   return `
     <div class="ui ui-panel ui-checks" data-ui="checklist">
       <div class="ui-checks__head">
-        <div class="ui-title">Offline field sync</div>
+        <div class="ui-title">DAAK public safety sync</div>
         <span class="ui-spacer"></span>
         <div class="ui-meta" data-checks-count>3 of 5</div>
       </div>
       <div class="ui-checks__bar"><i data-checks-bar style="--k:0.6"></i></div>
       <ul class="ui-checks__list">
-        <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Persist Room SQLite intake</span></li>
-        <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Compress 118-byte SMS SOS</span></li>
-        <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Assign UUIDv7 clinic keys</span></li>
-        <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Sync PostGIS radius zone</span></li>
-        <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Verify delta ack receipt</span></li>
+        <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Authenticate role-based session</span></li>
+        <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Submit Next.js crime report</span></li>
+        <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Broadcast real-time Firebase SOS</span></li>
+        <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Update live safety monitoring map</span></li>
+        <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Confirm emergency dispatch status</span></li>
       </ul>
     </div>
   `;
@@ -163,7 +163,7 @@ export function renderAbout(mountId, data) {
                 <span class="rows__name">${escapeHtml(exp.course)} · ${escapeHtml(exp.term)}</span>
                 <p class="t-small">${escapeHtml(exp.detail)}</p>
               </div>
-              <span class="rows__value mono">UTA</span>
+              <span class="rows__value mono">UGA</span>
             </li>
           `
             )
@@ -198,7 +198,7 @@ export function renderProjects(mountId, projects) {
   host.innerHTML = `
     <div class="group">
       <div class="section-head section-head--row">
-        <h2 id="projects-h">Featured software, systems <span class="muted">and security projects</span></h2>
+        <h2 id="projects-h">Featured full-stack, data science <span class="muted">and research projects</span></h2>
         <a class="link" href="https://github.com/zeedan27" target="_blank" rel="noopener noreferrer">All @zeedan27 repos</a>
       </div>
       <div class="grid">
@@ -350,7 +350,6 @@ export function renderClosing(mountId, contact) {
       <a class="btn btn--primary btn--xl btn--wide" href="${escapeHtml(contact.cvPdfUrl)}" target="_blank" rel="noopener noreferrer">Download CV<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
       <div class="closing__direct mono t-small">
         <a class="link" href="mailto:${escapeHtml(contact.email)}">${escapeHtml(contact.email)}</a>
-        <a class="link" href="${escapeHtml(contact.cvHtmlUrl)}" target="_blank" rel="noopener noreferrer">Interactive ATS CV</a>
         <a class="link" href="${escapeHtml(contact.linkedinUrl)}" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         <a class="link" href="${escapeHtml(contact.githubUrl)}" target="_blank" rel="noopener noreferrer">GitHub @zeedan27</a>
       </div>
@@ -359,13 +358,13 @@ export function renderClosing(mountId, contact) {
       <div class="grid">
         <div class="span-4 stack-4">
           <a class="nav__logo" href="#top"><span class="mark" data-mark="dots" aria-hidden="true"></span>Zesrab Khan</a>
-          <p class="footer__lede">UIU CSE senior building reliable full-stack and security systems.</p>
+          <p class="footer__lede">UIU Data Science student and CSE Undergraduate Assistant building full-stack web products.</p>
         </div>
         <div class="span-2 footer__col">
           <p class="t-card footer__col-title">Profile</p>
           <ul>
             <li><a href="#top">Spotlight</a></li>
-            <li><a href="#about">About &amp; UTA</a></li>
+            <li><a href="#about">About &amp; UGA</a></li>
           </ul>
         </div>
         <div class="span-2 footer__col">

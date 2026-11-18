@@ -4,6 +4,7 @@ import {
   archiveRepos,
   caseStudyBooks,
   contactData,
+  heroData,
   projectsData,
   skillsData,
   workflowsData
@@ -19,7 +20,7 @@ import {
 } from "./components/sections.js";
 
 function bootstrap() {
-  initHeroSpotlight();
+  initHeroSpotlight(heroData);
   renderAbout("about-mount", aboutData);
   renderCaseStudyBookshelf("cases-mount", caseStudyBooks);
   renderProjects("projects-mount", projectsData);

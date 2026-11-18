@@ -38,3 +38,10 @@
   - Created public GitHub repository `https://github.com/zeedan27/portfolio` and pushed branch `main` (`73a0b2a`).
   - Connected GitHub repository `zeedan27/portfolio` to Cloudflare Pages project `zesrab` (`npm run build` -> `dist/`, `production_branch: main`, auto-deploys enabled; removed initial `zeedan27-portfolio` project).
   - Verified live production site at `https://zesrab.pages.dev/` (`HTTP 200` across `/`, `/front.jpg`, `/back.jpg`, `/Zesrab-Tanjeel-Khan_CV.pdf`; deployment `ee6946c1-9d43-4fab-add6-8b882086993e`, `latest_stage.status: success`).
+- **2026-11-18 (Asset Reorganization):**
+  - Moved personal images to `public/images/` (`front.jpg`, `back.jpg`, `share.jpg`) and resume documents to `public/cv/` (`Zesrab-Tanjeel-Khan_CV.pdf`, `cv.html`), removing loose root duplicates (`front.jpg`, `front.jpeg`, `back.jpg`) and duplicate `public/front.jpeg`.
+  - Updated `index.html`, `src/data/portfolioData.js`, `src/components/heroSpotlight.js`, `src/main.js`, `src/styles/page.css`, `public/_headers`, `tests/portfolio.test.mjs`, and S.C.O.P.E. docs (`architecture/`, `PRODUCT.md`, `findings.md`).
+  - Verified `npm test` (`6/6` passing), `npm run build`, and Vite preview browser check (`http://127.0.0.1:4173/` + `/cv/cv.html`, `0` console/network errors, hero spotlight & CV download verified).
+- **2026-11-18 (CV Content Alignment & `cv.html` Removal):**
+  - Deleted `public/cv/cv.html` and removed `cvHtmlUrl` links from `src/data/portfolioData.js`, `src/components/sections.js`, and `tests/portfolio.test.mjs`.
+  - Aligned portfolio data, SSR HTML (`index.html`), bookshelf case studies (`SkillVerify`, `DAAK`, `PERF NLP`, `Papyr`, `S.C.O.P.E.`), UI fragments, skills matrix, and docs (`PRODUCT.md`, `architecture/schemas.md`, `architecture/maintenance.md`) with the updated `public/cv/Zesrab-Tanjeel-Khan_CV.pdf` (B.Sc. in Data Science at UIU, 6-course CSE UGA, Next.js/NestJS/React/Firebase projects, PERF NLP research, IBM certification).

@@ -7,58 +7,58 @@ export const navLinks = [
 
 export const heroData = {
   logoName: "Zesrab Khan",
-  notice: "UIU CSE senior · 3.95 CGPA · Spring 2025 2× UTA",
-  headline: "Full-stack and security engineer",
+  notice: "UIU B.Sc. Data Science · 3.95 CGPA · CSE Undergraduate Assistant",
+  headline: "Data science and full-stack engineer",
   description:
-    "Building RAG study compilers, adversarial LLM evaluation harnesses, and offline-first civic apps from Dhaka.",
-  primaryCta: { label: "Download CV", href: "/Zesrab-Tanjeel-Khan_CV.pdf", external: true },
+    "Building full-stack TypeScript web platforms with Next.js, NestJS, and React alongside LLM cascade pipelines for NLP benchmark auditing in Dhaka.",
+  primaryCta: { label: "Download CV", href: "/cv/Zesrab-Tanjeel-Khan_CV.pdf", external: true },
   secondaryCta: { label: "Open case logs", href: "#cases" },
-  frontImage: "/front.jpg",
-  backImage: "/back.jpg",
+  frontImage: "/images/front.jpg",
+  backImage: "/images/back.jpg",
   stats: [
     { label: "UIU CGPA", value: "3.95 / 4.00" },
-    { label: "Teaching", value: "2× CSE Lab UTA" },
-    { label: "GitHub", value: "10+ public repos" }
+    { label: "Experience", value: "6-Course CSE UGA" },
+    { label: "Research", value: "PERF NLP Audit" }
   ]
 };
 
 export const aboutData = {
-  heading: "About UIU background and systems teaching",
+  heading: "About UIU data science, research and teaching",
   summary:
-    "Tenth-trimester Computer Science and Engineering student at United International University. Most of my engineering hours go into full-stack TypeScript web software, local-first Android and Kotlin builds, and Python evaluation pipelines.",
+    "B.Sc. in Data Science student at United International University (3.95 CGPA, expected Feb 2027) with hands-on web development experience, seeking a software engineering internship to build production-quality full-stack products.",
   exploringNote:
-    "Currently exploring research papers in indirect LLM prompt injection, adversarial evaluation, and multimodal document intelligence.",
+    "In-progress research with Asst. Prof. Md. Tarek Hasan (Are NLP Gold Standards Truly Golden?): built the PERF LLM cascade and prompt-ensemble re-annotation pipeline across SST-2, SNLI, and HateXplain. Certified in IBM Data Science Foundations (May 2024).",
   education: {
     institution: "United International University (UIU)",
-    degree: "B.Sc. in Computer Science and Engineering",
-    period: "2022 – Present (10th Trimester)",
+    degree: "B.Sc. in Data Science · HSC & SSC GPA 5.00/5.00",
+    period: "Oct 2022 - Present (Expected Feb 2027)",
     cgpa: "3.95 / 4.00"
   },
   experience: [
     {
-      course: "CSE 2216",
-      role: "Undergraduate Teaching Assistant — Data Structures & Algorithms I Lab",
-      term: "Spring 2025",
-      detail: "Debugged C++ pointers, trees, and graph traversals with 40+ undergraduates during timed lab exams."
+      course: "Dept. of CSE · 6 Core Lab Courses",
+      role: "Undergraduate Assistant (UGA) - Lab Sessions",
+      term: "Sep 2024 - Present",
+      detail: "Assisted faculty in lab sessions across SPL, OOP, DSA I & II, DBMS, and Software Engineering at UIU."
     },
     {
-      course: "CSE 1116",
-      role: "Undergraduate Teaching Assistant — Object-Oriented Programming Lab",
-      term: "Spring 2025",
-      detail: "Reviewed Java inheritance, Swing GUIs, and exception handling assignments during weekly lab sessions."
+      course: "Dept. of CSE · 1-on-1 Consultations",
+      role: "Undergraduate Assistant (UGA) - Student Mentorship",
+      term: "Sep 2024 - Present",
+      detail: "Conducted 1-on-1 consultations in C/C++, Java, and SQL, guiding students through debugging, algorithm design, and ER/schema modeling."
     }
   ],
   diagram: {
     layout: "hub",
     motion: { pulse: "none" },
-    alt: "Zesrab Tanjeel Khan engineering pillars connecting UIU CSE coursework, DSA and OOP teaching, RAG systems, and LLM security.",
-    center: { label: "UIU CSE", icon: "github" },
+    alt: "Zesrab Tanjeel Khan engineering pillars connecting UIU Data Science, Next.js and NestJS web platforms, PERF NLP research, and 6-course CSE UGA mentorship.",
+    center: { label: "UIU DS", icon: "github" },
     spokes: [
-      { label: "DSA", icon: "c-plusplus" },
-      { label: "OOP", icon: "java" },
-      { label: "RAG", icon: "typescript" },
-      { label: "Eval", icon: "python" },
-      { label: "Docker", icon: "docker" }
+      { label: "TypeScript", icon: "typescript" },
+      { label: "React/Next", icon: "react" },
+      { label: "PERF NLP", icon: "python" },
+      { label: "C++ / DSA", icon: "c-plusplus" },
+      { label: "Java / SQL", icon: "java" }
     ]
   },
   stackIcons: [
@@ -73,8 +73,113 @@ export const aboutData = {
 
 export const caseStudyBooks = [
   {
-    id: "papyr",
+    id: "skillverify",
     spineCode: "CASE 01",
+    title: "SkillVerify",
+    subtitle: "Automated hiring & skill verification",
+    year: "2025",
+    repoUrl: "https://github.com/zeedan27/skillverify-platform",
+    stack: ["NestJS", "React", "TypeScript", "REST API", "SQL"],
+    pages: {
+      observation: {
+        stage: "01 · Observation",
+        heading: "Static resumes fail to prove hands-on coding competency",
+        body: "Hiring pipelines relied on self-reported CVs and disconnected quiz links without anti-cheat monitoring or tailored learning feedback for applicants.",
+        artifact: "skillverify/audit -> unverified claims across applicant submissions"
+      },
+      research: {
+        stage: "02 · Research & Gap",
+        heading: "Standalone quiz tools lack role workflows and CV generation",
+        body: "Existing assessment portals separated test execution from personalized learning modules and could not automatically issue verified CVs across role tiers.",
+        artifact: "gap -> missing unified applicant, employer, and admin workflows"
+      },
+      build: {
+        stage: "03 · The Build",
+        heading: "Full-stack NestJS and React platform with verified CV engine",
+        body: "Built dynamic assessment quizzes with anti-cheat monitoring, personalized learning modules, automated verified CV generation, and secure role-based workflows.",
+        artifact: "skillverify/api -> NestJS + React RBAC across 3 portal roles"
+      },
+      frictionFix: {
+        stage: "04 · Friction & Fix",
+        heading: "Tab switches and reload events disrupted active quiz telemetry",
+        body: "Candidates switching windows or refreshing mid-quiz risked inconsistent attempt records. Added focus-event anti-cheat logging and server-authoritative timers.",
+        artifact: "anti-cheat guard -> deterministic quiz state & verified CV output"
+      }
+    }
+  },
+  {
+    id: "daak",
+    spineCode: "CASE 02",
+    title: "DAAK",
+    subtitle: "Public safety & SOS web platform",
+    year: "2025",
+    repoUrl: "https://github.com/zeedan27/Daak",
+    stack: ["Next.js", "TypeScript", "Firebase", "React"],
+    pages: {
+      observation: {
+        stage: "01 · Observation",
+        heading: "Delayed incident reporting leaves communities without live warnings",
+        body: "Residents facing safety incidents needed a responsive web platform to file crime reports, trigger SOS alerts, and view real-time public safety updates.",
+        artifact: "daak/intake -> fragmented emergency and crime report channels"
+      },
+      research: {
+        stage: "02 · Research & Gap",
+        heading: "Static complaint forms lack real-time SOS synchronization",
+        body: "Legacy reporting portals used slow multi-step forms without live Firebase synchronization, instant SOS broadcast, or structured incident monitoring.",
+        artifact: "gap -> zero real-time SOS stream or live safety dashboard"
+      },
+      build: {
+        stage: "03 · The Build",
+        heading: "Full-stack Next.js, TypeScript, and Firebase safety platform",
+        body: "Built DAAK using Next.js, TypeScript, and Firebase to facilitate structured crime reporting, instant SOS alerts, and real-time data management for public safety monitoring.",
+        artifact: "daak/firebase -> live SOS alert dispatch & real-time crime feed"
+      },
+      frictionFix: {
+        stage: "04 · Friction & Fix",
+        heading: "Rapid repeated SOS triggers created duplicate live alert rows",
+        body: "High-stress panic clicks and unvalidated report payloads risked flooding live listeners. Added TypeScript schema validation and idempotent SOS dispatch guards.",
+        artifact: "fix -> deduplicated Firebase SOS writes & verified status updates"
+      }
+    }
+  },
+  {
+    id: "perf-nlp",
+    spineCode: "CASE 03",
+    title: "PERF NLP",
+    subtitle: "LLM cascade benchmark re-annotation",
+    year: "2026",
+    repoUrl: "https://github.com/zeedan27",
+    stack: ["Python", "LLM Cascade", "Prompt Ensemble", "SST-2", "SNLI", "HateXplain"],
+    pages: {
+      observation: {
+        stage: "01 · Observation",
+        heading: "Are NLP gold-standard benchmark labels truly golden?",
+        body: "Investigating standard NLP benchmarks under Asst. Prof. Md. Tarek Hasan exposed noisy and ambiguous ground-truth labels across sentiment, NLI, and hate-speech datasets.",
+        artifact: "research audit -> label noise in SST-2, SNLI & HateXplain"
+      },
+      research: {
+        stage: "02 · Research & Gap",
+        heading: "Single-pass LLM relabeling amplifies single-prompt bias",
+        body: "Using one prompt template or a single model pass to audit thousands of benchmark rows either missed subtle annotation errors or wasted inference budget.",
+        artifact: "gap -> single-prompt judges drift on borderline gold labels"
+      },
+      build: {
+        stage: "03 · The Build",
+        heading: "LLM cascade and prompt-ensemble re-annotation pipeline (PERF)",
+        body: "Developed the PERF pipeline combining multi-stage LLM cascades with prompt-ensemble consensus to audit and refine ground-truth labels across SST-2, SNLI, and HateXplain.",
+        artifact: "perf/cascade.py -> ensemble consensus across 3 NLP benchmarks"
+      },
+      frictionFix: {
+        stage: "04 · Friction & Fix",
+        heading: "Disputed multi-annotator rows caused ensemble tie votes",
+        body: "Ambiguous entailment pairs in SNLI and rationale spans in HateXplain produced split ensemble votes. Added confidence-weighted tie-breaking and adjudication prompts.",
+        artifact: "adjudicator -> deterministic ground-truth refinement on ties"
+      }
+    }
+  },
+  {
+    id: "papyr",
+    spineCode: "CASE 04",
     title: "Papyr",
     subtitle: "Chunked RAG exam compiler",
     year: "2025",
@@ -109,7 +214,7 @@ export const caseStudyBooks = [
   },
   {
     id: "scope-baton",
-    spineCode: "CASE 02",
+    spineCode: "CASE 05",
     title: "S.C.O.P.E.",
     subtitle: "Deterministic agent gates",
     year: "2026",
@@ -141,111 +246,6 @@ export const caseStudyBooks = [
         artifact: "tiered gate -> sub-2m hotfixes, gated architectural slices"
       }
     }
-  },
-  {
-    id: "skillverify",
-    spineCode: "CASE 03",
-    title: "SkillVerify",
-    subtitle: "Sandboxed code evaluation",
-    year: "2025",
-    repoUrl: "https://github.com/zeedan27/skillverify-platform",
-    stack: ["TypeScript", "Docker", "PostgreSQL", "React"],
-    pages: {
-      observation: {
-        stage: "01 · Observation",
-        heading: "Take-home coding assessments rewarded copy-pasted boilerplate",
-        body: "Reviewing junior screening tasks showed candidates submitting identical repositories with zero test coverage, while automated judges lacked rubric traceability.",
-        artifact: "audit -> 60% submissions failed hidden boundary inputs"
-      },
-      research: {
-        stage: "02 · Research & Gap",
-        heading: "Binary pass/fail hides time complexity and error handling",
-        body: "Standard online judges only printed Accepted or Wrong Answer, giving hiring teams zero visibility into edge-case resilience, memory caps, or code structure.",
-        artifact: "gap -> missing deterministic resource telemetry per run"
-      },
-      build: {
-        stage: "03 · The Build",
-        heading: "Isolated container runner with weighted rubric scoring",
-        body: "Built ephemeral Docker sandboxes that execute untrusted submissions with strict CPU/RAM quotas, streaming stdout/stderr logs into a structured PostgreSQL rubric table.",
-        artifact: "runner -> 1.8s median cold sandbox execution"
-      },
-      frictionFix: {
-        stage: "04 · Friction & Fix",
-        heading: "Orphaned child processes stalled container cleanup",
-        body: "Infinite loops inside user binaries left zombie subprocesses holding container file locks. Switched to cgroup pid limits and SIGKILL process-group reaping on timeout.",
-        artifact: "cgroup reap -> 100% container teardown under timeout load"
-      }
-    }
-  },
-  {
-    id: "daak",
-    spineCode: "CASE 04",
-    title: "Daak SOS",
-    subtitle: "Offline civic emergency relay",
-    year: "2025",
-    repoUrl: "https://github.com/zeedan27/Daak",
-    stack: ["Kotlin", "Android", "PostGIS", "Supabase"],
-    pages: {
-      observation: {
-        stage: "01 · Observation",
-        heading: "Emergency reporting apps fail when mobile data drops",
-        body: "During crowded transit incidents in Dhaka, cellular data stalls first, rendering web-only panic buttons useless when someone needs nearby verification fastest.",
-        artifact: "field test -> 3G/4G packet timeout in congested zones"
-      },
-      research: {
-        stage: "02 · Research & Gap",
-        heading: "Centralized dispatch portals miss local SMS fallback",
-        body: "Consumer reporting tools assumed persistent HTTPS websockets, omitting compressed SMS coordinate payloads and spatial clustering for false-alarm filtering.",
-        artifact: "gap -> zero offline transport fallback in local safety apps"
-      },
-      build: {
-        stage: "03 · The Build",
-        heading: "Kotlin dual-transport dispatcher backed by PostGIS zones",
-        body: "Implemented a hardware-button trigger that attempts HTTPS geofenced broadcast first and falls back to compact GPS coordinates over native SMS.",
-        artifact: "daak/relay -> 118-byte compressed SOS payload fits 1 SMS"
-      },
-      frictionFix: {
-        stage: "04 · Friction & Fix",
-        heading: "Background GPS polling drained student battery rapidly",
-        body: "Continuous high-accuracy location listeners halved battery life in four hours. Replaced polling with passive geofence transitions and on-trigger fused location bursts.",
-        artifact: "fused burst -> under 2% idle daily battery draw"
-      }
-    }
-  },
-  {
-    id: "shishucare",
-    spineCode: "CASE 05",
-    title: "Shishu Care",
-    subtitle: "Offline maternal health tracker",
-    year: "2025",
-    repoUrl: "https://github.com/zeedan27/ShishuCare",
-    stack: ["Kotlin", "Room SQLite", "WorkManager", "REST"],
-    pages: {
-      observation: {
-        stage: "01 · Observation",
-        heading: "Community clinics track immunization schedules on paper cards",
-        body: "Visiting peri-urban healthcare records showed missed follow-up vaccines whenever paper cards were misplaced or rural clinics lost connectivity during intake.",
-        artifact: "clinic flow -> paper ledger re-entry delayed updates"
-      },
-      research: {
-        stage: "02 · Research & Gap",
-        heading: "Online-first patient portals lose unsubmitted triage forms",
-        body: "Web forms cleared partial child growth entries whenever session tokens expired offline, forcing health workers to re-interview mothers.",
-        artifact: "gap -> zero deterministic conflict resolution offline"
-      },
-      build: {
-        stage: "03 · The Build",
-        heading: "Room SQLite local source with WorkManager delta sync",
-        body: "Architected an Android client where every vaccine milestone writes immediately to encrypted local Room tables and queues idempotent deltas when connectivity returns.",
-        artifact: "sync engine -> zero lost intake forms across offline drops"
-      },
-      frictionFix: {
-        stage: "04 · Friction & Fix",
-        heading: "Duplicate patient rows appeared after multi-device edits",
-        body: "Two nurses editing the same child record offline created colliding primary keys on sync. Introduced UUIDv7 client keys and field-level timestamp reconciliation.",
-        artifact: "uuidv7 merge -> deterministic idempotent clinic sync"
-      }
-    }
   }
 ];
 
@@ -263,40 +263,40 @@ export const projectsData = [
     stack: ["TypeScript", "FastAPI", "SQLite"]
   },
   {
-    id: "prompt-eval-proj",
-    shortName: "prompt-eval",
-    title: "Benchmark LLMs against indirect prompt injections",
+    id: "perf-nlp-proj",
+    shortName: "PERF NLP",
+    title: "Audit NLP benchmark gold labels with LLM cascades",
     description:
-      "Python evaluation suite running adversarial OWASP payloads and tracking policy bypass latency.",
-    repoUrl: "https://github.com/zeedan27/llm-prompt-injection-eval",
+      "PERF runs an LLM cascade and prompt-ensemble re-annotation pipeline across SST-2, SNLI, and HateXplain datasets.",
+    repoUrl: "https://github.com/zeedan27",
     fragment: "terminal-run",
     loop: false,
     groundSeed: 37,
-    stack: ["Python", "Ollama", "Pytest"]
+    stack: ["Python", "LLM Cascade", "NLP"]
   },
   {
     id: "skillverify-proj",
     shortName: "SkillVerify",
-    title: "Score untrusted code inside isolated sandboxes",
+    title: "Automate skill verification and verified CV generation",
     description:
-      "SkillVerify queues candidate submissions through resource-capped Docker runners with live rubric status.",
+      "Full-stack NestJS and React platform with anti-cheat assessment quizzes, personalized learning modules, and role-based workflows.",
     repoUrl: "https://github.com/zeedan27/skillverify-platform",
     fragment: "window",
     loop: false,
     groundSeed: 62,
-    stack: ["React", "Docker", "PostgreSQL"]
+    stack: ["NestJS", "React", "TypeScript"]
   },
   {
     id: "daak-proj",
-    shortName: "Daak",
-    title: "Relay verified alerts across offline Android channels",
+    shortName: "DAAK",
+    title: "Coordinate crime reporting and real-time SOS alerts",
     description:
-      "Daak SOS and Shishu Care persist local field state in Room SQLite and synchronize deltas when online.",
+      "Full-stack Next.js, TypeScript, and Firebase web platform for public safety incident reporting and real-time data management.",
     repoUrl: "https://github.com/zeedan27/Daak",
     fragment: "checklist",
     loop: false,
     groundSeed: 89,
-    stack: ["Kotlin", "Android", "PostGIS"]
+    stack: ["Next.js", "TypeScript", "Firebase"]
   }
 ];
 
@@ -407,61 +407,61 @@ export const workflowsData = [
 export const skillsData = [
   {
     category: "Languages",
-    items: "TypeScript, JavaScript, Python, C++, Java, Kotlin, SQL",
+    items: "Python, JavaScript, TypeScript, C/C++, Java, SQL, HTML, CSS",
     icons: [
-      { name: "TypeScript", icon: "/assets/icons/typescript.svg" },
       { name: "Python", icon: "/assets/icons/python.svg" },
+      { name: "TypeScript", icon: "/assets/icons/typescript.svg" },
+      { name: "JavaScript", icon: "/assets/icons/javascript.svg" },
       { name: "C++", icon: "/assets/icons/c-plusplus.svg" },
-      { name: "Kotlin", icon: "/assets/icons/kotlin.svg" }
+      { name: "Java", icon: "/assets/icons/java.svg" }
     ]
   },
   {
-    category: "Frontend and Mobile",
-    items: "React, Vite, HTML5, CSS3, Android Jetpack & Room",
+    category: "Frameworks and Web",
+    items: "React, Next.js, NestJS, REST APIs, Role-Based Authentication, Responsive Web UI",
     icons: [
       { name: "React", icon: "/assets/icons/react.svg" },
-      { name: "Vite", icon: "/assets/icons/vitejs.svg" },
-      { name: "JavaScript", icon: "/assets/icons/javascript.svg" }
+      { name: "TypeScript", icon: "/assets/icons/typescript.svg" },
+      { name: "Vite", icon: "/assets/icons/vitejs.svg" }
     ]
   },
   {
-    category: "Backend and Data",
-    items: "FastAPI, Node.js, PostgreSQL, Supabase, SQLite, PostGIS",
+    category: "Databases and Backend",
+    items: "Firebase, SQL, ER/Schema Modeling, FastAPI, PostgreSQL",
     icons: [
-      { name: "FastAPI", icon: "/assets/icons/fastapi.svg" },
       { name: "PostgreSQL", icon: "/assets/icons/postgres.svg" },
-      { name: "Supabase", icon: "/assets/icons/supabase.svg" }
+      { name: "Supabase", icon: "/assets/icons/supabase.svg" },
+      { name: "FastAPI", icon: "/assets/icons/fastapi.svg" }
     ]
   },
   {
-    category: "AI and Security",
-    items: "Prompt injection evaluation, RAG chunking, LangChain, PyTorch, Ollama",
+    category: "Data Science and ML",
+    items: "LLM Cascades (PERF), Data Analysis, CNNs, Image Segmentation, Morphological Operations",
     icons: [
       { name: "PyTorch", icon: "/assets/icons/pytorch.svg" },
-      { name: "LangChain", icon: "/assets/icons/langchain.svg" },
-      { name: "Ollama", icon: "/assets/icons/ollama.svg" }
+      { name: "Python", icon: "/assets/icons/python.svg" },
+      { name: "Hugging Face", icon: "/assets/icons/hugging-face.svg" }
     ]
   },
   {
-    category: "Infrastructure",
-    items: "Docker, Linux, Git, GitHub Actions, n8n workflows, Cloudflare Pages",
+    category: "Tools and Certifications",
+    items: "Git, GitHub, VS Code, Claude Code, AI-Assisted Development · IBM Data Science Foundations",
     icons: [
+      { name: "GitHub", icon: "/assets/icons/github.svg" },
+      { name: "Anthropic", icon: "/assets/icons/anthropic.svg" },
       { name: "Docker", icon: "/assets/icons/docker.svg" },
-      { name: "Linux", icon: "/assets/icons/linux-tux.svg" },
-      { name: "n8n", icon: "/assets/icons/n8n.svg" },
       { name: "Cloudflare", icon: "/assets/icons/cloudflare.svg" }
     ]
   }
 ];
 
 export const contactData = {
-  heading: "Open for engineering internships and security roles",
-  lead: "Based in Dhaka (UTC+6). Direct replies within 24 hours via ztkhan000@gmail.com.",
+  heading: "Seeking a software engineering internship",
+  lead: "Based in Mohammadpur, Dhaka (UTC+6). Direct replies within 24 hours via ztkhan000@gmail.com.",
   email: "ztkhan000@gmail.com",
-  phone: "+880-1738-262554",
-  location: "Dhaka, Bangladesh",
+  phone: "+880 1738-262554",
+  location: "Mohammadpur, Dhaka",
   githubUrl: "https://github.com/zeedan27",
   linkedinUrl: "https://linkedin.com/in/zesrabkhan",
-  cvPdfUrl: "/Zesrab-Tanjeel-Khan_CV.pdf",
-  cvHtmlUrl: "/cv.html"
+  cvPdfUrl: "/cv/Zesrab-Tanjeel-Khan_CV.pdf"
 };

@@ -26,7 +26,7 @@
 }
 
 .hero-spot__canvas {
-  background: #0a0d14 url('/front.jpg') 68% 22% / cover no-repeat;
+  background: #0a0d14 url('/images/front.jpg') 68% 22% / cover no-repeat;
 }
 
 .hero-spot__layout {

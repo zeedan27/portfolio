@@ -7,8 +7,8 @@
 
 ## 2. Spotlight Reveal Hero (`heroSpotlight.js`)
 - **Layer Stacking inside `100svh` `.hero`:**
-  - `.hero__layer--front` renders `/front.jpg` (studio portrait, natural dark obsidian void on left & bottom-right).
-  - `.hero__layer--back` renders `/back.jpg` (`S-07 Tactical Unit` HUD exosuit) directly aligned (`object-position: 62% 38%` / responsive crop) underneath a smoothed feathered radial `mask-image`.
+  - `.hero__layer--front` renders `/images/front.jpg` (studio portrait, natural dark obsidian void on left & bottom-right).
+  - `.hero__layer--back` renders `/images/back.jpg` (`S-07 Tactical Unit` HUD exosuit) directly aligned (`object-position: 62% 38%` / responsive crop) underneath a smoothed feathered radial `mask-image`.
 - **Smooth Trailing Feathered Flashlight:**
   - `requestAnimationFrame` lerps `curX += (tgtX - curX) * 0.14` and `curY += (tgtY - curY) * 0.14`.
   - Soft penumbra stop curve (`100%` solid core to `0%` transparent edge over `270px` desktop / `175px` mobile radius) so the circle never looks hard-edged.

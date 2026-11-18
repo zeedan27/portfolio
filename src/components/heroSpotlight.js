@@ -1,9 +1,9 @@
 /**
  * Spotlight Reveal Physics on a single <canvas class="layer"> inside the 100svh hero section.
- * Composites `/front.jpg` (top studio portrait) with `/back.jpg` (S-07 Tactical Unit HUD)
+ * Composites `/images/front.jpg` (top studio portrait) with `/images/back.jpg` (S-07 Tactical Unit HUD)
  * inside a feathered radial flashlight buffer tracked with smooth exponential interpolation (lerp).
  */
-export function initHeroSpotlight() {
+export function initHeroSpotlight(heroConfig = {}) {
   const hero = document.querySelector(".hero--spotlight");
   const canvas = document.getElementById("hero-spotlight-canvas");
   if (!hero || !canvas) return;
@@ -18,8 +18,8 @@ export function initHeroSpotlight() {
 
   const frontImg = new Image();
   const backImg = new Image();
-  frontImg.src = "/front.jpg";
-  backImg.src = "/back.jpg";
+  frontImg.src = heroConfig.frontImage || "/images/front.jpg";
+  backImg.src = heroConfig.backImage || "/images/back.jpg";
 
   const spotCanvas = document.createElement("canvas");
   const spotCtx = spotCanvas.getContext("2d");

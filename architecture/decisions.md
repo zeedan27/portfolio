@@ -1,7 +1,7 @@
 # Architecture Decision Records (ADR Log)
 
 ## ADR-001: Host on Cloudflare Pages (Tier T1 Static/Edge)
-- **Context:** The portfolio uses a dual full-screen `100dvh` Spotlight Hero (`front.jpg` + `back.jpg` totaling ~1.17 MB) plus PDF CV and project showcases.
+- **Context:** The portfolio uses a dual full-screen `100dvh` Spotlight Hero (`public/images/front.jpg` + `public/images/back.jpg` totaling ~1.17 MB) plus PDF CV and project showcases (`public/cv/`).
 - **Decision:** Deploy via GitHub integration to **Cloudflare Pages** with `public/_headers`.
 - **Consequences:** Unlimited static bandwidth and requests at \$0, 500 builds/month, automatic HTTPS, instant rollbacks, and zero non-commercial or AI-training terms restrictions (compared to Vercel Hobby ToS §2/§4, Firebase 360 MB/day cap, Render 5 GB/month cap, and Netlify 300-credit cap).
 

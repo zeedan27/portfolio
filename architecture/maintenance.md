@@ -1,14 +1,13 @@
 # Maintenance, Asset Swap & Deployment Runbook
 
-## 1. Swapping the Hero Spotlight Images (`front.jpg` & `back.jpg`)
+## 1. Swapping the Hero Spotlight Images (`public/images/front.jpg` & `public/images/back.jpg`)
 1. Prepare two identically framed images (same aspect ratio & subject alignment).
-2. Replace `public/front.jpg` (default visible image) and `public/back.jpg` (spotlight-revealed image).
-   - Optionally keep root `front.jpg` / `back.jpg` synced if testing standalone previews.
+2. Replace `public/images/front.jpg` (default visible image) and `public/images/back.jpg` (spotlight-revealed image), and update `public/images/share.jpg` if changing the social preview.
 3. Run `npm run build` and preview locally with `npm run preview`.
 
 ## 2. Updating Projects, Case Studies & Resume
 - Edit `src/data/portfolioData.js` following `architecture/schemas.md`.
-- To update the downloadable resume PDF or interactive ATS CV, replace `public/Zesrab-Tanjeel-Khan_CV.pdf` and `public/cv.html`.
+- To update the downloadable resume PDF, replace `public/cv/Zesrab-Tanjeel-Khan_CV.pdf`.
 - Run `npm test` to confirm all schema invariants and asset checks pass.
 
 ## 3. Deploying to Cloudflare Pages

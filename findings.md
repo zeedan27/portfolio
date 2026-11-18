@@ -22,6 +22,6 @@
 | **12** | **Error Tracking & Logs** | **Lite** | Defensive UI fallbacks + `progress.md` + `npm test` | Schema validation tests + graceful fallback UI. | Add Cloudflare Web Analytics on custom domain launch. |
 
 ## 3. Asset & Alignment Constraints
-- User supplied `front.jpeg` (540,898 bytes) and `back.jpg` (628,012 bytes) with matching subject framing (studio portrait on dark void vs. `S-07 Tactical Unit` HUD exosuit).
-- Both files are mirrored to `public/front.jpg` and `public/back.jpg` (with `public/front.jpeg` also preserved) so root/relative swaps of `front.jpg` and `back.jpg` work seamlessly.
+- User supplied `front.jpg` (540,898 bytes) and `back.jpg` (628,012 bytes) with matching subject framing (studio portrait on dark void vs. `S-07 Tactical Unit` HUD exosuit).
+- Images are organized under `public/images/` (`front.jpg`, `back.jpg`, `share.jpg`) and resume documents under `public/cv/` (`Zesrab-Tanjeel-Khan_CV.pdf`, `cv.html`), with duplicate root files removed.
 - Left-side text overlay requires a soft horizontal dark scrim so white/cyan monospace typography maintains >= 7:1 contrast while keeping the portrait crisp on the right (`62% center`).

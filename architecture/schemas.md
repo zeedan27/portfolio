@@ -11,8 +11,8 @@ interface HeroConfig {
   description: string;
   primaryCta: { label: string; href: string; external?: boolean };
   secondaryCta: { label: string; href: string };
-  frontImage: "/front.jpg";
-  backImage: "/back.jpg";
+  frontImage: "/images/front.jpg";
+  backImage: "/images/back.jpg";
   stats: Array<{ label: string; value: string }>; // Exactly 3 bottom-right telemetry stats
 }
 ```
@@ -60,4 +60,4 @@ interface CaseStudyBook {
 - `archiveRepos`: 5 public GitHub repositories under `@zeedan27` rendered in the archive list.
 - `workflowsData`: 4 autonomous pipelines each defining a `diagram` spec (`layout: "lanes"`, `input`, `core`, `lanes`) rendered by `assets/diagrams/diagram.js`.
 - `skillsData`: 5 capability rows pairing real domain expertise with fetched local SVG icons (`/assets/icons/*.svg`).
-- `contactData`: Closing statement, `email: "ztkhan000@gmail.com"`, CV PDF & HTML paths, GitHub, and LinkedIn links.
+- `contactData`: Closing statement, `email: "ztkhan000@gmail.com"`, CV PDF path (`/cv/Zesrab-Tanjeel-Khan_CV.pdf`), GitHub, and LinkedIn links.

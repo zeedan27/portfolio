@@ -47,11 +47,10 @@ test("S.C.O.P.E. governance and architecture documentation exist", () => {
 
 test("Public hero images, CV assets, favicon, and taste-skill kit assets exist", () => {
   const requiredPublic = [
-    "public/front.jpg",
-    "public/front.jpeg",
-    "public/back.jpg",
-    "public/Zesrab-Tanjeel-Khan_CV.pdf",
-    "public/cv.html",
+    "public/images/front.jpg",
+    "public/images/back.jpg",
+    "public/images/share.jpg",
+    "public/cv/Zesrab-Tanjeel-Khan_CV.pdf",
     "public/_headers",
     "public/favicon.svg",
     "public/assets/system.css",
@@ -68,11 +67,31 @@ test("Public hero images, CV assets, favicon, and taste-skill kit assets exist",
     assert.ok(fs.existsSync(absPath), `Missing public asset: ${relPath}`);
     assert.ok(fs.statSync(absPath).size > 50, `Unexpectedly small asset: ${relPath}`);
   }
+
+  const removedDuplicates = [
+    "front.jpg",
+    "front.jpeg",
+    "back.jpg",
+    "public/front.jpg",
+    "public/front.jpeg",
+    "public/back.jpg",
+    "public/share.jpg",
+    "public/Zesrab-Tanjeel-Khan_CV.pdf",
+    "public/cv.html",
+    "public/cv/cv.html"
+  ];
+
+  for (const relPath of removedDuplicates) {
+    assert.ok(!fs.existsSync(path.join(rootDir, relPath)), `Unarranged/duplicate file should not exist: ${relPath}`);
+  }
 });
 
 test("HeroConfig and navLinks match Spotlight Reveal and taste-skill constraints", () => {
-  assert.equal(heroData.frontImage, "/front.jpg");
-  assert.equal(heroData.backImage, "/back.jpg");
+  assert.equal(heroData.frontImage, "/images/front.jpg");
+  assert.equal(heroData.backImage, "/images/back.jpg");
+  assert.equal(heroData.primaryCta.href, "/cv/Zesrab-Tanjeel-Khan_CV.pdf");
+  assert.equal(contactData.cvPdfUrl, "/cv/Zesrab-Tanjeel-Khan_CV.pdf");
+  assert.equal(contactData.cvHtmlUrl, undefined);
   assert.equal(heroData.stats.length, 3);
   assert.ok(heroData.headline.length > 10);
   assert.equal(heroData.primaryCta.label, "Download CV");
@@ -141,8 +160,11 @@ test("HTML & CSS implement taste-skill structure and dual-layer Spotlight Reveal
   );
 
   assert.ok(fs.existsSync(tasteSkillPath), "design-taste-frontend SKILL.md should be installed globally");
-  assert.ok(html.includes('href="/front.jpg"'), "index.html should preload /front.jpg");
-  assert.ok(html.includes('href="/back.jpg"'), "index.html should preload /back.jpg");
+  assert.ok(html.includes('href="/images/front.jpg"'), "index.html should preload /images/front.jpg");
+  assert.ok(html.includes('href="/images/back.jpg"'), "index.html should preload /images/back.jpg");
+  assert.ok(html.includes('content="/images/share.jpg"'), "index.html should set og:image /images/share.jpg");
+  assert.ok(html.includes('href="/cv/Zesrab-Tanjeel-Khan_CV.pdf"'), "index.html should link /cv/Zesrab-Tanjeel-Khan_CV.pdf");
+  assert.ok(css.includes("url('/images/front.jpg')"), "page.css should use /images/front.jpg fallback");
   assert.ok(html.includes('data-type="software"'), "index.html should declare data-type=software");
   assert.ok(html.includes('data-ground="sky"'), "index.html should declare lit UI ground");
   assert.ok(html.includes("Instrument Sans"), "index.html should load Instrument Sans");

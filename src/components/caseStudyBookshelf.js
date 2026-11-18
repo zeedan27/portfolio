@@ -10,11 +10,11 @@ const PAGE_KEYS = [
 ];
 
 const BOOK_ICONS = {
-  papyr: "/assets/icons/typescript.svg",
-  "scope-baton": "/assets/icons/n8n.svg",
-  skillverify: "/assets/icons/docker.svg",
-  daak: "/assets/icons/kotlin.svg",
-  shishucare: "/assets/icons/postgres.svg"
+  skillverify: "/assets/icons/typescript.svg",
+  daak: "/assets/icons/react.svg",
+  "perf-nlp": "/assets/icons/python.svg",
+  papyr: "/assets/icons/fastapi.svg",
+  "scope-baton": "/assets/icons/n8n.svg"
 };
 
 function escapeHtml(str) {
