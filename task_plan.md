@@ -1,6 +1,6 @@
 # Task Plan — Cycle 02: Portfolio Evolution & Companion n8n Repo (`Track A: Delta S.C.O.P.E.`)
 
-## Active Status: **Phase 4 — Polish** (Phase 3 Checkpoint Approved)
+## Active Status: **Phase 5 — Execution (Gate 2)** (Phase 4 Checkpoint Approved)
 
 ### Context Sync & Cycle Rollover (Completed)
 - [x] Read updated `scope` skill (`SKILL.md`, `references/skills-and-safety.md`, `references/stack-matrix.md`, `templates/AGENTS.template.md`)
@@ -68,9 +68,17 @@
 - [x] Remediate `consistency.mjs` and `check.mjs` findings across `src/data/portfolioData.js`, `src/components/sections.js`, `index.html`, and `src/styles/page.css` (`<= 5` files)
 - [x] Run `npm test`, `npm run build`, `copy-lint.mjs`, `check.mjs` (all 5 viewports), `consistency.mjs --quick`, `perf.mjs`, and `gate.mjs` (`GATE: PASS`)
 - [x] Run desktop and mobile interactive verification via `browser` subagent against local preview server
-- [ ] **Phase 4 Checkpoint — Stop:** Wait for user sign-off before advancing to Phase 5 (`Execution / Gate 2`)
+- [x] **Phase 4 Checkpoint — Approved:** User approved advancing to Phase 5 (`Proceed`) on `2026-11-24`.
 
 ---
 
-### High-Level Phase 5 Placeholder (Expanded after Phase 4 Checkpoint)
-- [ ] **Phase 5 — Execution (Gate 2):** Run `requesting-code-review`, verify `dev.zesrab.pages.dev` preview via `/browser`, merge `dev` → `main`, verify live `zesrab.pages.dev`, and record learnings.
+### Phase 5: Execution & Gate 2 — Detailed Plan (Active — Stop at Gate 2 Before `main` Merge)
+- [x] Read `references/caching-and-scaling.md`, `references/skills-and-safety.md` (Deploy Rule), `requesting-code-review/SKILL.md`, `wrangler/SKILL.md`, `architecture/maintenance.md`, `public/_headers`, and `.gitignore`
+- [ ] Fresh `npm test` (`8/8`) and `npm run build` pass on `dev`
+- [ ] Dependency security audit clean (`npm audit`: `0` vulnerabilities)
+- [ ] Secret scan clean (`gitleaks git` on `D:\Tasks\portfolio` & `D:\Tasks\n8n-automations`, plus `npm --prefix D:\Tasks\n8n-automations run check`: `6/6 PASS`, `.env.example` & `.gitignore` verified)
+- [ ] Final fresh-context code review completed via `requesting-code-review` (`26318d8..HEAD`) with `0` unfixed Critical/Important issues
+- [ ] Caching/security headers (`public/_headers`) and rollback runbook (`architecture/maintenance.md` §4) verified; Deferred layers confirmed (`Auth`, `RLS`, `DB Migrations`, `Health Probes` — Deferred per `findings.md` Layer Decision Table; `Rate Limiting` & `Cost Caps` — Cloudflare Pages Free Tier Edge DDoS)
+- [ ] Push committed `dev` branch (`git push origin dev`) per Deploy Rule (`git status` clean, staging/preview first)
+- [ ] Live staging smoke test passed via `browser` subagent on `https://dev.zesrab.pages.dev/` (desktop `1440×900` & mobile `390×844`)
+- [ ] **🛑 Gate 2 Hard Stop:** Present Gate 2 proof & live preview URL (`https://dev.zesrab.pages.dev/`) and await explicit user approval before merging `dev` → `main` and verifying `https://zesrab.pages.dev/`
