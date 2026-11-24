@@ -234,4 +234,16 @@ test("HTML & CSS implement taste-skill structure and dual-layer Spotlight Reveal
   assert.ok(html.includes("assets/system.css"), "index.html should link verbatim system.css");
   assert.ok(css.includes(".hero-spot__canvas"), "page.css must style spotlight canvas layer");
   assert.ok(css.includes(".frame.ui.app.cases-app"), "page.css must define two-pane bookshelf frame");
+  assert.ok(css.includes(".about-domain") && css.includes(".about-research") && css.includes(".about-courses"), "page.css must style decluttered #about domains");
+  assert.ok(!css.includes("writing-mode: vertical-rl"), "page.css must render horizontal .book-spine rows, not rotated vertical spines");
+  assert.ok(css.includes("flex-wrap: wrap"), "page.css .reader-tabs must wrap cleanly for variable stage counts");
+
+  assert.ok(!html.includes("\u2014"), "index.html must contain zero em-dashes");
+  assert.ok(!html.includes("B.Sc. in Data Science"), "index.html must not misstate degree as B.Sc. in Data Science");
+  assert.ok(html.includes("Computer Science and Engineering"), "index.html must state CSE degree");
+  assert.ok(html.includes("01 / 07"), "index.html SSR shelf must indicate 01 / 07 volumes");
+  assert.ok(html.includes("zeedan27/mindweave") && html.includes("zeedan27/papyr") && html.includes("zeedan27/skillverify") && html.includes("zeedan27/daak-app"), "index.html SSR #projects must render all 4 flagship repo links");
+  assert.ok(html.includes("zeedan27/ShishuCare") && html.includes("zeedan27/n8n-automations"), "index.html SSR #stack must include ShishuCare and n8n-automations");
+  assert.ok(!html.includes("llm-prompt-injection-eval"), "index.html must omit excluded prompt-eval repo");
+  assert.ok(!html.includes("zeedan27/zeedan27"), "index.html must omit excluded zeedan27 profile repo");
 });

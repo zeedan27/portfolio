@@ -132,13 +132,99 @@
   }
 }
 
-/* ------------------------------------------------ About Split + Hub Panel */
-.about-note {
-  padding-top: var(--s-4);
+/* ------------------------------------------------ About 3-Domain Split + Workflow Panel */
+.about-lead {
+  margin-top: var(--s-2);
+  max-width: 65ch;
+  color: var(--muted);
+}
+
+.about-col {
+  display: grid;
+  gap: var(--s-5);
+  align-content: start;
+}
+
+.about-domain {
+  display: grid;
+  gap: var(--s-3);
+}
+
+.about-domain__title {
+  font-size: var(--t-small);
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.about-work__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--s-3);
+  padding-top: var(--s-2);
   border-top: 1px solid var(--line);
 }
 
-.about-panel,
+.about-courses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.about-courses > span {
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  font-size: var(--t-label);
+  color: var(--ink);
+  background: var(--bg);
+}
+
+.about-courses--light > span {
+  background: var(--ground-bg);
+  border-color: color-mix(in oklab, #1e293b 22%, transparent);
+  color: #1e293b;
+}
+
+.about-list {
+  margin: 0;
+  padding-left: var(--s-4);
+  display: grid;
+  gap: var(--s-2);
+  color: var(--muted);
+}
+
+.about-research {
+  display: grid;
+  gap: var(--s-3);
+  align-content: start;
+  padding: var(--s-5);
+  border-radius: var(--r-lg);
+  background: var(--ground-surface);
+  color: #1e293b;
+  --ink: #1e293b;
+  --muted: #25303a;
+  --line: color-mix(in oklab, #1e293b 18%, transparent);
+}
+
+.about-research__title {
+  font-size: var(--t-h3);
+  line-height: 1.2;
+  color: #0a0d14;
+}
+
+.about-research__head {
+  font-size: var(--t-label);
+  color: #0f4c81;
+  font-weight: 500;
+}
+
+.about-research__pipe {
+  font-size: var(--t-label);
+  color: #0f4c81;
+  font-weight: 500;
+}
+
 .workflow-panel {
   --p-h: 440px;
   min-height: 440px;
@@ -157,14 +243,12 @@
   color: #1e293b;
 }
 
-.about-panel .dg,
 .workflow-panel .dg {
   flex: 1 1 auto;
   min-height: 320px;
 }
 
 @media (max-width: 1023px) {
-  .about-panel,
   .workflow-panel {
     --p-h: 320px;
     min-height: 320px;
@@ -172,14 +256,16 @@
 }
 
 @media (max-width: 639px) {
-  .about-panel,
+  .about-research {
+    padding: var(--s-4);
+  }
+
   .workflow-panel {
     --p-h: 220px;
     min-height: 220px;
     padding: var(--s-3);
   }
 
-  .about-panel .dg,
   .workflow-panel .dg {
     min-height: 200px;
   }
@@ -202,7 +288,7 @@
 }
 
 .cases-app__shelf {
-  flex: 5 1 0;
+  flex: 4 1 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -214,19 +300,21 @@
 
 .cases-app__spines {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: var(--s-3);
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--s-2);
+  align-content: start;
   flex: 1 1 auto;
-  min-height: 290px;
 }
 
 .book-spine {
   position: relative;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
-  align-items: flex-start;
-  padding: var(--s-4) var(--s-3);
+  align-items: center;
+  gap: var(--s-3);
+  min-height: 46px;
+  padding: 10px 14px;
   border: 1px solid var(--line);
   border-radius: var(--r-md);
   background: var(--surface);
@@ -237,19 +325,19 @@
 }
 
 .book-spine:hover {
-  transform: translateY(-4px);
+  transform: translateX(3px);
   border-color: var(--line-strong);
 }
 
 .book-spine[aria-selected="true"] {
   border-color: var(--accent);
   background: color-mix(in oklab, var(--accent) 14%, var(--surface));
-  transform: translateY(-6px);
 }
 
 .book-spine__code {
   font-size: var(--t-label);
   color: var(--muted);
+  flex-shrink: 0;
 }
 
 .book-spine[aria-selected="true"] .book-spine__code {
@@ -257,19 +345,18 @@
 }
 
 .book-spine__title {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: 20px;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  margin-block: auto;
+  font-size: 16px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-right: auto;
 }
 
 .book-spine__year {
   font-size: var(--t-label);
   color: var(--muted);
+  flex-shrink: 0;
 }
 
 .cases-app__hint {
@@ -319,14 +406,15 @@
 }
 
 .reader-tabs {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: var(--s-2);
 }
 
 .reader-tab {
   min-height: 44px;
   padding: 0 var(--s-3);
+  flex: 1 1 auto;
   border: 1px solid var(--line);
   border-radius: var(--r-sm);
   background: transparent;
@@ -334,7 +422,7 @@
   font-size: var(--t-label);
   font-weight: 500;
   cursor: pointer;
-  text-align: left;
+  text-align: center;
   transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease), border-color var(--dur) var(--ease);
 }
 
@@ -433,22 +521,11 @@
 
   .book-spine {
     min-height: 44px;
-    flex-direction: row;
-    align-items: center;
-    gap: var(--s-3);
     padding: 8px 12px;
   }
 
-  .book-spine__title {
-    writing-mode: horizontal-tb;
-    transform: none;
-    font-size: 16px;
-    margin-block: 0;
-    margin-right: auto;
-  }
-
-  .reader-tabs {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .reader-tab {
+    flex: 1 1 calc(50% - var(--s-2));
   }
 }
 

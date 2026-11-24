@@ -223,10 +223,10 @@ export function renderAbout(mountId, data) {
       </div>
       <div class="span-6 about-col">
         <div class="panel about-research">
+          <h3 class="about-research__title">${escapeHtml(res.title)}</h3>
           <div class="about-research__head">
             <span class="mono">${escapeHtml(res.status)} · ${escapeHtml(res.supervisor)}</span>
           </div>
-          <h3 class="about-research__title">${escapeHtml(res.title)}</h3>
           <p class="about-research__pipe mono">${escapeHtml(res.pipeline)}</p>
           <p class="t-small">${escapeHtml(res.summary)}</p>
           <div class="about-courses about-courses--light mono" aria-label="Benchmark datasets audited">
