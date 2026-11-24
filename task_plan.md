@@ -1,6 +1,6 @@
 # Task Plan — Cycle 02: Portfolio Evolution & Companion n8n Repo (`Track A: Delta S.C.O.P.E.`)
 
-## Active Status: **Phase 5 — Execution (Gate 2)** (Phase 4 Checkpoint Approved)
+## Active Status: **Cycle 02 Complete — Production Released (`https://zesrab.pages.dev/`)**
 
 ### Context Sync & Cycle Rollover (Completed)
 - [x] Read updated `scope` skill (`SKILL.md`, `references/skills-and-safety.md`, `references/stack-matrix.md`, `templates/AGENTS.template.md`)
@@ -81,4 +81,4 @@
 - [x] Caching/security headers (`public/_headers`) and rollback runbook (`architecture/maintenance.md` §4) verified; Deferred layers confirmed (`Auth`, `RLS`, `DB Migrations`, `Health Probes` — Deferred per `findings.md` Layer Decision Table; `Rate Limiting` & `Cost Caps` — Cloudflare Pages Free Tier Edge DDoS)
 - [x] Push committed `dev` branch (`git push origin dev`, `7419df3`) per Deploy Rule (`git status` clean, staging/preview first)
 - [x] Live staging smoke test passed via `browser` subagent on `https://dev.zesrab.pages.dev/` (desktop `1440×900` & mobile `390×844`)
-- [ ] **🛑 Gate 2 Hard Stop:** Present Gate 2 proof & live preview URL (`https://dev.zesrab.pages.dev/`) and await explicit user approval before merging `dev` → `main` and verifying `https://zesrab.pages.dev/`
+- [x] **🛑 Gate 2 Hard Stop — Approved & Released (`main`):** Updated `public/cv/Zesrab-Tanjeel-Khan_CV.pdf` (`140,922` bytes, `4cc2796`), merged `dev` → `main` (`3684277`), pushed `origin/main`, and verified live production at `https://zesrab.pages.dev/` (`0` console errors, HTTP `200` on CV PDF).
