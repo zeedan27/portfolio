@@ -1,21 +1,7 @@
 /**
  * Interactive Two-Pane Case-Study Bookshelf (.frame.ui.app).
- * Progressively enhances SSR/static HTML in #cases-mount or builds from `books` if empty.
+ * Dynamically renders 7 horizontal volumes and variable-length (5-6+) context-first developer thinking stages.
  */
-const PAGE_KEYS = [
-  { key: "observation", short: "01 Observation" },
-  { key: "research", short: "02 Research & Gap" },
-  { key: "build", short: "03 The Build" },
-  { key: "frictionFix", short: "04 Friction & Fix" }
-];
-
-const BOOK_ICONS = {
-  skillverify: "/assets/icons/typescript.svg",
-  daak: "/assets/icons/react.svg",
-  "perf-nlp": "/assets/icons/python.svg",
-  papyr: "/assets/icons/fastapi.svg",
-  "scope-baton": "/assets/icons/n8n.svg"
-};
 
 function escapeHtml(str) {
   return String(str)
@@ -23,6 +9,10 @@ function escapeHtml(str) {
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;");
+}
+
+function padTwo(num) {
+  return String(num).padStart(2, "0");
 }
 
 export function renderCaseStudyBookshelf(mountId, books) {
@@ -35,15 +25,15 @@ export function renderCaseStudyBookshelf(mountId, books) {
   if (!host.querySelector(".cases-app")) {
     host.innerHTML = `
       <div class="section-head section-head--row">
-        <h2 id="cases-h">Five engineering case studies <span class="muted">from shipped projects</span></h2>
+        <h2 id="cases-h">Engineering case studies <span class="muted">from problem to architecture</span></h2>
         <a class="link" href="https://github.com/zeedan27" target="_blank" rel="noopener noreferrer">Browse @zeedan27</a>
       </div>
       <div class="frame ui ui-cases-shelf app fill cases-app" role="region" aria-label="Interactive engineering case-study shelf">
         <div class="cases-app__shelf">
           <div class="cases-app__spines" role="tablist" aria-label="Engineering case volumes"></div>
           <div class="cases-app__hint mono">
-            <span>Select a volume</span>
-            <span id="shelf-counter">01 / 05</span>
+            <span>Select a project</span>
+            <span id="shelf-counter">01 / ${padTwo(books.length)}</span>
           </div>
         </div>
         <div class="cases-app__reader" id="reader-sheet">
@@ -57,7 +47,7 @@ export function renderCaseStudyBookshelf(mountId, books) {
             </div>
             <a class="link mono" id="reader-repo-link" target="_blank" rel="noopener noreferrer">Open GitHub repo</a>
           </div>
-          <div class="reader-tabs" role="tablist" aria-label="Case study stages"></div>
+          <div class="reader-tabs" role="tablist" aria-label="Developer thinking stages"></div>
           <div class="reader-body">
             <p class="reader-sheet__stage mono" id="sheet-stage"></p>
             <p class="t-card reader-sheet__heading" id="sheet-heading"></p>
@@ -93,6 +83,11 @@ export function renderCaseStudyBookshelf(mountId, books) {
   const prevBtn = host.querySelector("#case-prev-page");
   const nextBtn = host.querySelector("#case-next-page");
 
+  const getActiveStages = () => {
+    const book = books[activeBookIdx];
+    return Array.isArray(book?.stages) ? book.stages : [];
+  };
+
   const renderSpines = () => {
     spinesEl.innerHTML = books
       .map(
@@ -106,7 +101,7 @@ export function renderCaseStudyBookshelf(mountId, books) {
       >
         <span class="book-spine__code mono">${escapeHtml(b.spineCode)}</span>
         <span class="book-spine__title">${escapeHtml(b.title)}</span>
-        <span class="book-spine__year mono">${escapeHtml(b.year)}</span>
+        <span class="book-spine__year mono">${escapeHtml(b.stages?.length || 0)} steps</span>
       </button>
     `
       )
@@ -121,18 +116,20 @@ export function renderCaseStudyBookshelf(mountId, books) {
     });
   };
 
-  const renderTabs = () => {
-    tabsEl.innerHTML = PAGE_KEYS.map(
-      (p, idx) => `
+  const renderTabs = (stages) => {
+    tabsEl.innerHTML = stages
+      .map(
+        (s, idx) => `
       <button
         class="reader-tab mono"
         type="button"
         role="tab"
         aria-selected="${idx === activePageIdx}"
         data-page-index="${idx}"
-      >${escapeHtml(p.short)}</button>
+      >${escapeHtml(s.shortTab)}</button>
     `
-    ).join("");
+      )
+      .join("");
 
     tabsEl.querySelectorAll(".reader-tab").forEach((btn) => {
       btn.addEventListener("click", () => {
@@ -144,27 +141,30 @@ export function renderCaseStudyBookshelf(mountId, books) {
 
   const render = (animate = false) => {
     const book = books[activeBookIdx];
-    const pageMeta = PAGE_KEYS[activePageIdx];
-    const page = book.pages[pageMeta.key];
+    const stages = getActiveStages();
+    if (!book || !stages.length) return;
+    if (activePageIdx >= stages.length) activePageIdx = 0;
+
+    const stage = stages[activePageIdx];
 
     renderSpines();
-    renderTabs();
+    renderTabs(stages);
 
-    counterEl.textContent = `0${activeBookIdx + 1} / 0${books.length}`;
+    counterEl.textContent = `${padTwo(activeBookIdx + 1)} / ${padTwo(books.length)}`;
     titleEl.textContent = book.title;
     subEl.textContent = `${book.subtitle} · ${book.year}`;
     repoEl.href = book.repoUrl;
     repoEl.textContent = "Open GitHub repo";
-    if (iconEl) iconEl.src = BOOK_ICONS[book.id] || "/assets/icons/github.svg";
+    if (iconEl) iconEl.src = book.icon || "/assets/icons/github.svg";
 
-    stageEl.textContent = page.stage;
-    headingEl.textContent = page.heading;
-    bodyEl.textContent = page.body;
-    artifactEl.textContent = page.artifact;
+    stageEl.textContent = `${stage.step} (${activePageIdx + 1}/${stages.length})`;
+    headingEl.textContent = stage.heading;
+    bodyEl.textContent = stage.body;
+    artifactEl.textContent = stage.contextNote;
     stackEl.textContent = book.stack.join(" · ");
 
     prevBtn.disabled = activePageIdx === 0;
-    nextBtn.disabled = activePageIdx === PAGE_KEYS.length - 1;
+    nextBtn.disabled = activePageIdx === stages.length - 1;
 
     if (animate) {
       bodyWrapEl.classList.remove("is-turning");
@@ -181,14 +181,16 @@ export function renderCaseStudyBookshelf(mountId, books) {
   });
 
   nextBtn.addEventListener("click", () => {
-    if (activePageIdx < PAGE_KEYS.length - 1) {
+    const stages = getActiveStages();
+    if (activePageIdx < stages.length - 1) {
       activePageIdx += 1;
       render(true);
     }
   });
 
   sheetEl.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowRight" && activePageIdx < PAGE_KEYS.length - 1) {
+    const stages = getActiveStages();
+    if (e.key === "ArrowRight" && activePageIdx < stages.length - 1) {
       activePageIdx += 1;
       render(true);
     } else if (e.key === "ArrowLeft" && activePageIdx > 0) {

@@ -186,6 +186,29 @@ test("Projects, Workflows, Skills, Curated Repos, and Contact contain Cycle 02 r
   assert.ok(!serializedRaw.toLowerCase().includes("lorem ipsum"), "Portfolio data must never contain placeholder copy");
 });
 
+test("Interactive components implement dynamic variable-stage bookshelf, 3-domain About, and authentic fragments", () => {
+  const shelfSrc = fs.readFileSync(path.join(rootDir, "src/components/caseStudyBookshelf.js"), "utf8");
+  const sectionsSrc = fs.readFileSync(path.join(rootDir, "src/components/sections.js"), "utf8");
+  const mainSrc = fs.readFileSync(path.join(rootDir, "src/main.js"), "utf8");
+
+  assert.ok(!shelfSrc.includes("PAGE_KEYS"), "caseStudyBookshelf.js must drop hardcoded PAGE_KEYS");
+  assert.ok(!shelfSrc.includes("book.pages["), "caseStudyBookshelf.js must read book.stages[] dynamically");
+  assert.ok(shelfSrc.includes("book.stages"), "caseStudyBookshelf.js must iterate book.stages");
+  assert.ok(shelfSrc.includes("book.icon"), "caseStudyBookshelf.js must read book.icon");
+
+  assert.ok(sectionsSrc.includes("Education"), "sections.js renderAbout must render Education domain");
+  assert.ok(sectionsSrc.includes("Work experience"), "sections.js renderAbout must render Work experience domain");
+  assert.ok(sectionsSrc.includes("about-research"), "sections.js renderAbout must render dedicated research panel");
+  assert.ok(sectionsSrc.includes("Certification"), "sections.js renderAbout must render Certification domain");
+  assert.ok(sectionsSrc.includes("fragmentSpec"), "sections.js must build project fragments from proj.fragmentSpec");
+  assert.ok(sectionsSrc.includes("n8n-automations") || sectionsSrc.includes("repoUrl"), "sections.js renderWorkflows must link companion repoUrl");
+  assert.ok(mainSrc.includes("workflowsSection"), "main.js must pass workflowsSection to renderWorkflows");
+
+  for (const [name, txt] of [["caseStudyBookshelf.js", shelfSrc], ["sections.js", sectionsSrc], ["main.js", mainSrc]]) {
+    assert.ok(!txt.includes("\u2014"), `${name} must contain zero em-dashes`);
+  }
+});
+
 test("HTML & CSS implement taste-skill structure and dual-layer Spotlight Reveal", () => {
   const html = fs.readFileSync(path.join(rootDir, "index.html"), "utf8");
   const css = fs.readFileSync(path.join(rootDir, "src/styles/page.css"), "utf8");
