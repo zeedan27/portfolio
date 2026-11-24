@@ -66,7 +66,7 @@ function buildDiffFragment(spec = {}) {
 function buildTerminalFragment(spec = {}) {
   const title = escapeHtml(spec.title || "zeedan27/papyr");
   const cwd = escapeHtml(spec.cwd || "~/papyr");
-  const cmd = escapeHtml(spec.cmd || "uv run papyr build attention.pdf --acts 4");
+  const cmd = escapeHtml(spec.cmd || "papyr build paper.pdf");
   const meter = escapeHtml(spec.meter || "4 of 4 stages");
   const steps = Array.isArray(spec.steps) ? spec.steps : [];
   const done = escapeHtml(spec.done || "4-act scrollytelling MP4 ready");
@@ -195,53 +195,48 @@ export function renderAbout(mountId, data) {
     <div class="grid">
       <div class="span-6 about-col">
         <div class="about-domain">
-          <h3 class="about-domain__title mono">Education</h3>
           <ul class="rows">
             <li>
               <div>
-                <span class="rows__name">${escapeHtml(edu.institution)}</span>
-                <p class="t-small">${escapeHtml(edu.degree)} · ${escapeHtml(edu.major)}</p>
+                <span class="rows__name">${escapeHtml(edu.institution)} · Education</span>
+                <p class="t-small">${escapeHtml(edu.degree)} (${escapeHtml(edu.major)})</p>
                 <p class="t-small">${escapeHtml(edu.period)} · ${escapeHtml(edu.prior)}</p>
               </div>
               <span class="rows__value mono">CGPA ${escapeHtml(edu.cgpa)}</span>
             </li>
-          </ul>
-        </div>
-        <div class="about-domain">
-          <h3 class="about-domain__title mono">Work experience</h3>
-          <div class="about-work__head">
-            <div>
-              <span class="rows__name">${escapeHtml(work.role)}</span>
-              <p class="t-small">${escapeHtml(work.organization)}</p>
-            </div>
-            <span class="rows__value mono">${escapeHtml(work.period)}</span>
-          </div>
-          <div class="about-courses mono" aria-label="Assisted CSE courses">
-            ${(work.courses || []).map((c) => `<span>${escapeHtml(c)}</span>`).join("")}
-          </div>
-          <ul class="about-list t-small">
-            ${(work.highlights || []).map((h) => `<li>${escapeHtml(h)}</li>`).join("")}
+            <li>
+              <div>
+                <span class="rows__name">${escapeHtml(work.role)} · Work experience</span>
+                <p class="t-small">${escapeHtml(work.organization)} · ${escapeHtml((work.courses || []).join(", "))}</p>
+                <p class="t-small">${escapeHtml(work.highlights?.[0] || "")}</p>
+              </div>
+              <span class="rows__value mono">${escapeHtml(work.period)}</span>
+            </li>
+            <li>
+              <div>
+                <span class="rows__name">1-on-1 CSE Consultations</span>
+                <p class="t-small">${escapeHtml(work.highlights?.[1] || "")}</p>
+              </div>
+              <span class="rows__value mono">C/C++ · Java · SQL</span>
+            </li>
           </ul>
         </div>
       </div>
       <div class="span-6 about-col">
         <div class="panel about-research">
-          <h3 class="about-research__title">${escapeHtml(res.title)}</h3>
+          <p class="t-h3 about-research__title">${escapeHtml(res.title)}</p>
           <div class="about-research__head">
             <span class="mono">${escapeHtml(res.status)} · ${escapeHtml(res.supervisor)}</span>
           </div>
           <p class="about-research__pipe mono">${escapeHtml(res.pipeline)}</p>
           <p class="t-small">${escapeHtml(res.summary)}</p>
-          <div class="about-courses about-courses--light mono" aria-label="Benchmark datasets audited">
-            ${(res.datasets || []).map((d) => `<span>${escapeHtml(d)}</span>`).join("")}
-          </div>
+          <p class="t-small about-research__datasets mono">Benchmarks: ${escapeHtml((res.datasets || []).join(" · "))}</p>
         </div>
         <div class="about-domain">
-          <h3 class="about-domain__title mono">Certification</h3>
           <ul class="rows">
             <li>
               <div>
-                <span class="rows__name">IBM Data Science Foundations</span>
+                <span class="rows__name">IBM Data Science Foundations · Certification</span>
                 <p class="t-small">Tools, Careers &amp; Real-World Applications · May 2024</p>
               </div>
               <span class="rows__value mono">IBM</span>
@@ -317,7 +312,7 @@ export function renderWorkflows(mountId, workflowsInput) {
         </ul>
       </div>
       <div class="span-6 start-7">
-        <div class="panel workflow-panel" data-wf-panel>
+        <div class="panel workflow-panel" data-wf-panel data-m-loop>
           <div class="dg" id="workflow-diagram-host" data-diagram="${escapeHtml(JSON.stringify(workflows[0].diagram))}"></div>
         </div>
       </div>

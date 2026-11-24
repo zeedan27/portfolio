@@ -1,6 +1,6 @@
 # Task Plan — Cycle 02: Portfolio Evolution & Companion n8n Repo (`Track A: Delta S.C.O.P.E.`)
 
-## Active Status: **Phase 3 — Organization** (Phase 2 Checkpoint Approved)
+## Active Status: **Phase 4 — Polish** (Phase 3 Checkpoint Approved)
 
 ### Context Sync & Cycle Rollover (Completed)
 - [x] Read updated `scope` skill (`SKILL.md`, `references/skills-and-safety.md`, `references/stack-matrix.md`, `templates/AGENTS.template.md`)
@@ -59,10 +59,18 @@
   - [x] RED: Update HTML/CSS assertions in `tests/portfolio.test.mjs` and verify RED via `npm test`
   - [x] GREEN: Update `index.html` SSR markup and `src/styles/page.css` (`.about-domain`, `.about-research`, `.about-courses`, horizontal `.book-spine`, wrapping `.reader-tabs`) → verified `npm test` & `npm run build` → committed (`7cf0d09`)
 - [x] **Fresh Code Review & Review Fixes:** Dispatched `research` subagent for `requesting-code-review` across `371e1c8..7cf0d09`; resolved all 3 Important issues (`[data-term-next]` + 4th Papyr step, in-place `#cases` focus/tabIndex management + `#workflows` arrow-key `selectWorkflow` sync, `.cases-app__reader` `--action: #0f4c81` focus contrast) and 5 Minor polish items with TDD verification (`8/8` passing)
-- [ ] **Phase 3 Checkpoint — Stop:** Wait for user approval before entering Phase 4 (`Polish`)
+- [x] **Phase 3 Checkpoint — Approved:** User approved advancing to Phase 4 (`Proceed to phase 4`) on `2026-11-24`.
 
 ---
 
-### High-Level Phase 4–5 Placeholders (Expanded one phase at a time after each checkpoint)
-- [ ] **Phase 4 — Polish:** Read `impeccable`, `design-taste-frontend`, and `web-design-guidelines`; run `copy-lint.mjs`, `check.mjs`, `perf.mjs`, `gate.mjs`, and `/browser` desktop/mobile verification → **Stop at Phase 4 Checkpoint**.
+### Phase 4: Polish — Detailed Plan (Active — Stop at Phase 4 Checkpoint)
+- [x] Read `impeccable` (`SKILL.md`, `reference/polish.md`, `reference/audit.md`, `reference/craft-floor.md`), `design-taste-frontend` (`SKILL.md`), and `web-design-guidelines` (`SKILL.md`) via `read_file`
+- [x] Remediate `consistency.mjs` and `check.mjs` findings across `src/data/portfolioData.js`, `src/components/sections.js`, `index.html`, and `src/styles/page.css` (`<= 5` files)
+- [x] Run `npm test`, `npm run build`, `copy-lint.mjs`, `check.mjs` (all 5 viewports), `consistency.mjs --quick`, `perf.mjs`, and `gate.mjs` (`GATE: PASS`)
+- [x] Run desktop and mobile interactive verification via `browser` subagent against local preview server
+- [ ] **Phase 4 Checkpoint — Stop:** Wait for user sign-off before advancing to Phase 5 (`Execution / Gate 2`)
+
+---
+
+### High-Level Phase 5 Placeholder (Expanded after Phase 4 Checkpoint)
 - [ ] **Phase 5 — Execution (Gate 2):** Run `requesting-code-review`, verify `dev.zesrab.pages.dev` preview via `/browser`, merge `dev` → `main`, verify live `zesrab.pages.dev`, and record learnings.

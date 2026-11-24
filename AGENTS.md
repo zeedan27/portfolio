@@ -10,7 +10,7 @@ You are the **System Pilot**. Build and evolve a deterministic, self-healing, pr
 - **Tier:** T1 Production (Right-Sized Static / Edge Portfolio)
 - **Stack:** Vite + Modular Vanilla ES6 JavaScript + CSS3 (hosted on Cloudflare Pages `zesrab.pages.dev`)
 - **Core Commands:** test `npm test` | build `npm run build` | dev `npm run dev` | preview `npm run preview`
-- **Current Cycle & Phase:** Cycle 2 — Phase 3 (Organization: 3-Layer Vertical Slices)
+- **Current Cycle & Phase:** Cycle 2 — Phase 4 (Polish: Design, Accessibility & Quality Gates)
 
 ## Precedence Hierarchy
 1. This file (`AGENTS.md`)

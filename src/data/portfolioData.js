@@ -406,7 +406,7 @@ export const projectsData = [
   {
     id: "mindweave-proj",
     shortName: "MindWeave",
-    title: "Map papers and lectures into cited spatial graphs",
+    title: "MindWeave maps papers and lectures into cited spatial graphs",
     description:
       "Next.js 16 and React Flow workspace synthesizing PDFs, YouTube timestamps, ELK.js layouts, and active recall.",
     repoUrl: "https://github.com/zeedan27/mindweave",
@@ -431,7 +431,7 @@ export const projectsData = [
   {
     id: "papyr-proj",
     shortName: "Papyr",
-    title: "Compile research manuscripts into 4-act Manim videos",
+    title: "Papyr compiles research manuscripts into 4-act Manim videos",
     description:
       "FastAPI and PyMuPDF scrollytelling generator pairing DirectorAgent narration, Edge-TTS timing, and AST-gated Manim.",
     repoUrl: "https://github.com/zeedan27/papyr",
@@ -442,13 +442,13 @@ export const projectsData = [
     fragmentSpec: {
       title: "zeedan27/papyr",
       cwd: "~/papyr",
-      cmd: "uv run papyr build attention.pdf --acts 4",
+      cmd: "papyr build paper.pdf",
       meter: "4 of 4 stages",
       steps: [
-        { path: "pdf_engine.py", count: "2-col PyMuPDF", status: "parsed" },
-        { path: "director.py", count: "4 narrative acts", status: "scripted" },
-        { path: "voiceover.py", count: "Edge-TTS sync", status: "timed" },
-        { path: "sandbox.py", count: "Manim + PyAV", status: "muxed" }
+        { path: "pdf_engine.py", count: "2-col PDF", status: "ok" },
+        { path: "director.py", count: "4-act plan", status: "ok" },
+        { path: "voiceover.py", count: "Edge-TTS", status: "ok" },
+        { path: "sandbox.py", count: "Manim MP4", status: "ok" }
       ],
       done: "4-act scrollytelling MP4 ready"
     }
@@ -456,7 +456,7 @@ export const projectsData = [
   {
     id: "skillverify-proj",
     shortName: "SkillVerify",
-    title: "Verify applicant skills with proctored quizzes and CVs",
+    title: "SkillVerify runs proctored quizzes and verified CV pipelines",
     description:
       "NestJS 10 and React 18 hiring platform with remedial grooming tracks, Puppeteer CVs, and Gold/Silver hex badges.",
     repoUrl: "https://github.com/zeedan27/skillverify",
@@ -474,17 +474,17 @@ export const projectsData = [
         { label: "Badges", count: "9", active: false }
       ],
       rows: [
-        { initials: "NR", tone: "1", who: "Nadia R.", sub: "Quiz 88% + Gold Hex Badge", status: "Proctored", done: false },
-        { initials: "TA", tone: "3", who: "Tanvir A.", sub: "Attempt 1 -> Remedial Track", status: "Proctored", done: false },
-        { initials: "SK", tone: "4", who: "Sadia K.", sub: "Verified CV (Puppeteer)", status: "Verified", done: true },
-        { initials: "RH", tone: "2", who: "Rafiq H.", sub: "Scoped Rank #1 -> Interview", status: "Verified", done: true }
+        { initials: "NR", tone: "1", who: "Nadia R.", sub: "Gold hex badge", status: "Proctored", done: false },
+        { initials: "TA", tone: "3", who: "Tanvir A.", sub: "Remedial track", status: "Proctored", done: false },
+        { initials: "SK", tone: "4", who: "Sadia K.", sub: "Verified CV PDF", status: "Verified", done: true },
+        { initials: "RH", tone: "2", who: "Rafiq H.", sub: "Scoped rank #1", status: "Verified", done: true }
       ]
     }
   },
   {
     id: "daak-proj",
     shortName: "Daak v2",
-    title: "Coordinate emergency SOS and PostGIS police dispatch",
+    title: "Daak v2 coordinates emergency SOS and PostGIS police dispatch",
     description:
       "Dual-surface Next.js, Expo, and FastAPI safety platform with 1 km corroboration and 5-factor triage.",
     repoUrl: "https://github.com/zeedan27/daak-app",
