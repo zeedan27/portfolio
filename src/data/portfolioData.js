@@ -447,7 +447,8 @@ export const projectsData = [
       steps: [
         { path: "pdf_engine.py", count: "2-col PyMuPDF", status: "parsed" },
         { path: "director.py", count: "4 narrative acts", status: "scripted" },
-        { path: "sandbox.py", count: "Edge-TTS + Manim", status: "muxed" }
+        { path: "voiceover.py", count: "Edge-TTS sync", status: "timed" },
+        { path: "sandbox.py", count: "Manim + PyAV", status: "muxed" }
       ],
       done: "4-act scrollytelling MP4 ready"
     }

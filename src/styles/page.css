@@ -275,7 +275,6 @@
 .frame.ui.app.cases-app {
   display: flex;
   flex-direction: row;
-  margin-top: var(--s-6);
   padding: 0;
   background: var(--surface);
   color: var(--ink);
@@ -380,6 +379,7 @@
   min-width: 0;
   --ink: #1e293b;
   --muted: #25303a;
+  --action: #0f4c81;
   --line: color-mix(in oklab, #1e293b 16%, transparent);
   --line-strong: color-mix(in oklab, #1e293b 32%, transparent);
 }
@@ -495,6 +495,11 @@
   padding-inline: var(--s-4);
   border-color: var(--line-strong);
   color: #1e293b;
+}
+
+.reader-pager .btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
 @media (max-width: 1023px) {

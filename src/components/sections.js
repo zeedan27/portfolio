@@ -8,7 +8,8 @@ function escapeHtml(str) {
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;");
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
 }
 
 function buildDiffFragment(spec = {}) {
@@ -90,6 +91,7 @@ function buildTerminalFragment(spec = {}) {
             )
             .join("")}
           <div class="ui-term__ln ui-term__done" data-term-out data-term-done><span class="ui-term__ok"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 8.3 2.4 2.4 4.6-5"/></svg></span><b>Done</b><span class="ui-term__dim">${done}</span></div>
+          <div class="ui-term__ln ui-term__cmd" data-term-next><span class="ui-term__cwd">${cwd}</span><span class="ui-term__sig">$</span><span class="ui-term__typed"></span><i class="ui-term__caret" aria-hidden="true"></i></div>
         </div>
       </div>
     </div>
@@ -162,15 +164,16 @@ function buildChecklistFragment(spec = {}) {
 
 function fragmentMarkup(proj) {
   const spec = proj.fragmentSpec || {};
+  const loopAttr = proj.loop ? " data-ui-loop" : "";
   switch (proj.fragment) {
     case "diff-review":
-      return `<div class="at-corner" style="--ax:24px;--ay:28px" data-ui-loop>${buildDiffFragment(spec)}</div>`;
+      return `<div class="at-corner" style="--ax:24px;--ay:28px"${loopAttr}>${buildDiffFragment(spec)}</div>`;
     case "terminal-run":
-      return `<div class="at-corner" style="--ax:24px;--ay:28px">${buildTerminalFragment(spec)}</div>`;
+      return `<div class="at-corner" style="--ax:24px;--ay:28px"${loopAttr}>${buildTerminalFragment(spec)}</div>`;
     case "window":
-      return `<div class="at-rise fit" style="--fit-max:456px;--ax:max(24px, 50% - 228px);--ay:28px;--ay-sm:20px">${buildWindowFragment(spec)}</div>`;
+      return `<div class="at-rise fit" style="--fit-max:456px;--ax:max(24px, 50% - 228px);--ay:28px;--ay-sm:20px"${loopAttr}>${buildWindowFragment(spec)}</div>`;
     case "checklist":
-      return `<div class="at-rise fit" style="--fit-max:380px;--ax:max(24px, 50% - 190px);--ay:28px;--ay-sm:20px">${buildChecklistFragment(spec)}</div>`;
+      return `<div class="at-rise fit" style="--fit-max:380px;--ax:max(24px, 50% - 190px);--ay:28px;--ay-sm:20px"${loopAttr}>${buildChecklistFragment(spec)}</div>`;
     default:
       return "";
   }
@@ -239,7 +242,7 @@ export function renderAbout(mountId, data) {
             <li>
               <div>
                 <span class="rows__name">IBM Data Science Foundations</span>
-                <p class="t-small">${escapeHtml(res.certification)}</p>
+                <p class="t-small">Tools, Careers &amp; Real-World Applications · May 2024</p>
               </div>
               <span class="rows__value mono">IBM</span>
             </li>
@@ -301,7 +304,7 @@ export function renderWorkflows(mountId, workflowsInput) {
           ${workflows
             .map(
               (wf, idx) => `
-            <li class="workflow-row" role="tab" tabindex="0" aria-selected="${idx === 0}" data-wf-idx="${idx}">
+            <li class="workflow-row" role="tab" tabindex="${idx === 0 ? 0 : -1}" aria-selected="${idx === 0}" data-wf-idx="${idx}">
               <div>
                 <span class="rows__name">${escapeHtml(wf.name)}</span>
                 <p class="t-small">${escapeHtml(wf.summary)}</p>
@@ -315,18 +318,23 @@ export function renderWorkflows(mountId, workflowsInput) {
       </div>
       <div class="span-6 start-7">
         <div class="panel workflow-panel" data-wf-panel>
-          <div class="dg" id="workflow-diagram-host" data-diagram='${escapeHtml(JSON.stringify(workflows[0].diagram))}'></div>
+          <div class="dg" id="workflow-diagram-host" data-diagram="${escapeHtml(JSON.stringify(workflows[0].diagram))}"></div>
         </div>
       </div>
     </div>
   `;
 
-  const rowEls = host.querySelectorAll(".workflow-row");
+  const rowEls = [...host.querySelectorAll(".workflow-row")];
   const dgHost = host.querySelector("#workflow-diagram-host");
 
-  const selectWorkflow = async (idx) => {
+  const selectWorkflow = async (idx, focusRow = false) => {
     activeIdx = idx;
-    rowEls.forEach((el, i) => el.setAttribute("aria-selected", String(i === activeIdx)));
+    rowEls.forEach((el, i) => {
+      const on = i === activeIdx;
+      el.setAttribute("aria-selected", String(on));
+      el.tabIndex = on ? 0 : -1;
+      if (on && focusRow) el.focus();
+    });
     const spec = workflows[activeIdx].diagram;
     dgHost.setAttribute("data-diagram", JSON.stringify(spec));
     try {
@@ -340,13 +348,26 @@ export function renderWorkflows(mountId, workflowsInput) {
     }
   };
 
-  rowEls.forEach((row) => {
-    row.addEventListener("click", () => selectWorkflow(Number(row.dataset.wfIdx)));
+  rowEls.forEach((row, idx) => {
+    row.addEventListener("click", () => selectWorkflow(idx));
     row.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
-        selectWorkflow(Number(row.dataset.wfIdx));
+        e.stopImmediatePropagation();
+        selectWorkflow(idx);
+        return;
       }
+      const delta =
+        e.key === "ArrowDown" || e.key === "ArrowRight"
+          ? 1
+          : e.key === "ArrowUp" || e.key === "ArrowLeft"
+            ? -1
+            : 0;
+      if (!delta) return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      const nextIdx = (idx + delta + rowEls.length) % rowEls.length;
+      selectWorkflow(nextIdx, true);
     });
   });
 }

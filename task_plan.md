@@ -49,16 +49,17 @@
 
 ### Phase 3: Organization — Detailed Plan (Active — Stop at Phase 3 Checkpoint)
 - [x] Update Layer 1 SOPs (`architecture/frontend-motion.md` & `architecture/maintenance.md`) before touching code
-- [ ] **Vertical Slice 1 (`<= 2` code files: `tests/portfolio.test.mjs`, `src/data/portfolioData.js`):**
-  - [ ] RED: Write failing Cycle 02 schema & content assertions in `tests/portfolio.test.mjs` and verify RED via `npm test`
-  - [ ] GREEN: Rewrite `src/data/portfolioData.js` (CSE + Data Science major, separated `education`/`workExperience`/`research`, 7 variable-stage case studies, 4 authentic flagship projects, 4 real n8n workflows + repo link, 5 curated public repos) → verify `npm test` & `npm run build` → commit on `dev`
-- [ ] **Vertical Slice 2 (`<= 4` code files: `tests/portfolio.test.mjs`, `src/components/caseStudyBookshelf.js`, `src/components/sections.js`, `src/main.js`):**
-  - [ ] RED: Add component contract tests in `tests/portfolio.test.mjs` and verify RED via `npm test`
-  - [ ] GREEN: Update `caseStudyBookshelf.js` (dynamic `book.stages[]` + `book.icon`), `sections.js` (6+6 `#about` split, authentic fragments, `workflowsSection` repo link, zero em-dashes), and `main.js` → verify `npm test` & `npm run build` → commit on `dev`
-- [ ] **Vertical Slice 3 (`<= 3` code files: `tests/portfolio.test.mjs`, `index.html`, `src/styles/page.css`):**
-  - [ ] RED: Update HTML/CSS assertions in `tests/portfolio.test.mjs` and verify RED via `npm test`
-  - [ ] GREEN: Update `index.html` SSR markup and `src/styles/page.css` (`.about-domain`, `.about-research`, `.about-courses`, horizontal `.book-spine`, wrapping `.reader-tabs`) → verify `npm test` & `npm run build` → commit on `dev`
-- [ ] **Fresh Code Review & Phase 3 Checkpoint:** Dispatch `research` subagent for `requesting-code-review` across `git diff 371e1c8..HEAD`, resolve any Critical/Important findings, log proof in `progress.md`, commit, and **stop** for user approval before Phase 4
+- [x] **Vertical Slice 1 (`<= 2` code files: `tests/portfolio.test.mjs`, `src/data/portfolioData.js`):**
+  - [x] RED: Write failing Cycle 02 schema & content assertions in `tests/portfolio.test.mjs` and verify RED via `npm test`
+  - [x] GREEN: Rewrite `src/data/portfolioData.js` (CSE + Data Science major, separated `education`/`workExperience`/`research`, 7 variable-stage case studies, 4 authentic flagship projects, 4 real n8n workflows + repo link, 5 curated public repos) → verified `npm test` & `npm run build` → committed (`10a908a`)
+- [x] **Vertical Slice 2 (`<= 4` code files: `tests/portfolio.test.mjs`, `src/components/caseStudyBookshelf.js`, `src/components/sections.js`, `src/main.js`):**
+  - [x] RED: Add component contract tests in `tests/portfolio.test.mjs` and verify RED via `npm test`
+  - [x] GREEN: Update `caseStudyBookshelf.js` (dynamic `book.stages[]` + `book.icon`), `sections.js` (6+6 `#about` split, authentic fragments, `workflowsSection` repo link, zero em-dashes), and `main.js` → verified `npm test` & `npm run build` → committed (`a88704d`)
+- [x] **Vertical Slice 3 (`<= 3` code files: `tests/portfolio.test.mjs`, `index.html`, `src/styles/page.css`):**
+  - [x] RED: Update HTML/CSS assertions in `tests/portfolio.test.mjs` and verify RED via `npm test`
+  - [x] GREEN: Update `index.html` SSR markup and `src/styles/page.css` (`.about-domain`, `.about-research`, `.about-courses`, horizontal `.book-spine`, wrapping `.reader-tabs`) → verified `npm test` & `npm run build` → committed (`7cf0d09`)
+- [x] **Fresh Code Review & Review Fixes:** Dispatched `research` subagent for `requesting-code-review` across `371e1c8..7cf0d09`; resolved all 3 Important issues (`[data-term-next]` + 4th Papyr step, in-place `#cases` focus/tabIndex management + `#workflows` arrow-key `selectWorkflow` sync, `.cases-app__reader` `--action: #0f4c81` focus contrast) and 5 Minor polish items with TDD verification (`8/8` passing)
+- [ ] **Phase 3 Checkpoint — Stop:** Wait for user approval before entering Phase 4 (`Polish`)
 
 ---
 

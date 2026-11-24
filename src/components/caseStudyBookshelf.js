@@ -1,6 +1,7 @@
 /**
  * Interactive Two-Pane Case-Study Bookshelf (.frame.ui.app).
- * Dynamically renders 7 horizontal volumes and variable-length (5-6+) context-first developer thinking stages.
+ * Dynamically renders 7 horizontal volumes and variable-length (5-6+) context-first developer thinking stages,
+ * updating ARIA selection, tabindex, and keyboard focus in place without destroying active DOM nodes.
  */
 
 function escapeHtml(str) {
@@ -8,7 +9,8 @@ function escapeHtml(str) {
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;");
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
 }
 
 function padTwo(num) {
@@ -21,6 +23,7 @@ export function renderCaseStudyBookshelf(mountId, books) {
 
   let activeBookIdx = 0;
   let activePageIdx = 0;
+  let renderedBookIdx = -1;
 
   if (!host.querySelector(".cases-app")) {
     host.innerHTML = `
@@ -88,7 +91,28 @@ export function renderCaseStudyBookshelf(mountId, books) {
     return Array.isArray(book?.stages) ? book.stages : [];
   };
 
-  const renderSpines = () => {
+  let spineButtons = [];
+  let tabButtons = [];
+
+  const updateSpinesState = (focusActive = false) => {
+    spineButtons.forEach((btn, idx) => {
+      const active = idx === activeBookIdx;
+      btn.setAttribute("aria-selected", String(active));
+      btn.tabIndex = active ? 0 : -1;
+      if (active && focusActive) btn.focus();
+    });
+  };
+
+  const updateTabsState = (focusActive = false) => {
+    tabButtons.forEach((btn, idx) => {
+      const active = idx === activePageIdx;
+      btn.setAttribute("aria-selected", String(active));
+      btn.tabIndex = active ? 0 : -1;
+      if (active && focusActive) btn.focus();
+    });
+  };
+
+  const mountSpines = () => {
     spinesEl.innerHTML = books
       .map(
         (b, idx) => `
@@ -97,6 +121,7 @@ export function renderCaseStudyBookshelf(mountId, books) {
         type="button"
         role="tab"
         aria-selected="${idx === activeBookIdx}"
+        tabindex="${idx === activeBookIdx ? 0 : -1}"
         data-book-index="${idx}"
       >
         <span class="book-spine__code mono">${escapeHtml(b.spineCode)}</span>
@@ -107,16 +132,31 @@ export function renderCaseStudyBookshelf(mountId, books) {
       )
       .join("");
 
-    spinesEl.querySelectorAll(".book-spine").forEach((btn) => {
+    spineButtons = [...spinesEl.querySelectorAll(".book-spine")];
+    spineButtons.forEach((btn, idx) => {
       btn.addEventListener("click", () => {
-        activeBookIdx = Number(btn.dataset.bookIndex);
+        activeBookIdx = idx;
         activePageIdx = 0;
         render(true);
+      });
+      btn.addEventListener("keydown", (e) => {
+        const delta =
+          e.key === "ArrowDown" || e.key === "ArrowRight"
+            ? 1
+            : e.key === "ArrowUp" || e.key === "ArrowLeft"
+              ? -1
+              : 0;
+        if (!delta) return;
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        activeBookIdx = (idx + delta + books.length) % books.length;
+        activePageIdx = 0;
+        render(true, "spine");
       });
     });
   };
 
-  const renderTabs = (stages) => {
+  const mountStageTabs = (stages) => {
     tabsEl.innerHTML = stages
       .map(
         (s, idx) => `
@@ -125,31 +165,50 @@ export function renderCaseStudyBookshelf(mountId, books) {
         type="button"
         role="tab"
         aria-selected="${idx === activePageIdx}"
+        tabindex="${idx === activePageIdx ? 0 : -1}"
         data-page-index="${idx}"
       >${escapeHtml(s.shortTab)}</button>
     `
       )
       .join("");
 
-    tabsEl.querySelectorAll(".reader-tab").forEach((btn) => {
+    tabButtons = [...tabsEl.querySelectorAll(".reader-tab")];
+    tabButtons.forEach((btn, idx) => {
       btn.addEventListener("click", () => {
-        activePageIdx = Number(btn.dataset.pageIndex);
+        activePageIdx = idx;
         render(true);
+      });
+      btn.addEventListener("keydown", (e) => {
+        const delta =
+          e.key === "ArrowRight" || e.key === "ArrowDown"
+            ? 1
+            : e.key === "ArrowLeft" || e.key === "ArrowUp"
+              ? -1
+              : 0;
+        if (!delta) return;
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        activePageIdx = (idx + delta + stages.length) % stages.length;
+        render(true, "tab");
       });
     });
   };
 
-  const render = (animate = false) => {
+  const render = (animate = false, focusTarget = null) => {
     const book = books[activeBookIdx];
     const stages = getActiveStages();
     if (!book || !stages.length) return;
     if (activePageIdx >= stages.length) activePageIdx = 0;
 
+    if (renderedBookIdx !== activeBookIdx) {
+      mountStageTabs(stages);
+      renderedBookIdx = activeBookIdx;
+    }
+
+    updateSpinesState(focusTarget === "spine");
+    updateTabsState(focusTarget === "tab");
+
     const stage = stages[activePageIdx];
-
-    renderSpines();
-    renderTabs(stages);
-
     counterEl.textContent = `${padTwo(activeBookIdx + 1)} / ${padTwo(books.length)}`;
     titleEl.textContent = book.title;
     subEl.textContent = `${book.subtitle} · ${book.year}`;
@@ -189,15 +248,19 @@ export function renderCaseStudyBookshelf(mountId, books) {
   });
 
   sheetEl.addEventListener("keydown", (e) => {
+    if (e.target.closest?.('[role="tab"]')) return;
     const stages = getActiveStages();
     if (e.key === "ArrowRight" && activePageIdx < stages.length - 1) {
+      e.preventDefault();
       activePageIdx += 1;
       render(true);
     } else if (e.key === "ArrowLeft" && activePageIdx > 0) {
+      e.preventDefault();
       activePageIdx -= 1;
       render(true);
     }
   });
 
+  mountSpines();
   render(false);
 }

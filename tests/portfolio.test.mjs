@@ -202,6 +202,9 @@ test("Interactive components implement dynamic variable-stage bookshelf, 3-domai
   assert.ok(sectionsSrc.includes("Certification"), "sections.js renderAbout must render Certification domain");
   assert.ok(sectionsSrc.includes("fragmentSpec"), "sections.js must build project fragments from proj.fragmentSpec");
   assert.ok(sectionsSrc.includes("n8n-automations") || sectionsSrc.includes("repoUrl"), "sections.js renderWorkflows must link companion repoUrl");
+  assert.ok(sectionsSrc.includes("data-term-next"), "sections.js terminal-run must include [data-term-next] prompt row");
+  assert.ok(sectionsSrc.includes("ArrowDown") && sectionsSrc.includes("stopImmediatePropagation"), "sections.js workflows tablist must sync arrow keys with selectWorkflow");
+  assert.ok(shelfSrc.includes("updateSpinesState") && shelfSrc.includes("tabIndex"), "caseStudyBookshelf.js must update spines in place and manage tabIndex/focus");
   assert.ok(mainSrc.includes("workflowsSection"), "main.js must pass workflowsSection to renderWorkflows");
 
   for (const [name, txt] of [["caseStudyBookshelf.js", shelfSrc], ["sections.js", sectionsSrc], ["main.js", mainSrc]]) {
@@ -235,6 +238,8 @@ test("HTML & CSS implement taste-skill structure and dual-layer Spotlight Reveal
   assert.ok(css.includes(".hero-spot__canvas"), "page.css must style spotlight canvas layer");
   assert.ok(css.includes(".frame.ui.app.cases-app"), "page.css must define two-pane bookshelf frame");
   assert.ok(css.includes(".about-domain") && css.includes(".about-research") && css.includes(".about-courses"), "page.css must style decluttered #about domains");
+  assert.ok(css.includes("--action: #0f4c81;"), "page.css .cases-app__reader must override --action for accessible :focus-visible contrast");
+  assert.ok(html.includes("data-term-next"), "index.html SSR terminal-run must include [data-term-next]");
   assert.ok(!css.includes("writing-mode: vertical-rl"), "page.css must render horizontal .book-spine rows, not rotated vertical spines");
   assert.ok(css.includes("flex-wrap: wrap"), "page.css .reader-tabs must wrap cleanly for variable stage counts");
 

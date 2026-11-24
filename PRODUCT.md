@@ -27,7 +27,7 @@ All screens strictly preserve incumbent `DESIGN.md` tokens (`blue-black-cornflow
      4. **`Daak v2`** (`zeedan27/daak-app`) → `checklist`: 5-step Bangladesh civic emergency flow (`5s citizen SOS` -> `1 km PostGIS corroboration` -> `5-factor false-report triage` -> `Nearest Thana routing` -> `Live MM:SS police SLA`).
 6. **Screen 6 — Real n8n Automation Pipelines (`#workflows`, `--h: 1`, `--hm: 2`):**
    - Header links directly to `https://github.com/zeedan27/n8n-automations`.
-   - 4 real, sanitized n8n workflows curated from the local template library and seeded into `zeedan27/n8n-automations`, driving the live pulsing `diagram.js` 3-lane graph: (1) *AI Research Report Generator*, (2) *Google Drive & Qdrant RAG Agent*, (3) *Telegram Voice, Email & Calendar Assistant*, and (4) *Phishing URL Threat Analyzer*.
+   - 4 real, sanitized n8n workflows curated from the local template library and seeded into `zeedan27/n8n-automations`, driving the live pulsing `diagram.js` 3-lane graph: (1) *Hugging Face papers to Notion*, (2) *Notion pages to Supabase RAG*, (3) *PostgreSQL natural language agent*, and (4) *Human-in-the-loop Gmail RAG*.
 7. **Screen 7 — Capability Matrix & Curated Public Repos (`#stack`, `--h: 1`, `--hm: 2`, `ground-inverse`):**
    - Left (`span-6`): 5 CSE + Data Science major capability rows with local full-colour brand SVGs.
    - Right (`span-5 start-8`): **5 portfolio-worthy `@zeedan27` repositories** complementing the 4 flagship cards: **`ShishuCare` (NurtureAI)**, **`n8n-automations`**, **`scope-skill`**, **`baton-pass-skill`**, and **`rea-web-skill`** (zero `prompt-eval`, `zeedan27`, or deprecated/practice repos).
