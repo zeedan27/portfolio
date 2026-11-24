@@ -11,6 +11,7 @@ import {
   projectsData,
   archiveRepos,
   workflowsData,
+  workflowsSection,
   skillsData,
   contactData
 } from "../src/data/portfolioData.js";
@@ -86,65 +87,129 @@ test("Public hero images, CV assets, favicon, and taste-skill kit assets exist",
   }
 });
 
-test("HeroConfig and navLinks match Spotlight Reveal and taste-skill constraints", () => {
+test("HeroConfig and navLinks match CSE Data Science identity and Spotlight Reveal", () => {
   assert.equal(heroData.frontImage, "/images/front.jpg");
   assert.equal(heroData.backImage, "/images/back.jpg");
   assert.equal(heroData.primaryCta.href, "/cv/Zesrab-Tanjeel-Khan_CV.pdf");
   assert.equal(contactData.cvPdfUrl, "/cv/Zesrab-Tanjeel-Khan_CV.pdf");
   assert.equal(contactData.cvHtmlUrl, undefined);
+  assert.ok(heroData.notice.includes("CSE") && heroData.notice.includes("Data Science"));
+  assert.ok(!heroData.notice.includes("B.Sc. in Data Science"));
   assert.equal(heroData.stats.length, 3);
   assert.ok(heroData.headline.length > 10);
   assert.equal(heroData.primaryCta.label, "Download CV");
   assert.equal(navLinks.length, 4);
 });
 
-test("All 5 Case-Study Books implement the 4-stage problem-solving contract", () => {
-  assert.equal(caseStudyBooks.length, 5);
-  const expectedStages = [
-    ["observation", "01 · Observation"],
-    ["research", "02 · Research & Gap"],
-    ["build", "03 · The Build"],
-    ["frictionFix", "04 · Friction & Fix"]
-  ];
-
-  for (const book of caseStudyBooks) {
-    assert.ok(book.id && book.title && book.spineCode && book.repoUrl);
-    assert.ok(Array.isArray(book.stack) && book.stack.length > 0);
-    for (const [key, stageLabel] of expectedStages) {
-      const page = book.pages[key];
-      assert.ok(page, `Book ${book.id} missing stage ${key}`);
-      assert.equal(page.stage, stageLabel);
-      assert.ok(page.heading.length > 5);
-      assert.ok(page.body.length > 30);
-      assert.ok(page.artifact.length > 8);
-    }
-  }
+test("AboutData separates Education, 6-Course CSE Work Experience, and Research", () => {
+  assert.equal(aboutData.education.degree, "B.Sc. in Computer Science and Engineering");
+  assert.equal(aboutData.education.major, "Major in Data Science");
+  assert.equal(aboutData.workExperience.courses.length, 6);
+  assert.ok(aboutData.workExperience.highlights.length >= 2);
+  assert.equal(aboutData.research.title, "Are NLP Gold Standards Truly Golden?");
+  assert.deepEqual(aboutData.research.datasets, ["SST-2", "SNLI", "HateXplain"]);
+  assert.ok(aboutData.research.certification.includes("IBM"));
 });
 
-test("Projects, Workflows, Skills, About, and Contact contain real data and valid diagram specs", () => {
+test("All 7 Case-Study Books implement variable-stage developer thought-process contract", () => {
+  assert.equal(caseStudyBooks.length, 7);
+  assert.deepEqual(
+    caseStudyBooks.map((b) => b.id),
+    ["skillverify", "daak", "papyr", "mindweave", "nurtureai", "perf-nlp", "scope-baton"]
+  );
+
+  const stageCounts = new Set();
+  for (const book of caseStudyBooks) {
+    assert.ok(book.id && book.title && book.spineCode && book.repoUrl);
+    assert.ok(book.icon && book.icon.startsWith("/assets/icons/"));
+    assert.ok(fs.existsSync(path.join(rootDir, "public", book.icon.slice(1))), `Missing icon: ${book.icon}`);
+    assert.ok(Array.isArray(book.stack) && book.stack.length > 0);
+    assert.ok(Array.isArray(book.stages) && book.stages.length >= 5, `Book ${book.id} must have >= 5 stages`);
+    stageCounts.add(book.stages.length);
+
+    for (const stage of book.stages) {
+      assert.ok(stage.step && stage.shortTab);
+      assert.ok(stage.heading.length > 5);
+      assert.ok(stage.body.length > 40);
+      assert.ok(stage.contextNote.length > 8);
+    }
+  }
+  assert.ok(stageCounts.size >= 2, "Case-study books should vary in stage count across projects");
+});
+
+test("Projects, Workflows, Skills, Curated Repos, and Contact contain Cycle 02 real data", () => {
   assert.equal(projectsData.length, 4);
-  assert.equal(archiveRepos.length, 5);
+  assert.deepEqual(
+    projectsData.map((p) => p.id),
+    ["mindweave-proj", "papyr-proj", "skillverify-proj", "daak-proj"]
+  );
+  for (const proj of projectsData) {
+    assert.ok(proj.fragmentSpec && Object.keys(proj.fragmentSpec).length > 0);
+  }
+  assert.equal(projectsData[0].repoUrl, "https://github.com/zeedan27/mindweave");
+  assert.equal(projectsData[1].repoUrl, "https://github.com/zeedan27/papyr");
+  assert.equal(projectsData[2].repoUrl, "https://github.com/zeedan27/skillverify");
+  assert.equal(projectsData[3].repoUrl, "https://github.com/zeedan27/daak-app");
+
+  assert.equal(workflowsSection.repoUrl, "https://github.com/zeedan27/n8n-automations");
+  assert.equal(workflowsSection.items.length, 4);
   assert.equal(workflowsData.length, 4);
-  for (const wf of workflowsData) {
+  for (const wf of workflowsSection.items) {
+    assert.ok(wf.workflowPath && wf.workflowPath.endsWith(".json"));
     assert.equal(wf.diagram.layout, "lanes");
     assert.ok(wf.diagram.input?.icon && wf.diagram.core?.icon);
     assert.equal(wf.diagram.lanes.length, 3);
   }
+
+  assert.deepEqual(
+    archiveRepos.map((r) => r.name),
+    ["ShishuCare", "n8n-automations", "scope-skill", "baton-pass-skill", "rea-web-skill"]
+  );
+  for (const excluded of ["llm-prompt-injection-eval", "zeedan27"]) {
+    assert.ok(!archiveRepos.some((r) => r.name === excluded), `Excluded repo found: ${excluded}`);
+  }
+
   assert.equal(skillsData.length, 5);
-  assert.equal(aboutData.experience.length, 2);
   assert.equal(contactData.email, "ztkhan000@gmail.com");
 
-  const serialized = JSON.stringify({
+  const serializedRaw = JSON.stringify({
     heroData,
     aboutData,
     caseStudyBooks,
     projectsData,
     archiveRepos,
-    workflowsData,
+    workflowsSection,
     skillsData,
     contactData
-  }).toLowerCase();
-  assert.ok(!serialized.includes("lorem ipsum"), "Portfolio data must never contain placeholder copy");
+  });
+  assert.ok(!serializedRaw.includes("\u2014"), "Portfolio data must contain zero em-dashes");
+  assert.ok(!serializedRaw.toLowerCase().includes("lorem ipsum"), "Portfolio data must never contain placeholder copy");
+});
+
+test("Interactive components implement dynamic variable-stage bookshelf, 3-domain About, and authentic fragments", () => {
+  const shelfSrc = fs.readFileSync(path.join(rootDir, "src/components/caseStudyBookshelf.js"), "utf8");
+  const sectionsSrc = fs.readFileSync(path.join(rootDir, "src/components/sections.js"), "utf8");
+  const mainSrc = fs.readFileSync(path.join(rootDir, "src/main.js"), "utf8");
+
+  assert.ok(!shelfSrc.includes("PAGE_KEYS"), "caseStudyBookshelf.js must drop hardcoded PAGE_KEYS");
+  assert.ok(!shelfSrc.includes("book.pages["), "caseStudyBookshelf.js must read book.stages[] dynamically");
+  assert.ok(shelfSrc.includes("book.stages"), "caseStudyBookshelf.js must iterate book.stages");
+  assert.ok(shelfSrc.includes("book.icon"), "caseStudyBookshelf.js must read book.icon");
+
+  assert.ok(sectionsSrc.includes("Education"), "sections.js renderAbout must render Education domain");
+  assert.ok(sectionsSrc.includes("Work experience"), "sections.js renderAbout must render Work experience domain");
+  assert.ok(sectionsSrc.includes("about-research"), "sections.js renderAbout must render dedicated research panel");
+  assert.ok(sectionsSrc.includes("Certification"), "sections.js renderAbout must render Certification domain");
+  assert.ok(sectionsSrc.includes("fragmentSpec"), "sections.js must build project fragments from proj.fragmentSpec");
+  assert.ok(sectionsSrc.includes("n8n-automations") || sectionsSrc.includes("repoUrl"), "sections.js renderWorkflows must link companion repoUrl");
+  assert.ok(sectionsSrc.includes("data-term-next"), "sections.js terminal-run must include [data-term-next] prompt row");
+  assert.ok(sectionsSrc.includes("ArrowDown") && sectionsSrc.includes("stopImmediatePropagation"), "sections.js workflows tablist must sync arrow keys with selectWorkflow");
+  assert.ok(shelfSrc.includes("updateSpinesState") && shelfSrc.includes("tabIndex"), "caseStudyBookshelf.js must update spines in place and manage tabIndex/focus");
+  assert.ok(mainSrc.includes("workflowsSection"), "main.js must pass workflowsSection to renderWorkflows");
+
+  for (const [name, txt] of [["caseStudyBookshelf.js", shelfSrc], ["sections.js", sectionsSrc], ["main.js", mainSrc]]) {
+    assert.ok(!txt.includes("\u2014"), `${name} must contain zero em-dashes`);
+  }
 });
 
 test("HTML & CSS implement taste-skill structure and dual-layer Spotlight Reveal", () => {
@@ -172,4 +237,18 @@ test("HTML & CSS implement taste-skill structure and dual-layer Spotlight Reveal
   assert.ok(html.includes("assets/system.css"), "index.html should link verbatim system.css");
   assert.ok(css.includes(".hero-spot__canvas"), "page.css must style spotlight canvas layer");
   assert.ok(css.includes(".frame.ui.app.cases-app"), "page.css must define two-pane bookshelf frame");
+  assert.ok(css.includes(".about-domain") && css.includes(".about-research") && css.includes(".about-courses"), "page.css must style decluttered #about domains");
+  assert.ok(css.includes("--action: #0f4c81;"), "page.css .cases-app__reader must override --action for accessible :focus-visible contrast");
+  assert.ok(html.includes("data-term-next"), "index.html SSR terminal-run must include [data-term-next]");
+  assert.ok(!css.includes("writing-mode: vertical-rl"), "page.css must render horizontal .book-spine rows, not rotated vertical spines");
+  assert.ok(css.includes("flex-wrap: wrap"), "page.css .reader-tabs must wrap cleanly for variable stage counts");
+
+  assert.ok(!html.includes("\u2014"), "index.html must contain zero em-dashes");
+  assert.ok(!html.includes("B.Sc. in Data Science"), "index.html must not misstate degree as B.Sc. in Data Science");
+  assert.ok(html.includes("Computer Science and Engineering"), "index.html must state CSE degree");
+  assert.ok(html.includes("01 / 07"), "index.html SSR shelf must indicate 01 / 07 volumes");
+  assert.ok(html.includes("zeedan27/mindweave") && html.includes("zeedan27/papyr") && html.includes("zeedan27/skillverify") && html.includes("zeedan27/daak-app"), "index.html SSR #projects must render all 4 flagship repo links");
+  assert.ok(html.includes("zeedan27/ShishuCare") && html.includes("zeedan27/n8n-automations"), "index.html SSR #stack must include ShishuCare and n8n-automations");
+  assert.ok(!html.includes("llm-prompt-injection-eval"), "index.html must omit excluded prompt-eval repo");
+  assert.ok(!html.includes("zeedan27/zeedan27"), "index.html must omit excluded zeedan27 profile repo");
 });

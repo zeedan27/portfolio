@@ -7,7 +7,7 @@ import {
   heroData,
   projectsData,
   skillsData,
-  workflowsData
+  workflowsSection
 } from "./data/portfolioData.js";
 import { initHeroSpotlight } from "./components/heroSpotlight.js";
 import { renderCaseStudyBookshelf } from "./components/caseStudyBookshelf.js";
@@ -24,7 +24,7 @@ function bootstrap() {
   renderAbout("about-mount", aboutData);
   renderCaseStudyBookshelf("cases-mount", caseStudyBooks);
   renderProjects("projects-mount", projectsData);
-  renderWorkflows("workflows-mount", workflowsData);
+  renderWorkflows("workflows-mount", workflowsSection);
   renderStack("stack-mount", skillsData, archiveRepos);
   renderClosing("contact-mount", contactData);
 }

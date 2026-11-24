@@ -8,31 +8,46 @@ function escapeHtml(str) {
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;");
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
 }
 
-function buildDiffFragment() {
+function buildDiffFragment(spec = {}) {
+  const repo = escapeHtml(spec.repo || "zeedan27/mindweave");
+  const dir = escapeHtml(spec.dir || "canvas/");
+  const file = escapeHtml(spec.file || "elkLayout.ts");
+  const signature = escapeHtml(spec.signature || "layoutKnowledgeMap(nodes, mode) {");
+  const delLine = escapeHtml(spec.delLine || "return runElkLayout(nodes, mode);");
+  const addCondition = escapeHtml(spec.addCondition || "if (!node.citations.length) {");
+  const targetLine = escapeHtml(spec.targetLine || "return attachPlaceholder(node);");
+  const suggestionCall = escapeHtml(spec.suggestionCall || "attachCitationPill");
+  const suggestionArgs = escapeHtml(spec.suggestionArgs || "node.youtubeTs, node.pdfPage");
+  const reviewer = escapeHtml(spec.reviewer || "Zesrab Khan");
+  const comment = escapeHtml(
+    spec.comment || "Preserve YouTube MM:SS and PDF page citation pills before ELK radial layout."
+  );
+
   return `
     <div class="ui ui-panel ui-diff" data-ui="diff-review">
       <div class="ui-diff__head">
         <svg class="ui-icon ui-diff__fold" viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 6.25 3.5 3.5 3.5-3.5"/></svg>
         <span class="ui-diff__tool" aria-hidden="true"><img src="/assets/icons/typescript.svg" alt="" width="14" height="14" loading="lazy"></span>
-        <span class="ui-diff__repo">zeedan27/papyr</span><i class="ui-diff__slash" aria-hidden="true">/</i>
-        <span class="ui-diff__path"><span class="ui-diff__dir">ingest/</span><b>scanner.ts</b></span>
+        <span class="ui-diff__repo">${repo}</span><i class="ui-diff__slash" aria-hidden="true">/</i>
+        <span class="ui-diff__path"><span class="ui-diff__dir">${dir}</span><b>${file}</b></span>
         <span class="ui-spacer"></span>
-        <span class="ui-diff__stat"><b class="is-add"><span class="ui-diff__was">+6</span><span class="ui-diff__now">+8</span></b><b class="is-del"><span class="ui-diff__was">&minus;1</span><span class="ui-diff__now">&minus;2</span></b></span>
+        <span class="ui-diff__stat"><b class="is-add"><span class="ui-diff__was">+4</span><span class="ui-diff__now">+6</span></b><b class="is-del"><span class="ui-diff__was">&minus;1</span><span class="ui-diff__now">&minus;2</span></b></span>
       </div>
-      <div class="ui-diff__hunk"><span>@@ -41,9 +41,12 @@</span> <em class="ui-diff__sig">indexDeckPages(deck, page = 0) {</em></div>
+      <div class="ui-diff__hunk"><span>@@ -41,9 +41,12 @@</span> <em class="ui-diff__sig">${signature}</em></div>
       <div class="ui-diff__lines">
-        <div class="ui-diff__ln"><i>41</i><i>41</i><span class="ui-diff__code" data-i="1"><span class="ui-diff__ind">  </span><span class="k">const</span> text = <span class="f">extractText</span>(page);</span></div>
-        <div class="ui-diff__ln is-del"><i>42</i><i></i><span class="ui-diff__code" data-i="1"><span class="ui-diff__ind">  </span><span class="k">if</span> (!text.length) <span class="k">return</span> [];</span></div>
-        <div class="ui-diff__ln is-add"><i></i><i>42</i><span class="ui-diff__code" data-i="1"><span class="ui-diff__ind">  </span><span class="k">if</span> (text.length &lt; <mark class="ui-diff__w">MIN_CHARS</mark>) {</span></div>
-        <div class="ui-diff__ln is-target" data-diff-target><i>43</i><i>43</i><span class="ui-diff__code" data-i="2"><span class="ui-diff__ind">    </span><span class="k">return</span> <span class="f">ocrFallback</span>(page.bitmap);</span></div>
-        <div class="ui-diff__sug" data-diff-sug><div class="ui-diff__ln is-add"><i></i><i>43</i><span class="ui-diff__code" data-i="2"><span class="ui-diff__ind">    </span><span class="k">return</span> <span class="f">indexWithCitation</span>(page.num, <mark class="ui-diff__w">ocrFallback</mark>(page));</span></div></div>
+        <div class="ui-diff__ln"><i>41</i><i>41</i><span class="ui-diff__code" data-i="1"><span class="ui-diff__ind">  </span><span class="k">const</span> pills = <span class="f">readSources</span>(node);</span></div>
+        <div class="ui-diff__ln is-del"><i>42</i><i></i><span class="ui-diff__code" data-i="1"><span class="ui-diff__ind">  </span>${delLine}</span></div>
+        <div class="ui-diff__ln is-add"><i></i><i>42</i><span class="ui-diff__code" data-i="1"><span class="ui-diff__ind">  </span>${addCondition}</span></div>
+        <div class="ui-diff__ln is-target" data-diff-target><i>43</i><i>43</i><span class="ui-diff__code" data-i="2"><span class="ui-diff__ind">    </span>${targetLine}</span></div>
+        <div class="ui-diff__sug" data-diff-sug><div class="ui-diff__ln is-add"><i></i><i>43</i><span class="ui-diff__code" data-i="2"><span class="ui-diff__ind">    </span><span class="k">return</span> <span class="f">${suggestionCall}</span>(${suggestionArgs});</span></div></div>
         <div class="ui-diff__thread">
           <div class="ui-diff__by">
             <span class="ui-avatar" data-tone="4">ZK</span>
-            <span class="ui-diff__name">Zesrab Khan</span>
+            <span class="ui-diff__name">${reviewer}</span>
             <span class="ui-diff__time">2m</span>
             <span class="ui-spacer"></span>
             <span class="ui-diff__act" data-diff-act>
@@ -40,7 +55,7 @@ function buildDiffFragment() {
               <span class="ui-chip ui-diff__done"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 8.4 2.6 2.6L12 5.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Applied</span>
             </span>
           </div>
-          <div class="ui-diff__msg">Preserve slide page number on bitmap OCR fallback.</div>
+          <div class="ui-diff__msg">${comment}</div>
         </div>
         <div class="ui-diff__ln"><i>44</i><i>44</i><span class="ui-diff__code" data-i="1"><span class="ui-diff__ind">  </span>}</span></div>
       </div>
@@ -48,51 +63,73 @@ function buildDiffFragment() {
   `;
 }
 
-function buildTerminalFragment() {
+function buildTerminalFragment(spec = {}) {
+  const title = escapeHtml(spec.title || "zeedan27/papyr");
+  const cwd = escapeHtml(spec.cwd || "~/papyr");
+  const cmd = escapeHtml(spec.cmd || "papyr build paper.pdf");
+  const meter = escapeHtml(spec.meter || "4 of 4 stages");
+  const steps = Array.isArray(spec.steps) ? spec.steps : [];
+  const done = escapeHtml(spec.done || "4-act scrollytelling MP4 ready");
+
   return `
     <div class="ui ui-panel ui-term" data-ui="terminal-run">
       <div class="ui-term__head">
         <span class="ui-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-        <span class="ui-term__title">zeedan27/perf-nlp</span>
+        <span class="ui-term__title">${title}</span>
         <span class="ui-meta">zsh</span>
         <span class="ui-spacer"></span>
         <span class="ui-chip ui-chip--plain ui-term__branch">main</span>
       </div>
       <div class="ui-term__screen" data-term-screen>
         <div class="ui-term__track" data-term-track>
-          <div class="ui-term__ln ui-term__cmd"><span class="ui-term__cwd">~/perf</span><span class="ui-term__sig">$</span><span class="ui-term__typed" data-term-cmd>python perf_cascade.py --audit sst2 snli hatexplain</span></div>
-          <div class="ui-term__ln ui-term__meter" data-term-out data-term-meter><span class="ui-term__bar" style="--p:1"><i></i></span><span class="ui-term__count" data-term-count>3 of 3 benchmarks</span></div>
-          <div class="ui-term__ln ui-term__log" data-term-out data-term-step><svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg><span class="ui-term__path">sst2_cascade.py</span><span class="ui-term__n">sentiment</span><span class="ui-term__t">ensemble</span></div>
-          <div class="ui-term__ln ui-term__log" data-term-out data-term-step><svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg><span class="ui-term__path">snli_ensemble.py</span><span class="ui-term__n">entailment</span><span class="ui-term__t">re-label</span></div>
-          <div class="ui-term__ln ui-term__log" data-term-out data-term-step><svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg><span class="ui-term__path">hatexplain_audit.py</span><span class="ui-term__n">rationales</span><span class="ui-term__t">refined</span></div>
-          <div class="ui-term__ln ui-term__done" data-term-out data-term-done><span class="ui-term__ok"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 8.3 2.4 2.4 4.6-5"/></svg></span><b>Done</b><span class="ui-term__dim">3 datasets refined</span></div>
+          <div class="ui-term__ln ui-term__cmd"><span class="ui-term__cwd">${cwd}</span><span class="ui-term__sig">$</span><span class="ui-term__typed" data-term-cmd>${cmd}</span></div>
+          <div class="ui-term__ln ui-term__meter" data-term-out data-term-meter><span class="ui-term__bar" style="--p:1"><i></i></span><span class="ui-term__count" data-term-count>${meter}</span></div>
+          ${steps
+            .map(
+              (st) =>
+                `<div class="ui-term__ln ui-term__log" data-term-out data-term-step><svg class="ui-term__tick" viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg><span class="ui-term__path">${escapeHtml(st.path)}</span><span class="ui-term__n">${escapeHtml(st.count)}</span><span class="ui-term__t">${escapeHtml(st.status)}</span></div>`
+            )
+            .join("")}
+          <div class="ui-term__ln ui-term__done" data-term-out data-term-done><span class="ui-term__ok"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 8.3 2.4 2.4 4.6-5"/></svg></span><b>Done</b><span class="ui-term__dim">${done}</span></div>
+          <div class="ui-term__ln ui-term__cmd" data-term-next><span class="ui-term__cwd">${cwd}</span><span class="ui-term__sig">$</span><span class="ui-term__typed"></span><i class="ui-term__caret" aria-hidden="true"></i></div>
         </div>
       </div>
     </div>
   `;
 }
 
-function buildWindowFragment() {
+function buildWindowFragment(spec = {}) {
+  const crumb = escapeHtml(spec.crumb || "SkillVerify");
+  const section = escapeHtml(spec.section || "Hiring Pipeline");
+  const states = spec.states || { open: "Proctored", work: "Grooming", done: "Verified" };
+  const navItems = Array.isArray(spec.nav) ? spec.nav : [];
+  const rows = Array.isArray(spec.rows) ? spec.rows : [];
+
   return `
-    <div class="ui ui-panel ui-win ui-win--compact" data-ui="window" data-open="Active" data-work="Checking" data-done="Verified">
+    <div class="ui ui-panel ui-win ui-win--compact" data-ui="window" data-open="${escapeHtml(states.open)}" data-work="${escapeHtml(states.work)}" data-done="${escapeHtml(states.done)}">
       <div class="ui-win__bar">
         <span class="ui-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-        <span class="ui-win__crumb">SkillVerify <i>/</i> <b>Assessments</b></span>
+        <span class="ui-win__crumb">${crumb} <i>/</i> <b>${section}</b></span>
         <span class="ui-spacer"></span>
         <span class="ui-win__search" aria-hidden="true"><span class="ui-win__ph">Filter</span><span class="ui-kbd">/</span></span>
       </div>
       <div class="ui-win__body">
         <nav class="ui-win__side" aria-hidden="true">
-          <span class="ui-win__nav is-on">Quizzes<em>2</em></span>
-          <span class="ui-win__nav">Verified<em>14</em></span>
-          <span class="ui-win__nav">Flags<em>0</em></span>
+          ${navItems
+            .map(
+              (n) =>
+                `<span class="ui-win__nav${n.active ? " is-on" : ""}">${escapeHtml(n.label)}<em>${escapeHtml(n.count)}</em></span>`
+            )
+            .join("")}
         </nav>
         <div class="ui-win__main">
           <ul class="ui-win__rows">
-            <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="1">A4</span><span class="ui-win__who">applicant-04</span><span class="ui-win__sub">Dynamic quiz + anti-cheat</span><span class="ui-win__st" data-st>Active</span></li>
-            <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="3">A5</span><span class="ui-win__who">applicant-05</span><span class="ui-win__sub">Learning module sync</span><span class="ui-win__st" data-st>Active</span></li>
-            <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="4">A6</span><span class="ui-win__who">applicant-06</span><span class="ui-win__sub">Verified CV generated</span><span class="ui-win__st is-done" data-st>Verified</span></li>
-            <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="2">E2</span><span class="ui-win__who">employer-02</span><span class="ui-win__sub">Role-based review</span><span class="ui-win__st is-done" data-st>Verified</span></li>
+            ${rows
+              .map(
+                (r) =>
+                  `<li class="ui-win__row" data-row><span class="ui-avatar" data-tone="${escapeHtml(r.tone)}">${escapeHtml(r.initials)}</span><span class="ui-win__who">${escapeHtml(r.who)}</span><span class="ui-win__sub">${escapeHtml(r.sub)}</span><span class="ui-win__st${r.done ? " is-done" : ""}" data-st>${escapeHtml(r.status)}</span></li>`
+              )
+              .join("")}
           </ul>
         </div>
       </div>
@@ -100,36 +137,43 @@ function buildWindowFragment() {
   `;
 }
 
-function buildChecklistFragment() {
+function buildChecklistFragment(spec = {}) {
+  const title = escapeHtml(spec.title || "Daak v2 · 999 Civic Dispatch");
+  const count = escapeHtml(spec.count || "3 of 5");
+  const items = Array.isArray(spec.items) ? spec.items : [];
+
   return `
     <div class="ui ui-panel ui-checks" data-ui="checklist">
       <div class="ui-checks__head">
-        <div class="ui-title">DAAK public safety sync</div>
+        <div class="ui-title">${title}</div>
         <span class="ui-spacer"></span>
-        <div class="ui-meta" data-checks-count>3 of 5</div>
+        <div class="ui-meta" data-checks-count>${count}</div>
       </div>
       <div class="ui-checks__bar"><i data-checks-bar style="--k:0.6"></i></div>
       <ul class="ui-checks__list">
-        <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Authenticate role-based session</span></li>
-        <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Submit Next.js crime report</span></li>
-        <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Broadcast real-time Firebase SOS</span></li>
-        <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Update live safety monitoring map</span></li>
-        <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">Confirm emergency dispatch status</span></li>
+        ${items
+          .map(
+            (it) =>
+              `<li class="ui-check${it.done ? " is-done" : ""}"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">${escapeHtml(it.label)}</span></li>`
+          )
+          .join("")}
       </ul>
     </div>
   `;
 }
 
-function fragmentMarkup(kind) {
-  switch (kind) {
+function fragmentMarkup(proj) {
+  const spec = proj.fragmentSpec || {};
+  const loopAttr = proj.loop ? " data-ui-loop" : "";
+  switch (proj.fragment) {
     case "diff-review":
-      return `<div class="at-corner" style="--ax:24px;--ay:28px" data-ui-loop>${buildDiffFragment()}</div>`;
+      return `<div class="at-corner" style="--ax:24px;--ay:28px"${loopAttr}>${buildDiffFragment(spec)}</div>`;
     case "terminal-run":
-      return `<div class="at-corner" style="--ax:24px;--ay:28px">${buildTerminalFragment()}</div>`;
+      return `<div class="at-corner" style="--ax:24px;--ay:28px"${loopAttr}>${buildTerminalFragment(spec)}</div>`;
     case "window":
-      return `<div class="at-rise fit" style="--fit-max:456px;--ax:max(24px, 50% - 228px);--ay:28px;--ay-sm:20px">${buildWindowFragment()}</div>`;
+      return `<div class="at-rise fit" style="--fit-max:456px;--ax:max(24px, 50% - 228px);--ay:28px;--ay-sm:20px"${loopAttr}>${buildWindowFragment(spec)}</div>`;
     case "checklist":
-      return `<div class="at-rise fit" style="--fit-max:380px;--ax:max(24px, 50% - 190px);--ay:28px;--ay-sm:20px">${buildChecklistFragment()}</div>`;
+      return `<div class="at-rise fit" style="--fit-max:380px;--ax:max(24px, 50% - 190px);--ay:28px;--ay-sm:20px"${loopAttr}>${buildChecklistFragment(spec)}</div>`;
     default:
       return "";
   }
@@ -139,40 +183,65 @@ export function renderAbout(mountId, data) {
   const host = document.getElementById(mountId);
   if (!host || !data) return;
 
+  const edu = data.education || {};
+  const work = data.workExperience || {};
+  const res = data.research || {};
+
   host.innerHTML = `
     <div class="section-head">
       <h2 id="about-h">${escapeHtml(data.heading)}</h2>
+      <p class="t-lead about-lead">${escapeHtml(data.summary)}</p>
     </div>
     <div class="grid">
-      <div class="span-5 stack-4">
-        <p class="t-lead">${escapeHtml(data.summary)}</p>
-        <p class="t-body about-note">${escapeHtml(data.exploringNote)}</p>
-        <ul class="rows">
-          <li>
-            <div>
-              <span class="rows__name">${escapeHtml(data.education.institution)}</span>
-              <p class="t-small">${escapeHtml(data.education.degree)} · ${escapeHtml(data.education.period)}</p>
-            </div>
-            <span class="rows__value mono">CGPA ${escapeHtml(data.education.cgpa)}</span>
-          </li>
-          ${data.experience
-            .map(
-              (exp) => `
+      <div class="span-6 about-col">
+        <div class="about-domain">
+          <ul class="rows">
             <li>
               <div>
-                <span class="rows__name">${escapeHtml(exp.course)} · ${escapeHtml(exp.term)}</span>
-                <p class="t-small">${escapeHtml(exp.detail)}</p>
+                <span class="rows__name">${escapeHtml(edu.institution)} · Education</span>
+                <p class="t-small">${escapeHtml(edu.degree)} (${escapeHtml(edu.major)})</p>
+                <p class="t-small">${escapeHtml(edu.period)} · ${escapeHtml(edu.prior)}</p>
               </div>
-              <span class="rows__value mono">UGA</span>
+              <span class="rows__value mono">CGPA ${escapeHtml(edu.cgpa)}</span>
             </li>
-          `
-            )
-            .join("")}
-        </ul>
+            <li>
+              <div>
+                <span class="rows__name">${escapeHtml(work.role)} · Work experience</span>
+                <p class="t-small">${escapeHtml(work.organization)} · ${escapeHtml((work.courses || []).join(", "))}</p>
+                <p class="t-small">${escapeHtml(work.highlights?.[0] || "")}</p>
+              </div>
+              <span class="rows__value mono">${escapeHtml(work.period)}</span>
+            </li>
+            <li>
+              <div>
+                <span class="rows__name">1-on-1 CSE Consultations</span>
+                <p class="t-small">${escapeHtml(work.highlights?.[1] || "")}</p>
+              </div>
+              <span class="rows__value mono">C/C++ · Java · SQL</span>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div class="span-6 start-7">
-        <div class="panel about-panel">
-          <div class="dg" data-dg-still data-diagram='${escapeHtml(JSON.stringify(data.diagram))}'></div>
+      <div class="span-6 about-col">
+        <div class="panel about-research">
+          <p class="t-h3 about-research__title">${escapeHtml(res.title)}</p>
+          <div class="about-research__head">
+            <span class="mono">${escapeHtml(res.status)} · ${escapeHtml(res.supervisor)}</span>
+          </div>
+          <p class="about-research__pipe mono">${escapeHtml(res.pipeline)}</p>
+          <p class="t-small">${escapeHtml(res.summary)}</p>
+          <p class="t-small about-research__datasets mono">Benchmarks: ${escapeHtml((res.datasets || []).join(" · "))}</p>
+        </div>
+        <div class="about-domain">
+          <ul class="rows">
+            <li>
+              <div>
+                <span class="rows__name">IBM Data Science Foundations · Certification</span>
+                <p class="t-small">Tools, Careers &amp; Real-World Applications · May 2024</p>
+              </div>
+              <span class="rows__value mono">IBM</span>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -190,7 +259,7 @@ export function renderProjects(mountId, projects) {
       <p>${escapeHtml(proj.description)}</p>
       <a class="card__link" href="${escapeHtml(proj.repoUrl)}" target="_blank" rel="noopener noreferrer">View ${escapeHtml(proj.shortName)} repo<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1 6h8M4.5 2.5 8 6l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       <div class="panel panel--flush" data-fx="gradient-mesh" data-fx-seed="${proj.groundSeed}" data-fx-params='{"drift":0}'>
-        <div class="stage stage--fade-b">${fragmentMarkup(proj.fragment)}</div>
+        <div class="stage stage--fade-b">${fragmentMarkup(proj)}</div>
       </div>
     </article>
   `;
@@ -198,7 +267,7 @@ export function renderProjects(mountId, projects) {
   host.innerHTML = `
     <div class="group">
       <div class="section-head section-head--row">
-        <h2 id="projects-h">Featured full-stack, data science <span class="muted">and research projects</span></h2>
+        <h2 id="projects-h">Flagship full-stack, AI <span class="muted">and spatial systems</span></h2>
         <a class="link" href="https://github.com/zeedan27" target="_blank" rel="noopener noreferrer">All @zeedan27 repos</a>
       </div>
       <div class="grid">
@@ -211,23 +280,26 @@ export function renderProjects(mountId, projects) {
   `;
 }
 
-export function renderWorkflows(mountId, workflows) {
+export function renderWorkflows(mountId, workflowsInput) {
   const host = document.getElementById(mountId);
-  if (!host || !Array.isArray(workflows) || !workflows.length) return;
+  const workflows = Array.isArray(workflowsInput) ? workflowsInput : workflowsInput?.items || [];
+  const repoUrl = (!Array.isArray(workflowsInput) && workflowsInput?.repoUrl) || "https://github.com/zeedan27/n8n-automations";
+  if (!host || !workflows.length) return;
 
   let activeIdx = 0;
 
   host.innerHTML = `
+    <div class="section-head section-head--row">
+      <h2 id="workflows-h">n8n automation blueprints <span class="muted">sanitized and ready to import</span></h2>
+      <a class="link" href="${escapeHtml(repoUrl)}" target="_blank" rel="noopener noreferrer">Open n8n-automations repo</a>
+    </div>
     <div class="grid">
       <div class="span-5 stack-5">
-        <div class="section-head">
-          <h2 id="workflows-h">Automated engineering workflows <span class="muted">on webhooks and crons</span></h2>
-        </div>
-        <ul class="rows" role="tablist" aria-label="Automation pipelines">
+        <ul class="rows" role="tablist" aria-label="n8n automation workflows">
           ${workflows
             .map(
               (wf, idx) => `
-            <li class="workflow-row" role="tab" tabindex="0" aria-selected="${idx === 0}" data-wf-idx="${idx}">
+            <li class="workflow-row" role="tab" tabindex="${idx === 0 ? 0 : -1}" aria-selected="${idx === 0}" data-wf-idx="${idx}">
               <div>
                 <span class="rows__name">${escapeHtml(wf.name)}</span>
                 <p class="t-small">${escapeHtml(wf.summary)}</p>
@@ -240,19 +312,24 @@ export function renderWorkflows(mountId, workflows) {
         </ul>
       </div>
       <div class="span-6 start-7">
-        <div class="panel workflow-panel" data-wf-panel>
-          <div class="dg" id="workflow-diagram-host" data-diagram='${escapeHtml(JSON.stringify(workflows[0].diagram))}'></div>
+        <div class="panel workflow-panel" data-wf-panel data-m-loop>
+          <div class="dg" id="workflow-diagram-host" data-diagram="${escapeHtml(JSON.stringify(workflows[0].diagram))}"></div>
         </div>
       </div>
     </div>
   `;
 
-  const rowEls = host.querySelectorAll(".workflow-row");
+  const rowEls = [...host.querySelectorAll(".workflow-row")];
   const dgHost = host.querySelector("#workflow-diagram-host");
 
-  const selectWorkflow = async (idx) => {
+  const selectWorkflow = async (idx, focusRow = false) => {
     activeIdx = idx;
-    rowEls.forEach((el, i) => el.setAttribute("aria-selected", String(i === activeIdx)));
+    rowEls.forEach((el, i) => {
+      const on = i === activeIdx;
+      el.setAttribute("aria-selected", String(on));
+      el.tabIndex = on ? 0 : -1;
+      if (on && focusRow) el.focus();
+    });
     const spec = workflows[activeIdx].diagram;
     dgHost.setAttribute("data-diagram", JSON.stringify(spec));
     try {
@@ -266,13 +343,26 @@ export function renderWorkflows(mountId, workflows) {
     }
   };
 
-  rowEls.forEach((row) => {
-    row.addEventListener("click", () => selectWorkflow(Number(row.dataset.wfIdx)));
+  rowEls.forEach((row, idx) => {
+    row.addEventListener("click", () => selectWorkflow(idx));
     row.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
-        selectWorkflow(Number(row.dataset.wfIdx));
+        e.stopImmediatePropagation();
+        selectWorkflow(idx);
+        return;
       }
+      const delta =
+        e.key === "ArrowDown" || e.key === "ArrowRight"
+          ? 1
+          : e.key === "ArrowUp" || e.key === "ArrowLeft"
+            ? -1
+            : 0;
+      if (!delta) return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      const nextIdx = (idx + delta + rowEls.length) % rowEls.length;
+      selectWorkflow(nextIdx, true);
     });
   });
 }
@@ -287,7 +377,7 @@ export function renderStack(mountId, skills, repos) {
       <div class="span-6 stack-5">
         <div class="section-head">
           <h2 id="stack-h" class="mo-wh__text">Systems stack and <strong>engineering tools</strong></h2>
-          <p>Languages, runtimes, databases, and automation platforms shipped across UIU coursework and projects.</p>
+          <p>Languages, frameworks, databases, and research tooling shipped across UIU CSE and open-source builds.</p>
         </div>
         <ul class="rows">
           ${skills
@@ -314,8 +404,8 @@ export function renderStack(mountId, skills, repos) {
       </div>
       <div class="span-5 start-8 stack-5">
         <div class="section-head">
-          <p class="t-h3">Public repositories on GitHub</p>
-          <p class="t-small">Additional systems, agent tooling skills, and hackathon builds under @zeedan27.</p>
+          <p class="t-h3">Portfolio-worthy public repositories</p>
+          <p class="t-small">Curated engineering builds, automation catalogs, and agent frameworks under @zeedan27.</p>
         </div>
         <ul class="rows">
           ${(repos || [])
@@ -358,7 +448,7 @@ export function renderClosing(mountId, contact) {
       <div class="grid">
         <div class="span-4 stack-4">
           <a class="nav__logo" href="#top"><span class="mark" data-mark="dots" aria-hidden="true"></span>Zesrab Khan</a>
-          <p class="footer__lede">UIU Data Science student and CSE Undergraduate Assistant building full-stack web products.</p>
+          <p class="footer__lede">UIU Computer Science and Engineering undergraduate (Data Science major) and CSE UGA.</p>
         </div>
         <div class="span-2 footer__col">
           <p class="t-card footer__col-title">Profile</p>

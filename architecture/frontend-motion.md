@@ -15,7 +15,8 @@
   - Gentle orbital idle drift before first pointer interaction; pauses immediately on pointer input, click/keyboard mode toggle (`Flashlight` / `Exosuit` / `Baseline`), or `prefers-reduced-motion: reduce`.
 - **Responsive Phone Menu:** Managed via `system.js`'s `.nav__toggle` + `.nav.is-open` full-height overlay (`top: var(--nav)` to `bottom: 0`, Escape key, focus restore) without duplicate event handlers.
 
-## 3. Two-Pane Bookshelf Case-Study Frame (`caseStudyBookshelf.js`)
-- **Two-Pane `.ui.app.fill` Architecture:**
-  - Left pane (`.bookshelf-pane`): 5 interactive standing book spines (`Papyr`, `S.C.O.P.E.`, `SkillVerify`, `Daak`, `ShishuCare`) with active selection highlight, keyboard arrow navigation, and stack subtitle.
-  - Right pane (`.case-reader-pane` styled on `--ground-bg` / `--ground-surface` sky-lit tokens): displays the selected book's 4-stage interactive chapter reader (`01 Observation -> 02 Research & Gap -> 03 The Build -> 04 Friction & Fix`) with previous/next page turn buttons and live code/metric snippet + direct GitHub repository link.
+## 3. About Domain Split (`#about`) & Two-Pane Bookshelf Case-Study Frame (`caseStudyBookshelf.js`)
+- **`#about` 6+6 Domain Layout:** Replaces the decorative static hub diagram with a clean two-column layout (`span-6` Education + 6-Course CSE UGA Work Experience on the left; `span-6` `sky` lit-ground Research panel + IBM Certification on the right) for clear scannability.
+- **Two-Pane `.ui.app.fill` Bookshelf Architecture:**
+  - Left pane (`.cases-app__shelf`): 7 horizontal readable volume rows (`SkillVerify`, `Daak v2`, `Papyr`, `MindWeave`, `NurtureAI`, `PERF NLP`, `S.C.O.P.E.`) with active selection highlight and year/code metadata.
+  - Right pane (`.cases-app__reader` styled on `--ground-bg` / `--ground-surface` sky-lit tokens): displays each selected book's dynamic variable-stage (`book.stages[]`, typically 5–6 context-first developer thinking stages) with wrapping `.reader-tabs`, keyboard Left/Right arrow navigation, previous/next stage buttons, context-note artifact block, and direct GitHub repository link.

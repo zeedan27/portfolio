@@ -10,19 +10,17 @@
 - To update the downloadable resume PDF, replace `public/cv/Zesrab-Tanjeel-Khan_CV.pdf`.
 - Run `npm test` to confirm all schema invariants and asset checks pass.
 
-## 3. Deploying to Cloudflare Pages
-1. Verify git cleanliness and checks:
-   ```bash
-   npm test
-   npm run build
-   git status
-   ```
-2. Push committed code to GitHub (`main` branch).
-3. In **Cloudflare Dashboard → Workers & Pages → Create → Pages → Connect to Git**:
-   - **Framework preset:** `Vite` (or `None`)
+## 3. Branch Preview (`dev`) & Deploying to Cloudflare Pages
+1. Develop and verify all changes on the long-lived `dev` branch (`npm test`, `npm run build`, `git status` clean).
+2. Push `dev` to GitHub (`git push origin dev`) so Cloudflare Pages builds the staging preview URL (`https://dev.zesrab.pages.dev`).
+3. Verify the preview URL via `/browser` and satisfy **Gate 2** before merging `dev` into `main` (`https://zesrab.pages.dev`).
+4. **Companion n8n Repository (`D:\Tasks\n8n-automations` → `zeedan27/n8n-automations`):**
+   - Import new workflow exports via `npm run sanitize -- --import <raw.json> workflows/<category>/<slug>.json --name "<Title>"`.
+   - Verify `npm run check` passes (`0` credentials, `instanceId`, `webhookId`, or secret hits) before committing and pushing.
+5. Cloudflare Pages build settings for `zesrab`:
+   - **Framework preset:** `Vite`
    - **Build command:** `npm run build`
    - **Build output directory:** `dist`
-4. Verify preview deployment URL first before promoting or binding custom domain.
 
 ## 4. Rollback Procedure
 - **Instant CDN Rollback:** In Cloudflare Pages → **Deployments**, click `...` on the previous known-good deployment → **Rollback to this deployment** (zero rebuild needed).
