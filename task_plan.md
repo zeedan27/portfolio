@@ -1,6 +1,6 @@
 # Task Plan — Cycle 02: Portfolio Evolution & Companion n8n Repo (`Track A: Delta S.C.O.P.E.`)
 
-## Active Status: **Phase 2 — Connections** (Gate 1 Approved)
+## Active Status: **Phase 3 — Organization** (Phase 2 Checkpoint Approved)
 
 ### Context Sync & Cycle Rollover (Completed)
 - [x] Read updated `scope` skill (`SKILL.md`, `references/skills-and-safety.md`, `references/stack-matrix.md`, `templates/AGENTS.template.md`)
@@ -43,11 +43,25 @@
 - [x] Import and sanitize 6 real n8n JSON workflows (`hf-paper-digest-to-notion.json`, `notion-supabase-vector-rag.json`, `postgres-natural-language-agent.json`, `hitl-gmail-triage-responder.json`, `telegram-multimodal-agent.json`, `suspicious-email-analyzer.json`) and verify with `npm run check` (`PASS` on all 6, 0 leaked credentials, 0 `instanceId` / `webhookId`)
 - [x] Initialize git in `D:\Tasks\n8n-automations`, create public GitHub repository `https://github.com/zeedan27/n8n-automations` (`HTTP 201`), and push `main` (`947ba00`)
 - [x] Commit Cycle 2 governance/spec updates on branch `dev` in `D:\Tasks\portfolio`, push `origin/dev`, and verify GitHub remote handshake & Cloudflare Pages `dev` branch preview readiness
-- [ ] **Phase 2 Checkpoint — Stop:** Log all handshake verification evidence in `progress.md` and wait for user approval before entering Phase 3
+- [x] **Phase 2 Checkpoint — Approved:** Logged all handshake verification evidence in `progress.md` and received user approval (`Proceed to phase 3`) on `2026-11-24`.
 
 ---
 
-### High-Level Phase 3–5 Placeholders (Expanded one phase at a time after each checkpoint)
-- [ ] **Phase 3 — Organization (`<= 5` code files per vertical slice):** Read TDD/review skills; update SOPs (`architecture/frontend-motion.md`, `architecture/maintenance.md`); implement Slice 1 (Data + Tests) and Slice 2 (Components + Static HTML + CSS) with red → green TDD → **Stop at Phase 3 Checkpoint**.
+### Phase 3: Organization — Detailed Plan (Active — Stop at Phase 3 Checkpoint)
+- [x] Update Layer 1 SOPs (`architecture/frontend-motion.md` & `architecture/maintenance.md`) before touching code
+- [ ] **Vertical Slice 1 (`<= 2` code files: `tests/portfolio.test.mjs`, `src/data/portfolioData.js`):**
+  - [ ] RED: Write failing Cycle 02 schema & content assertions in `tests/portfolio.test.mjs` and verify RED via `npm test`
+  - [ ] GREEN: Rewrite `src/data/portfolioData.js` (CSE + Data Science major, separated `education`/`workExperience`/`research`, 7 variable-stage case studies, 4 authentic flagship projects, 4 real n8n workflows + repo link, 5 curated public repos) → verify `npm test` & `npm run build` → commit on `dev`
+- [ ] **Vertical Slice 2 (`<= 4` code files: `tests/portfolio.test.mjs`, `src/components/caseStudyBookshelf.js`, `src/components/sections.js`, `src/main.js`):**
+  - [ ] RED: Add component contract tests in `tests/portfolio.test.mjs` and verify RED via `npm test`
+  - [ ] GREEN: Update `caseStudyBookshelf.js` (dynamic `book.stages[]` + `book.icon`), `sections.js` (6+6 `#about` split, authentic fragments, `workflowsSection` repo link, zero em-dashes), and `main.js` → verify `npm test` & `npm run build` → commit on `dev`
+- [ ] **Vertical Slice 3 (`<= 3` code files: `tests/portfolio.test.mjs`, `index.html`, `src/styles/page.css`):**
+  - [ ] RED: Update HTML/CSS assertions in `tests/portfolio.test.mjs` and verify RED via `npm test`
+  - [ ] GREEN: Update `index.html` SSR markup and `src/styles/page.css` (`.about-domain`, `.about-research`, `.about-courses`, horizontal `.book-spine`, wrapping `.reader-tabs`) → verify `npm test` & `npm run build` → commit on `dev`
+- [ ] **Fresh Code Review & Phase 3 Checkpoint:** Dispatch `research` subagent for `requesting-code-review` across `git diff 371e1c8..HEAD`, resolve any Critical/Important findings, log proof in `progress.md`, commit, and **stop** for user approval before Phase 4
+
+---
+
+### High-Level Phase 4–5 Placeholders (Expanded one phase at a time after each checkpoint)
 - [ ] **Phase 4 — Polish:** Read `impeccable`, `design-taste-frontend`, and `web-design-guidelines`; run `copy-lint.mjs`, `check.mjs`, `perf.mjs`, `gate.mjs`, and `/browser` desktop/mobile verification → **Stop at Phase 4 Checkpoint**.
 - [ ] **Phase 5 — Execution (Gate 2):** Run `requesting-code-review`, verify `dev.zesrab.pages.dev` preview via `/browser`, merge `dev` → `main`, verify live `zesrab.pages.dev`, and record learnings.
